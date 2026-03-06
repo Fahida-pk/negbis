@@ -25,21 +25,21 @@ console.log(data);
 
 return (
 
-<div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#6a7df2] to-[#8a8be9] relative overflow-hidden">
+<div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#6a7df2] to-[#8a8be9] relative overflow-hidden px-4">
 
 {/* background bubbles */}
-<div className="absolute w-[350px] h-[350px] bg-white/20 rounded-full left-[-120px] bottom-[-120px]"></div>
-<div className="absolute w-[260px] h-[260px] bg-white/20 rounded-full right-[-80px] top-[120px]"></div>
+<div className="absolute w-[300px] h-[300px] bg-white/20 rounded-full left-[-120px] bottom-[-120px]"></div>
+<div className="absolute w-[220px] h-[220px] bg-white/20 rounded-full right-[-80px] top-[120px]"></div>
 
 {/* white card */}
-<div className="relative w-[850px] bg-white rounded-[30px] shadow-2xl p-12 flex items-center gap-12 overflow-hidden">
+<div className="relative w-full max-w-[850px] bg-white rounded-[30px] shadow-2xl p-6 md:p-12 flex flex-col md:flex-row items-center gap-8 md:gap-12 overflow-hidden">
 
 {/* card bubbles */}
-<div className="absolute w-[250px] h-[250px] bg-[#6a7df2]/10 rounded-full left-[-80px] bottom-[-80px]"></div>
-<div className="absolute w-[200px] h-[200px] bg-[#6a7df2]/10 rounded-full right-[-60px] top-[40px]"></div>
+<div className="absolute w-[200px] h-[200px] bg-[#6a7df2]/10 rounded-full left-[-80px] bottom-[-80px]"></div>
+<div className="absolute w-[180px] h-[180px] bg-[#6a7df2]/10 rounded-full right-[-60px] top-[40px]"></div>
 
 {/* avatar */}
-<div className="w-[220px] relative z-10">
+<div className="w-[120px] md:w-[220px] relative z-10">
 <img
 src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
 className="w-full"
@@ -47,14 +47,14 @@ className="w-full"
 </div>
 
 {/* login form */}
-<div className="w-[420px] relative z-10">
+<div className="w-full md:w-[420px] relative z-10">
 
-<h2 className="text-2xl font-bold text-[#6a7df2] mb-6">
+<h2 className="text-xl md:text-2xl font-bold text-[#6a7df2] mb-6 text-center md:text-left">
 Welcome To neGbis ERP v8.0.7
 </h2>
 
 {/* username */}
-<div className="mb-5">
+<div className="mb-4">
 <label className="text-gray-600 text-sm">Login Name</label>
 <input
 type="text"
@@ -64,7 +64,7 @@ className="w-full border border-gray-300 rounded-md px-3 py-2 mt-1 outline-none"
 </div>
 
 {/* password */}
-<div className="mb-5">
+<div className="mb-4">
 <label className="text-gray-600 text-sm">Password</label>
 <input
 type="password"
@@ -74,7 +74,7 @@ className="w-full border border-gray-300 rounded-md px-3 py-2 mt-1 outline-none"
 </div>
 
 {/* financial year */}
-<div className="mb-5">
+<div className="mb-4">
 <label className="text-gray-600 text-sm">Fin. Year</label>
 <select className="w-full border border-gray-300 rounded-md px-3 py-2 mt-1 outline-none">
 <option>25-26</option>
