@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 
 function Login() {
 
-const [username,setUsername] = useState("");
-const [password,setPassword] = useState("");
+const [username, setUsername] = useState("");
+const [password, setPassword] = useState("");
 
 const navigate = useNavigate();
 
@@ -12,38 +12,40 @@ const handleLogin = async (e) => {
 
 e.preventDefault();
 
-console.log("LOGIN CLICKED");
+try {
 
-try{
-
-// FORM DATA CREATE
-const formData = new FormData();
-formData.append("username", username);
-formData.append("password", password);
-
-const response = await fetch("https://negbis.codezyntax.com/login.php",{
-method:"POST",
-body: formData
+ const response = await fetch("/api/login.php", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+    username,
+    password,
+  }),
 });
 
-console.log("Response status:", response.status);
+    const text = await response.text();
+    console.log("SERVER RESPONSE:", text);
 
-const data = await response.json();
+    const data = JSON.parse(text);
 
-console.log("Server response:", data);
+    if (data.status === "success") {
 
-if(data.status === "success"){
-navigate("/dashboard");
-}else{
-alert("Invalid username or password");
-}
+      navigate("/dashboard");
 
-}catch(error){
+    } else {
 
-console.log("FETCH ERROR:", error);
-alert("Server error");
+      alert(data.message);
 
-}
+    }
+
+  } catch (error) {
+
+    console.log("ERROR:", error);
+    alert("Server error");
+
+  }
 
 };
 
