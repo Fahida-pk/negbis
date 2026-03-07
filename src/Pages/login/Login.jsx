@@ -10,25 +10,29 @@ const navigate = useNavigate();
 
 const handleLogin = async (e) => {
 
-e.preventDefault();
+  e.preventDefault();
 
-try {
+  try {
 
- const response = await fetch("/api/login.php", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-  },
-  body: JSON.stringify({
-    username,
-    password,
-  }),
-});
+    const API_URL =
+      import.meta.env.DEV
+        ? "/api/login.php"
+        : "https://erptest.codezyntax.com/login.php";
 
-    const text = await response.text();
-    console.log("SERVER RESPONSE:", text);
+    const response = await fetch(API_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username,
+        password,
+      }),
+    });
 
-    const data = JSON.parse(text);
+    const data = await response.json();
+
+    console.log("API RESPONSE:", data);
 
     if (data.status === "success") {
 
@@ -36,7 +40,7 @@ try {
 
     } else {
 
-      alert(data.message);
+      alert(data.message || "Invalid login");
 
     }
 
@@ -48,7 +52,6 @@ try {
   }
 
 };
-
 return (
 
 <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#6a7df2] to-[#8a8be9] relative overflow-hidden px-4">
