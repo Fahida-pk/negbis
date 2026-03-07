@@ -82,7 +82,7 @@ className="w-full md:w-[420px] relative z-10"
 >
 
 <h2 className="text-xl md:text-2xl font-bold text-[#6a7df2] mb-6 text-center md:text-left">
-Welcome To neGbis ERP v8.0.7
+Welcome To  ERP v8.0.7
 </h2>
 
 {/* username */}
