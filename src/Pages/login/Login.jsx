@@ -14,22 +14,21 @@ const handleLogin = async (e) => {
 
   try {
 
-const API_URL = "https://erp.codezyntax.com/login.php";
+    const response = await fetch("https://erp.codezyntax.com/login.php", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        username,
+        password
+      })
+    });
 
-const response = await fetch(API_URL, {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-  },
-  body: JSON.stringify({
-    username,
-    password,
-  }),
-});
+    const text = await response.text();
+    console.log("RAW RESPONSE:", text);
 
-    const data = await response.json();
-
-    console.log("API RESPONSE:", data);
+    const data = JSON.parse(text);
 
     if (data.status === "success") {
 
@@ -37,34 +36,31 @@ const response = await fetch(API_URL, {
 
     } else {
 
-      alert(data.message || "Invalid login");
+      alert(data.message);
 
     }
 
   } catch (error) {
 
-    console.log("ERROR:", error);
+    console.log("LOGIN ERROR:", error);
     alert("Server error");
 
   }
 
 };
+
 return (
 
 <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#6a7df2] to-[#8a8be9] relative overflow-hidden px-4">
 
-{/* background bubbles */}
 <div className="absolute w-[300px] h-[300px] bg-white/20 rounded-full left-[-120px] bottom-[-120px]"></div>
 <div className="absolute w-[220px] h-[220px] bg-white/20 rounded-full right-[-80px] top-[120px]"></div>
 
-{/* white card */}
 <div className="relative w-full max-w-[850px] bg-white rounded-[30px] shadow-2xl p-6 md:p-12 flex flex-col md:flex-row items-center gap-8 md:gap-12 overflow-hidden">
 
-{/* card bubbles */}
 <div className="absolute w-[200px] h-[200px] bg-[#6a7df2]/10 rounded-full left-[-80px] bottom-[-80px]"></div>
 <div className="absolute w-[180px] h-[180px] bg-[#6a7df2]/10 rounded-full right-[-60px] top-[40px]"></div>
 
-{/* avatar */}
 <div className="w-[120px] md:w-[220px] relative z-10">
 <img
 src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
@@ -72,17 +68,15 @@ className="w-full"
 />
 </div>
 
-{/* login form */}
 <form
 onSubmit={handleLogin}
 className="w-full md:w-[420px] relative z-10"
 >
 
 <h2 className="text-xl md:text-2xl font-bold text-[#6a7df2] mb-6 text-center md:text-left">
-Welcomed To  ERP v8.0.7
+Welcomed To ERP v8.0.7
 </h2>
 
-{/* username */}
 <div className="mb-4">
 <label className="text-gray-600 text-sm">Login Name</label>
 <input
@@ -93,7 +87,6 @@ className="w-full border border-gray-300 rounded-md px-3 py-2 mt-1 outline-none"
 />
 </div>
 
-{/* password */}
 <div className="mb-4">
 <label className="text-gray-600 text-sm">Password</label>
 <input
@@ -104,7 +97,6 @@ className="w-full border border-gray-300 rounded-md px-3 py-2 mt-1 outline-none"
 />
 </div>
 
-{/* financial year */}
 <div className="mb-4">
 <label className="text-gray-600 text-sm">Fin. Year</label>
 <select className="w-full border border-gray-300 rounded-md px-3 py-2 mt-1 outline-none">
@@ -113,7 +105,6 @@ className="w-full border border-gray-300 rounded-md px-3 py-2 mt-1 outline-none"
 </select>
 </div>
 
-{/* remember login */}
 <div className="flex items-center mb-6">
 <input type="checkbox" className="mr-2"/>
 <span className="text-gray-600 text-sm">
@@ -121,7 +112,6 @@ Remember my Login
 </span>
 </div>
 
-{/* login button */}
 <button
 type="submit"
 className="w-full py-3 rounded-full bg-gradient-to-r from-[#6a7df2] to-[#8a8be9] text-white font-semibold shadow-md"
