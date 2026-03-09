@@ -14,10 +14,7 @@ const handleLogin = async (e) => {
 
   try {
 
-    const API_URL =
-      import.meta.env.DEV
-        ? "/api/login.php"
-        : "https://erptest.codezyntax.com/login.php";
+    const API_URL = "https://erp.codezyntax.com/login.php";
 
     const response = await fetch(API_URL, {
       method: "POST",
@@ -35,20 +32,14 @@ const handleLogin = async (e) => {
     console.log("API RESPONSE:", data);
 
     if (data.status === "success") {
-
       navigate("/dashboard");
-
     } else {
-
       alert(data.message || "Invalid login");
-
     }
 
   } catch (error) {
-
     console.log("ERROR:", error);
     alert("Server error");
-
   }
 
 };
