@@ -20,18 +20,18 @@ const handleLogin = async (e) => {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        username,
-        password
+        username: username,
+        password: password
       })
     });
 
-    const text = await response.text();
-    console.log("RAW RESPONSE:", text);
+    const data = await response.json();
 
-    const data = JSON.parse(text);
+    console.log("LOGIN RESPONSE:", data);
 
     if (data.status === "success") {
 
+      alert("Login success");
       navigate("/dashboard");
 
     } else {
@@ -42,7 +42,7 @@ const handleLogin = async (e) => {
 
   } catch (error) {
 
-    console.log("LOGIN ERROR:", error);
+    console.error("LOGIN ERROR:", error);
     alert("Server error");
 
   }
