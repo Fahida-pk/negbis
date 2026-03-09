@@ -25,10 +25,7 @@ function Login() {
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({
-          username: username,
-          password: password
-        })
+        body: JSON.stringify({ username, password })
       });
 
       if (!res.ok) {
@@ -40,7 +37,6 @@ function Login() {
       if (data.status === "success") {
 
         localStorage.setItem("user", data.user);
-
         navigate("/dashboard");
 
       } else {
@@ -65,7 +61,6 @@ function Login() {
 
       <div className="w-full max-w-[850px] bg-white rounded-[30px] shadow-2xl p-6 md:p-12 flex flex-col md:flex-row items-center gap-8 md:gap-12">
 
-        {/* avatar */}
         <div className="w-[120px] md:w-[220px]">
           <img
             src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
@@ -74,17 +69,12 @@ function Login() {
           />
         </div>
 
-        {/* login form */}
-        <form
-          onSubmit={handleLogin}
-          className="w-full md:w-[420px]"
-        >
+        <form onSubmit={handleLogin} className="w-full md:w-[420px]">
 
           <h2 className="text-xl md:text-2xl font-bold text-[#6a7df2] mb-6">
             Welcome To ERP v8.0.7
           </h2>
 
-          {/* username */}
           <div className="mb-4">
             <label className="text-gray-600 text-sm">Login Name</label>
             <input
@@ -96,7 +86,6 @@ function Login() {
             />
           </div>
 
-          {/* password */}
           <div className="mb-4">
             <label className="text-gray-600 text-sm">Password</label>
             <input
@@ -108,7 +97,6 @@ function Login() {
             />
           </div>
 
-          {/* button */}
           <button
             type="submit"
             disabled={loading}
@@ -117,7 +105,6 @@ function Login() {
             {loading ? "Logging in..." : "Login"}
           </button>
 
-          {/* error message */}
           {error && (
             <p className="text-red-500 mt-4">{error}</p>
           )}
@@ -127,7 +114,6 @@ function Login() {
       </div>
 
     </div>
-
   );
 }
 
