@@ -3,130 +3,132 @@ import { useNavigate } from "react-router-dom";
 
 function Login() {
 
-const [username, setUsername] = useState("");
-const [password, setPassword] = useState("");
+  const API_URL = import.meta.env.VITE_API_URL;
 
-const navigate = useNavigate();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-const handleLogin = async (e) => {
+  const navigate = useNavigate();
 
-  e.preventDefault();
+  const handleLogin = async (e) => {
+    e.preventDefault();
 
-  try {
+    setError("");
+    setLoading(true);
 
-    const response = await fetch("https://erp.codezyntax.com/login.php", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        username: username,
-        password: password
-      })
-    });
+    try {
 
-    const data = await response.json();
+      const res = await fetch(`${API_URL}/login.php`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          username: username,
+          password: password
+        })
+      });
 
-    console.log("LOGIN RESPONSE:", data);
+      if (!res.ok) {
+        throw new Error("Network error");
+      }
 
-    if (data.status === "success") {
+      const data = await res.json();
 
-      alert("Login success");
-      navigate("/dashboard");
+      if (data.status === "success") {
 
-    } else {
+        localStorage.setItem("user", data.user);
 
-      alert(data.message);
+        navigate("/dashboard");
+
+      } else {
+
+        setError(data.message || "Invalid username or password");
+
+      }
+
+    } catch (err) {
+
+      console.error("Login error:", err);
+      setError("Server error. Try again");
 
     }
 
-  } catch (error) {
+    setLoading(false);
+  };
 
-    console.error("LOGIN ERROR:", error);
-    alert("Server error");
+  return (
 
-  }
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#6a7df2] to-[#8a8be9] px-4">
 
-};
+      <div className="w-full max-w-[850px] bg-white rounded-[30px] shadow-2xl p-6 md:p-12 flex flex-col md:flex-row items-center gap-8 md:gap-12">
 
-return (
+        {/* avatar */}
+        <div className="w-[120px] md:w-[220px]">
+          <img
+            src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+            className="w-full"
+            alt="avatar"
+          />
+        </div>
 
-<div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#6a7df2] to-[#8a8be9] relative overflow-hidden px-4">
+        {/* login form */}
+        <form
+          onSubmit={handleLogin}
+          className="w-full md:w-[420px]"
+        >
 
-<div className="absolute w-[300px] h-[300px] bg-white/20 rounded-full left-[-120px] bottom-[-120px]"></div>
-<div className="absolute w-[220px] h-[220px] bg-white/20 rounded-full right-[-80px] top-[120px]"></div>
+          <h2 className="text-xl md:text-2xl font-bold text-[#6a7df2] mb-6">
+            Welcome To ERP v8.0.7
+          </h2>
 
-<div className="relative w-full max-w-[850px] bg-white rounded-[30px] shadow-2xl p-6 md:p-12 flex flex-col md:flex-row items-center gap-8 md:gap-12 overflow-hidden">
+          {/* username */}
+          <div className="mb-4">
+            <label className="text-gray-600 text-sm">Login Name</label>
+            <input
+              type="text"
+              value={username}
+              onChange={(e)=>setUsername(e.target.value)}
+              className="w-full border border-gray-300 rounded-md px-3 py-2 mt-1 outline-none"
+              required
+            />
+          </div>
 
-<div className="absolute w-[200px] h-[200px] bg-[#6a7df2]/10 rounded-full left-[-80px] bottom-[-80px]"></div>
-<div className="absolute w-[180px] h-[180px] bg-[#6a7df2]/10 rounded-full right-[-60px] top-[40px]"></div>
+          {/* password */}
+          <div className="mb-4">
+            <label className="text-gray-600 text-sm">Password</label>
+            <input
+              type="password"
+              value={password}
+              onChange={(e)=>setPassword(e.target.value)}
+              className="w-full border border-gray-300 rounded-md px-3 py-2 mt-1 outline-none"
+              required
+            />
+          </div>
 
-<div className="w-[120px] md:w-[220px] relative z-10">
-<img
-src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
-className="w-full"
-/>
-</div>
+          {/* button */}
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full py-3 rounded-full bg-gradient-to-r from-[#6a7df2] to-[#8a8be9] text-white font-semibold shadow-md"
+          >
+            {loading ? "Logging in..." : "Login"}
+          </button>
 
-<form
-onSubmit={handleLogin}
-className="w-full md:w-[420px] relative z-10"
->
+          {/* error message */}
+          {error && (
+            <p className="text-red-500 mt-4">{error}</p>
+          )}
 
-<h2 className="text-xl md:text-2xl font-bold text-[#6a7df2] mb-6 text-center md:text-left">
-Welcomed To ERP v8.0.7
-</h2>
+        </form>
 
-<div className="mb-4">
-<label className="text-gray-600 text-sm">Login Name</label>
-<input
-type="text"
-value={username}
-onChange={(e)=>setUsername(e.target.value)}
-className="w-full border border-gray-300 rounded-md px-3 py-2 mt-1 outline-none"
-/>
-</div>
+      </div>
 
-<div className="mb-4">
-<label className="text-gray-600 text-sm">Password</label>
-<input
-type="password"
-value={password}
-onChange={(e)=>setPassword(e.target.value)}
-className="w-full border border-gray-300 rounded-md px-3 py-2 mt-1 outline-none"
-/>
-</div>
+    </div>
 
-<div className="mb-4">
-<label className="text-gray-600 text-sm">Fin. Year</label>
-<select className="w-full border border-gray-300 rounded-md px-3 py-2 mt-1 outline-none">
-<option>25-26</option>
-<option>26-27</option>
-</select>
-</div>
-
-<div className="flex items-center mb-6">
-<input type="checkbox" className="mr-2"/>
-<span className="text-gray-600 text-sm">
-Remember  Login
-</span>
-</div>
-
-<button
-type="submit"
-className="w-full py-3 rounded-full bg-gradient-to-r from-[#6a7df2] to-[#8a8be9] text-white font-semibold shadow-md"
->
-Login
-</button>
-
-</form>
-
-</div>
-
-</div>
-
-);
-
+  );
 }
 
 export default Login;
