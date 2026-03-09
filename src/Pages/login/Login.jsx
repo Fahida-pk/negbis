@@ -14,11 +14,7 @@ const handleLogin = async (e) => {
 
   try {
 
-    const API_URL =
-  import.meta.env.DEV
-    ? "/api/login.php"
-    : "https://erp.codezyntax.com/login.php";
-    const response = await fetch(API_URL, {
+    const response = await fetch("https://erp.codezyntax.com/login.php", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -31,25 +27,16 @@ const handleLogin = async (e) => {
 
     const data = await response.json();
 
-    console.log("API RESPONSE:", data);
-
     if (data.status === "success") {
-
       navigate("/dashboard");
-
     } else {
-
-      alert(data.message || "Invalid login");
-
+      alert(data.message);
     }
 
   } catch (error) {
-
-    console.log("ERROR:", error);
+    console.log(error);
     alert("Server error");
-
   }
-
 };
 return (
 
