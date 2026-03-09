@@ -108,7 +108,7 @@ className="w-full border border-gray-300 rounded-md px-3 py-2 mt-1 outline-none"
 <div className="flex items-center mb-6">
 <input type="checkbox" className="mr-2"/>
 <span className="text-gray-600 text-sm">
-Remember my Login
+Remember  Login
 </span>
 </div>
 
