@@ -14,7 +14,11 @@ const handleLogin = async (e) => {
 
   try {
 
-    const response = await fetch("https://erp.codezyntax.com/login.php", {
+    const API_URL =
+      import.meta.env.DEV
+        ? "/api/login.php"
+        : import.meta.env.VITE_API_URL;
+    const response = await fetch(API_URL, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -27,16 +31,25 @@ const handleLogin = async (e) => {
 
     const data = await response.json();
 
+    console.log("API RESPONSE:", data);
+
     if (data.status === "success") {
+
       navigate("/dashboard");
+
     } else {
-      alert(data.message);
+
+      alert(data.message || "Invalid login");
+
     }
 
   } catch (error) {
-    console.log(error);
+
+    console.log("ERROR:", error);
     alert("Server error");
+
   }
+
 };
 return (
 
@@ -68,7 +81,7 @@ className="w-full md:w-[420px] relative z-10"
 >
 
 <h2 className="text-xl md:text-2xl font-bold text-[#6a7df2] mb-6 text-center md:text-left">
-Welcome To  ERP v8.0.7
+Welcomed To  ERP v8.0.7
 </h2>
 
 {/* username */}
