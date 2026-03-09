@@ -14,20 +14,18 @@ const handleLogin = async (e) => {
 
   try {
 
-    const API_URL =
-      import.meta.env.DEV
-        ? "/api/login.php"
-        : import.meta.env.VITE_API_URL;
-    const response = await fetch(API_URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        username,
-        password,
-      }),
-    });
+const API_URL = "https://erp.codezyntax.com/login.php";
+
+const response = await fetch(API_URL, {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+    username,
+    password,
+  }),
+});
 
     const data = await response.json();
 
