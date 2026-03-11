@@ -24,7 +24,7 @@ function Dashboard() {
           onMouseEnter={() => setShowReports(true)}
           onMouseLeave={() => {
             setShowReports(false);
-            setShowSales(false);
+            setShowSales(true);
           }}
         >
 
