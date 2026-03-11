@@ -20,13 +20,13 @@ function Login() {
 
     try {
 
-      const res = await fetch(`${API_URL}/login.php`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ username, password })
-      });
+      const res = await fetch("/api/login", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({ username, password })
+});
 
       if (!res.ok) {
         throw new Error("Network error");
