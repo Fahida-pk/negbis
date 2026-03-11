@@ -30,26 +30,44 @@ function Dashboard() {
       </div>
 
 
-      {/* DASHBOARD TITLE */}
-      <div style={{ padding: "40px" }}>
-        <h1>Dashboard</h1>
-      </div>
-
-
-      {/* BOTTOM CENTER TEXT */}
+      {/* BOTTOM INFO BAR */}
       <div
         style={{
           position: "absolute",
-          bottom: "120px",
+          bottom: "80px",
           width: "100%",
-          textAlign: "center"
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          padding: "0 120px"
         }}
       >
 
-<img src="/image/logo.webp"/>
-        <p>+91 88484 18551</p>
+        {/* LEFT SIDE */}
+        <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
+          <img
+            src="/image/logo.webp"
+            style={{ width: "80px" }}
+          />
 
-        <h2>neGbis ERP v8.0.6</h2>
+          <div>
+            <h2 style={{ margin: 0 }}>CodeZyntax</h2>
+            <p style={{ margin: 0 }}>Softwares L.L.P</p>
+          </div>
+        </div>
+
+
+        {/* CENTER */}
+        <div style={{ textAlign: "center" }}>
+          <p style={{ margin: 0 }}>+91 88484 18551</p>
+          <p style={{ margin: 0 }}>contact@codezyntax.com</p>
+        </div>
+
+
+        {/* RIGHT */}
+        <div>
+          <h1 style={{ margin: 0 }}>neGbis ERP v8.0.6</h1>
+        </div>
 
       </div>
 
