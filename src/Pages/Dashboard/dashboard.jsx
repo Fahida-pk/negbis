@@ -38,7 +38,7 @@ function Dashboard() {
               <div
                 style={{ position: "relative", padding: "6px", cursor: "pointer" }}
                 onMouseEnter={() => setShowSales(true)}
-                onMouseLeave={() => setShowSales(false)}
+                onMouseLeave={() => setShowSales(true)}
               >
 
                 Sales ▶
