@@ -47,7 +47,7 @@ function Dashboard() {
                 background: "#1c2a3a",
                 color: "white",
                 padding: "8px",
-                width: "140px",
+                width: "160px",
                 borderRadius: "4px"
               }}
             >
@@ -56,6 +56,7 @@ function Dashboard() {
               <div
                 style={{ position: "relative", padding: "6px", cursor: "pointer" }}
                 onMouseEnter={() => setShowSales(true)}
+                onMouseLeave={() => setShowSales(false)}
               >
                 Sales ▶
 
@@ -64,21 +65,30 @@ function Dashboard() {
                   <div
                     style={{
                       position: "absolute",
-                      left: "140px",
+                      left: "160px",
                       top: "0",
                       background: "#1c2a3a",
                       color: "white",
                       padding: "8px",
-                      width: "140px",
+                      width: "160px",
                       borderRadius: "4px"
                     }}
                   >
 
+                    {/* SALES INVOICE */}
                     <div
                       style={{ padding: "6px", cursor: "pointer" }}
                       onClick={() => navigate("/sales-invoice")}
                     >
-                      Invoice
+                      Sales Invoice
+                    </div>
+
+                    {/* SALES REPORT */}
+                    <div
+                      style={{ padding: "6px", cursor: "pointer" }}
+                      onClick={() => navigate("/reports")}
+                    >
+                      Sales Report
                     </div>
 
                   </div>
