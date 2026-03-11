@@ -1,8 +1,12 @@
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 function Dashboard() {
 
   const navigate = useNavigate();
+
+  const [showReports, setShowReports] = useState(false);
+  const [showSales, setShowSales] = useState(false);
 
   return (
 
@@ -18,15 +22,73 @@ function Dashboard() {
     >
 
       {/* TOP MENU */}
-      <div style={{ display: "flex", gap: "10px", padding: "10px", background: "#1c2a3a" }}>
+      <div style={{ display: "flex", gap: "20px", padding: "10px", background: "#1c2a3a" }}>
+
         <span style={{ cursor: "pointer" }}>Dashboard</span>
 
-        <span
-          style={{ cursor: "pointer" }}
-          onClick={() => navigate("/reports")}
+        {/* REPORTS MENU */}
+        <div
+          style={{ position: "relative" }}
+          onMouseEnter={() => setShowReports(true)}
+          onMouseLeave={() => setShowReports(false)}
         >
-          Reports
-        </span>
+
+          <span style={{ cursor: "pointer" }}>Reports</span>
+
+          {showReports && (
+
+            <div
+              style={{
+                position: "absolute",
+                top: "30px",
+                background: "white",
+                color: "black",
+                padding: "10px",
+                width: "150px"
+              }}
+            >
+
+              {/* SALES MENU */}
+              <div
+                style={{ position: "relative" }}
+                onMouseEnter={() => setShowSales(true)}
+                onMouseLeave={() => setShowSales(false)}
+              >
+
+                <div style={{ cursor: "pointer" }}>Sales ▶</div>
+
+                {showSales && (
+
+                  <div
+                    style={{
+                      position: "absolute",
+                      left: "150px",
+                      top: "0",
+                      background: "white",
+                      padding: "10px",
+                      width: "150px"
+                    }}
+                  >
+
+                    <div
+                      style={{ cursor: "pointer" }}
+                      onClick={() => navigate("/sales-invoice")}
+                    >
+                      Invoice
+                    </div>
+
+                  </div>
+
+                )}
+
+              </div>
+
+            </div>
+
+          )}
+
+        </div>
+
       </div>
 
 
@@ -52,8 +114,6 @@ function Dashboard() {
               filter: "brightness(0) invert(1)"
             }}
           />
-
-          
         </div>
 
 
