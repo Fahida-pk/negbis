@@ -48,15 +48,12 @@ function Dashboard() {
           <img
             src="/image/logo.webp"
             style={{
-              width: "140px",
+              width: "170px",
               filter: "brightness(0) invert(1)"
             }}
           />
 
-          <div>
-            <h2 style={{ margin: 0, fontSize: "28px" }}>CodeZyntax</h2>
-            <p style={{ margin: 0, fontSize: "20px" }}>Softwares L.L.P</p>
-          </div>
+          
         </div>
 
 
