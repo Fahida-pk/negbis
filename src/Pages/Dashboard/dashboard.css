@@ -20,9 +20,9 @@ background-color: #15345B;}
 .dropdown{
   position:absolute;
   top:35px;
-  background:#1c2a3a;
+  background:#15345B;
   color:white;
-  padding:8px;
+  padding: 5px;
   width:160px;
   border-radius:4px;
 }
@@ -31,9 +31,9 @@ background-color: #15345B;}
   position:absolute;
   left:160px;
   top:0;
-  background:#1c2a3a;
+  background:#15345B;
   color:white;
-  padding:8px;
+  padding:5px;
   width:160px;
   border-radius:4px;
 }
