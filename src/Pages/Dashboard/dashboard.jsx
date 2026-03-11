@@ -18,12 +18,13 @@ function Dashboard() {
 
         <span className="menu-item">Dashboard</span>
 
+        {/* REPORT MENU */}
         <div
-          style={{ position:"relative" }}
-          onMouseEnter={()=>setShowReports(true)}
-          onMouseLeave={()=>{
-            setShowReports(false)
-            setShowSales(false)
+          style={{ position: "relative" }}
+          onMouseEnter={() => setShowReports(true)}
+          onMouseLeave={() => {
+            setShowReports(false);
+            setShowSales(false);
           }}
         >
 
@@ -33,9 +34,11 @@ function Dashboard() {
 
             <div className="dropdown">
 
+              {/* SALES */}
               <div
-                style={{position:"relative",padding:"6px"}}
-                onMouseEnter={()=>setShowSales(true)}
+                style={{ position: "relative", padding: "6px", cursor: "pointer" }}
+                onMouseEnter={() => setShowSales(true)}
+                onMouseLeave={() => setShowSales(false)}
               >
 
                 Sales ▶
@@ -45,8 +48,8 @@ function Dashboard() {
                   <div className="submenu">
 
                     <div
-                      style={{padding:"6px",cursor:"pointer"}}
-                      onClick={()=>navigate("/reports")}
+                      style={{ padding: "6px", cursor: "pointer" }}
+                      onClick={() => navigate("/reports")}
                     >
                       Sales Report
                     </div>
@@ -65,20 +68,23 @@ function Dashboard() {
 
       </div>
 
+
       {/* BOTTOM BAR */}
       <div className="bottom-bar">
 
         <div>
-          <img src="/image/logo.webp" className="logo"/>
+          <img src="/image/logo.webp" className="logo" />
         </div>
 
-        <div style={{textAlign:"center"}}>
-          <p style={{margin:0,fontSize:"20px"}}>+91 88484 18551</p>
-          <p style={{margin:0,fontSize:"20px"}}>contact@codezyntax.com</p>
+        <div style={{ textAlign: "center" }}>
+          <p style={{ margin: 0, fontSize: "20px" }}>+91 88484 18551</p>
+          <p style={{ margin: 0, fontSize: "20px" }}>contact@codezyntax.com</p>
         </div>
 
         <div>
-          <h1 style={{margin:0,fontSize:"36px"}}>neGbis ERP v8.0.6</h1>
+          <h1 style={{ margin: 0, fontSize: "36px" }}>
+            neGbis ERP v8.0.6
+          </h1>
         </div>
 
       </div>
