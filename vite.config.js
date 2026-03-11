@@ -8,7 +8,8 @@ export default defineConfig({
       "/api": {
         target: "https://erp.codezyntax.com",
         changeOrigin: true,
-        secure: false
+        secure: false,
+        rewrite: (path) => path.replace(/^\/api/, "/api")
       }
     }
   }

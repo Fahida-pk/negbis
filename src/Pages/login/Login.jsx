@@ -18,20 +18,13 @@ function Login() {
 
     try {
 
-      // Localhost vs Vercel detect
-      const API_URL =
-        window.location.hostname === "localhost"
-          ? "https://erp.codezyntax.com/api/login.php"
-          : "/api/login";
-
-      const res = await fetch(API_URL, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ username, password })
-      });
-
+   const res = await fetch("/api/login.php", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({ username, password })
+});
       if (!res.ok) {
         throw new Error("Network error");
       }
