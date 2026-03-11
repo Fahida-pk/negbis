@@ -3,8 +3,6 @@ import { useNavigate } from "react-router-dom";
 
 function Login() {
 
-  const API_URL = import.meta.env.VITE_API_URL;
-
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -20,13 +18,19 @@ function Login() {
 
     try {
 
-      const res = await fetch("/api/login", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json"
-  },
-  body: JSON.stringify({ username, password })
-});
+      // Localhost vs Vercel detect
+      const API_URL =
+        window.location.hostname === "localhost"
+          ? "https://erp.codezyntax.com/api/login.php"
+          : "/api/login";
+
+      const res = await fetch(API_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ username, password })
+      });
 
       if (!res.ok) {
         throw new Error("Network error");
@@ -54,7 +58,6 @@ function Login() {
 
     setLoading(false);
   };
-
   return (
 
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#6a7df2] to-[#8a8be9] px-4">
