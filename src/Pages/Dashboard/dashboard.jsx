@@ -26,10 +26,14 @@ function Dashboard() {
 
         <span style={{ cursor: "pointer" }}>Dashboard</span>
 
-        {/* REPORTS */}
+        {/* REPORTS MENU */}
         <div
           style={{ position: "relative" }}
           onMouseEnter={() => setShowReports(true)}
+          onMouseLeave={() => {
+            setShowReports(false);
+            setShowSales(false);
+          }}
         >
 
           <span style={{ cursor: "pointer" }}>Reports</span>
@@ -70,7 +74,6 @@ function Dashboard() {
                     }}
                   >
 
-                    {/* SALES REPORT */}
                     <div
                       style={{ padding: "6px", cursor: "pointer" }}
                       onClick={() => navigate("/reports")}
@@ -110,7 +113,6 @@ function Dashboard() {
             src="/image/logo.webp"
             style={{
               width: "200px",
-               fontSize: "30px",
               filter: "brightness(0) invert(1)"
             }}
           />
