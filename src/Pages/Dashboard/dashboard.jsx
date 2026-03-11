@@ -1,78 +1,30 @@
-import React from "react";
+import { useNavigate } from "react-router-dom";
 
 function Dashboard() {
 
-  const reports = [
-    "Sales Report",
-    "Purchase Report",
-    "Stock Report",
-    "Receipt Report",
-    "Payment Report",
-    "Ledger Report"
-  ];
+  const navigate = useNavigate();
 
   return (
-
-    <div className="min-h-screen bg-[#0b2c63] text-white">
+    <div style={{ background: "#0f2f5a", minHeight: "100vh", color: "white" }}>
 
       {/* TOP MENU */}
-      <div className="flex gap-8 bg-gray-800 px-6 py-3 text-sm font-semibold">
-
-        <div className="cursor-pointer hover:text-yellow-300">
-          Dashboard
-        </div>
-
-        <div className="cursor-pointer hover:text-yellow-300">
+      <div style={{ display: "flex", gap: "20px", padding: "15px", background: "#1c2a3a" }}>
+        <span style={{ cursor: "pointer" }}>Dashboard</span>
+        <span style={{ cursor: "pointer" }} onClick={() => navigate("/reports")}>
           Reports
-        </div>
-
+        </span>
       </div>
-
 
       {/* DASHBOARD CONTENT */}
-      <div className="p-10">
+      <div style={{ padding: "40px" }}>
 
-        <h1 className="text-3xl font-bold mb-8">
-          Dashboard
-        </h1>
+        <h1>Dashboard</h1>
 
-
-        {/* REPORTS SECTION */}
-        <h2 className="text-xl font-semibold mb-4">
-          Reports
-        </h2>
-
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-
-          {reports.map((report, index) => (
-            <div
-              key={index}
-              className="bg-white text-black p-6 rounded-xl shadow hover:scale-105 transition cursor-pointer"
-            >
-              {report}
-            </div>
-          ))}
-
+        <div style={{ marginTop: "200px" }}>
+          <h2>CodeZyntax Softwares L.L.P</h2>
+          <p>+91 88484 18551</p>
+          <h2>neGbis ERP v8.0.6</h2>
         </div>
-
-      </div>
-
-
-      {/* BOTTOM TEXT */}
-
-      <div className="absolute bottom-10 left-10 text-white">
-
-        <h2 className="text-3xl font-semibold">
-          CodeZyntax Softwares L.L.P
-        </h2>
-
-        <p className="mt-2 text-lg">
-          +91 88484 18551
-        </p>
-
-        <h1 className="text-3xl font-bold mt-6">
-          neGbis ERP v8.0.6
-        </h1>
 
       </div>
 
