@@ -30,10 +30,6 @@ function Dashboard() {
         <div
           style={{ position: "relative" }}
           onMouseEnter={() => setShowReports(true)}
-          onMouseLeave={() => {
-            setShowReports(false);
-            setShowSales(false);
-          }}
         >
 
           <span style={{ cursor: "pointer" }}>Reports</span>
@@ -56,7 +52,6 @@ function Dashboard() {
               <div
                 style={{ position: "relative", padding: "6px", cursor: "pointer" }}
                 onMouseEnter={() => setShowSales(true)}
-                onMouseLeave={() => setShowSales(false)}
               >
                 Sales ▶
 
@@ -74,14 +69,6 @@ function Dashboard() {
                       borderRadius: "4px"
                     }}
                   >
-
-                    {/* SALES INVOICE */}
-                    <div
-                      style={{ padding: "6px", cursor: "pointer" }}
-                      onClick={() => navigate("/sales-invoice")}
-                    >
-                      Sales Invoice
-                    </div>
 
                     {/* SALES REPORT */}
                     <div
@@ -105,7 +92,6 @@ function Dashboard() {
 
       </div>
 
-
       {/* BOTTOM INFO BAR */}
       <div
         style={{
@@ -124,6 +110,7 @@ function Dashboard() {
             src="/image/logo.webp"
             style={{
               width: "200px",
+               fontSize: "30px",
               filter: "brightness(0) invert(1)"
             }}
           />
