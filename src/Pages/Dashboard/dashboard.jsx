@@ -48,7 +48,7 @@ function Dashboard() {
           <img
             src="/image/logo.webp"
             style={{
-              width: "170px",
+              width: "200px",
               filter: "brightness(0) invert(1)"
             }}
           />
