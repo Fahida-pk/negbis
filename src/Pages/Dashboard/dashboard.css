@@ -11,8 +11,7 @@
   display:flex;
   gap:20px;
   padding:10px;
-  background:#1c2a3a;
-}
+background-color: #15345B;}
 
 .menu-item{
   cursor:pointer;
