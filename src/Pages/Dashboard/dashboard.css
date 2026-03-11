@@ -1,0 +1,72 @@
+.dashboard-container{
+  background-image: url('/image/bagroundimage.png');
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+  color: white;
+  position: relative;
+}
+
+.top-menu{
+  display: flex;
+  gap: 20px;
+  padding: 10px;
+  background: #1c2a3a;
+}
+
+.menu-item{
+  cursor: pointer;
+}
+
+.dropdown{
+  position: absolute;
+  top: 35px;
+  background: #1c2a3a;
+  color: white;
+  padding: 8px;
+  width: 160px;
+  border-radius: 4px;
+}
+
+.submenu{
+  position: absolute;
+  left: 160px;
+  top: 0;
+  background: #1c2a3a;
+  color: white;
+  padding: 8px;
+  width: 160px;
+  border-radius: 4px;
+}
+
+.bottom-bar{
+  position: absolute;
+  bottom: 140px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 160px;
+}
+
+.logo{
+  width: 200px;
+  filter: brightness(0) invert(1);
+}
+
+/* MOBILE */
+
+@media (max-width:768px){
+
+  .bottom-bar{
+    flex-direction: column;
+    text-align: center;
+    gap: 20px;
+    padding: 0 20px;
+  }
+
+  .logo{
+    width:150px;
+  }
+
+}
