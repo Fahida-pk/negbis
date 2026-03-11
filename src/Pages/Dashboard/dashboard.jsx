@@ -31,7 +31,6 @@ function Dashboard() {
       {/* DASHBOARD CONTENT */}
       <div style={{ padding: "40px" }}>
 
-        <h1>Dashboard</h1>
 
         {/* BOTTOM TEXT */}
         <div style={{ position: "absolute", bottom: "120px", left: "60px" }}>
