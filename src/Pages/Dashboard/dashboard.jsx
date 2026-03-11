@@ -18,7 +18,7 @@ function Dashboard() {
     >
 
       {/* TOP MENU */}
-      <div style={{ display: "flex", gap: "20px", padding: "15px", background: "#1c2a3a" }}>
+      <div style={{ display: "flex", gap: "10px", padding: "10px", background: "blue" }}>
         <span style={{ cursor: "pointer" }}>Dashboard</span>
 
         <span
@@ -46,9 +46,12 @@ function Dashboard() {
         {/* LEFT SIDE */}
         <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
           <img
-            src="/image/logo.webp"
-            style={{ width: "80px" }}
-          />
+  src="/image/logo.webp"
+  style={{
+    width: "80px",
+    filter: "brightness(0) invert(1)"
+  }}
+/>
 
           <div>
             <h2 style={{ margin: 0 }}>CodeZyntax</h2>
