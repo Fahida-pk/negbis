@@ -20,23 +20,24 @@ const [customerName,setCustomerName] = useState("");
 const [salesmanCode,setSalesmanCode] = useState("");
 const [salesmanName,setSalesmanName] = useState("");
 
+
 /* PRINT REPORT */
 
 const handlePrint = async ()=>{
 
 let api="";
 
-if(report==="sale_summary") api="/api/salesSummary";
-if(report==="daily_sales_summary") api="/api/dailySalesSummary";
-if(report==="monthly_sales_summary") api="/api/monthlySalesSummary";
-if(report==="sale_details") api="/api/saleDetails";
-if(report==="itemwise_sales") api="/api/itemwiseSales";
-if(report==="itemwise_profit") api="/api/itemwiseProfit";
-if(report==="itemwise_summary") api="/api/itemwiseSummary";
-if(report==="salesman_sales") api="/api/salesmanSales";
-if(report==="daily_sales_report") api="/api/dailySalesReport";
-if(report==="sales_profit") api="/api/salesProfit";
-if(report==="sales_tax_summary") api="/api/salesTaxSummary";
+if(report==="sale_summary") api="/api/salesSummary.php";
+if(report==="daily_sales_summary") api="/api/dailySalesSummary.php";
+if(report==="monthly_sales_summary") api="/api/monthlySalesSummary.php";
+if(report==="sale_details") api="/api/saleDetails.php";
+if(report==="itemwise_sales") api="/api/itemwiseSales.php";
+if(report==="itemwise_profit") api="/api/itemwiseProfit.php";
+if(report==="itemwise_summary") api="/api/itemwiseSummary.php";
+if(report==="salesman_sales") api="/api/salesmanSales.php";
+if(report==="daily_sales_report") api="/api/dailySalesReport.php";
+if(report==="sales_profit") api="/api/salesProfit.php";
+if(report==="sales_tax_summary") api="/api/salesTaxSummary.php";
 
 try{
 
@@ -61,6 +62,7 @@ console.log(err);
 
 };
 
+
 /* CLEAR */
 
 const handleClear = ()=>{
@@ -69,17 +71,19 @@ setToDate("");
 setData([]);
 };
 
+
 /* CLOSE */
 
 const handleClose = ()=>{
 window.history.back();
 };
 
+
 /* CUSTOMER LOOKUP */
 
 const openCustomer = async ()=>{
 
-const res = await fetch("/api/customerLookup");
+const res = await fetch("/api/customerLookup.php");
 const result = await res.json();
 
 if(result.data){
@@ -95,11 +99,12 @@ setCustomerName(c.NAME);
 setShowCustomer(false);
 };
 
+
 /* SALESMAN LOOKUP */
 
 const openSalesman = async ()=>{
 
-const res = await fetch("/api/salesmanLookup");
+const res = await fetch("/api/salesmanLookup.php");
 const result = await res.json();
 
 if(result.data){
@@ -114,6 +119,7 @@ setSalesmanCode(s.CODE);
 setSalesmanName(s.NAME);
 setShowSalesman(false);
 };
+
 
 return(
 
@@ -245,10 +251,8 @@ onChange={(e)=>setToDate(e.target.value)}
 
 
 <div className="filter-row">
-
 <label>Store</label>
 <input placeholder="DEFAULT STORE"/>
-
 </div>
 
 
@@ -256,9 +260,9 @@ onChange={(e)=>setToDate(e.target.value)}
 
 <label>Customer</label>
 
-<input value={customerCode} placeholder="Code"/>
+<input value={customerCode} placeholder="Code" readOnly/>
 
-<input value={customerName} placeholder="Description"/>
+<input value={customerName} placeholder="Description" readOnly/>
 
 <button onClick={openCustomer}>🔍</button>
 
@@ -269,9 +273,9 @@ onChange={(e)=>setToDate(e.target.value)}
 
 <label>Salesman</label>
 
-<input value={salesmanCode} placeholder="Code"/>
+<input value={salesmanCode} placeholder="Code" readOnly/>
 
-<input value={salesmanName} placeholder="Description"/>
+<input value={salesmanName} placeholder="Description" readOnly/>
 
 <button onClick={openSalesman}>🔍</button>
 
@@ -299,7 +303,7 @@ Close
 </div>
 
 
-{/* TABLE */}
+{/* REPORT TABLE */}
 
 {data.length>0 && (
 
