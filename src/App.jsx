@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import Login from "./Pages/login/Login";
 import Dashboard from "./Pages/Dashboard/dashboard";
-import SalesInvoice from "./Pages/SalesInvoice";
+import SalesInvoice from "./Pages/SalesInvoice/SalesInvoice";
 
 function App() {
   return (
