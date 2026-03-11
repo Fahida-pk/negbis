@@ -26,11 +26,14 @@ function Dashboard() {
 
         <span style={{ cursor: "pointer" }}>Dashboard</span>
 
-        {/* REPORTS MENU */}
+        {/* REPORTS */}
         <div
           style={{ position: "relative" }}
           onMouseEnter={() => setShowReports(true)}
-          onMouseLeave={() => setShowReports(false)}
+          onMouseLeave={() => {
+            setShowReports(false);
+            setShowSales(false);
+          }}
         >
 
           <span style={{ cursor: "pointer" }}>Reports</span>
@@ -40,38 +43,39 @@ function Dashboard() {
             <div
               style={{
                 position: "absolute",
-                top: "30px",
-                background: "white",
-                color: "black",
-                padding: "10px",
-                width: "150px"
+                top: "35px",
+                background: "#1c2a3a",
+                color: "white",
+                padding: "8px",
+                width: "140px",
+                borderRadius: "4px"
               }}
             >
 
-              {/* SALES MENU */}
+              {/* SALES */}
               <div
-                style={{ position: "relative" }}
+                style={{ position: "relative", padding: "6px", cursor: "pointer" }}
                 onMouseEnter={() => setShowSales(true)}
-                onMouseLeave={() => setShowSales(false)}
               >
-
-                <div style={{ cursor: "pointer" }}>Sales ▶</div>
+                Sales ▶
 
                 {showSales && (
 
                   <div
                     style={{
                       position: "absolute",
-                      left: "150px",
+                      left: "140px",
                       top: "0",
-                      background: "white",
-                      padding: "10px",
-                      width: "150px"
+                      background: "#1c2a3a",
+                      color: "white",
+                      padding: "8px",
+                      width: "140px",
+                      borderRadius: "4px"
                     }}
                   >
 
                     <div
-                      style={{ cursor: "pointer" }}
+                      style={{ padding: "6px", cursor: "pointer" }}
                       onClick={() => navigate("/sales-invoice")}
                     >
                       Invoice
@@ -105,7 +109,6 @@ function Dashboard() {
         }}
       >
 
-        {/* LEFT SIDE */}
         <div style={{ display: "flex", alignItems: "center", gap: "25px" }}>
           <img
             src="/image/logo.webp"
@@ -116,15 +119,11 @@ function Dashboard() {
           />
         </div>
 
-
-        {/* CENTER */}
         <div style={{ textAlign: "center" }}>
           <p style={{ margin: 0, fontSize: "20px" }}>+91 88484 18551</p>
           <p style={{ margin: 0, fontSize: "20px" }}>contact@codezyntax.com</p>
         </div>
 
-
-        {/* RIGHT */}
         <div>
           <h1 style={{ margin: 0, fontSize: "36px" }}>
             neGbis ERP v8.0.6
