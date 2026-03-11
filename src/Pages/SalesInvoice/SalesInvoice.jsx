@@ -1,108 +1,81 @@
 import { useState } from "react";
 
-function SalesInvoice() {
+function SalesInvoice(){
 
-  const [fromDate, setFromDate] = useState("");
-  const [toDate, setToDate] = useState("");
-  const [data, setData] = useState([]);
+const [fromDate,setFromDate]=useState("");
+const [toDate,setToDate]=useState("");
+const [data,setData]=useState([]);
 
-  const loadReport = async () => {
+const loadData=async()=>{
 
-    if (!fromDate || !toDate) {
-      alert("Select date");
-      return;
-    }
+const res=await fetch(
+`https://negbis.codezyntax.com/api/salesSummary.php?from=${fromDate}&to=${toDate}`
+);
 
-    try {
+const result=await res.json();
 
-      const res = await fetch(
-        `https://erp.codezyntax.com/api/salesSummary.php?from=${fromDate}&to=${toDate}`
-      );
+setData(result);
 
-      const result = await res.json();
+};
 
-      setData(result);
+return(
 
-    } catch (error) {
-      console.log(error);
-    }
+<div style={{padding:"20px"}}>
 
-  };
+<h2>Sales Invoice Report</h2>
 
-  return (
+<input
+type="date"
+value={fromDate}
+onChange={(e)=>setFromDate(e.target.value)}
+/>
 
-    <div style={{ padding: "20px" }}>
+<input
+type="date"
+value={toDate}
+onChange={(e)=>setToDate(e.target.value)}
+/>
 
-      <h2>Sales Invoice Report</h2>
+<button onClick={loadData}>Search</button>
 
-      {/* FILTER SECTION */}
-      <div style={{ marginBottom: "20px" }}>
+<table border="1" width="100%" style={{marginTop:"20px"}}>
 
-        <label>From Date :</label>
-        <input
-          type="date"
-          value={fromDate}
-          onChange={(e) => setFromDate(e.target.value)}
-          style={{ marginRight: "20px", marginLeft: "10px" }}
-        />
+<thead style={{background:"#1c2a3a",color:"white"}}>
 
-        <label>To Date :</label>
-        <input
-          type="date"
-          value={toDate}
-          onChange={(e) => setToDate(e.target.value)}
-          style={{ marginLeft: "10px", marginRight: "20px" }}
-        />
+<tr>
+<th>Invoice No</th>
+<th>Date</th>
+<th>Customer</th>
+<th>Net Amount</th>
+<th>Gross Amount</th>
+</tr>
 
-        <button onClick={loadReport}>Search</button>
+</thead>
 
-      </div>
+<tbody>
 
-      {/* TABLE */}
+{data.map((item,index)=>(
 
-      <table border="1" cellPadding="10" width="100%">
+<tr key={index}>
 
-        <thead style={{ background: "#1c2a3a", color: "white" }}>
-          <tr>
-            <th>Invoice No</th>
-            <th>Date</th>
-            <th>Customer</th>
-            <th>Net Amount</th>
-            <th>Gross Amount</th>
-          </tr>
-        </thead>
+<td>{item.SALE_NO}</td>
+<td>{item.SALE_DATE}</td>
+<td>{item.CUST_NAME}</td>
+<td>{item.NET_AMOUNT}</td>
+<td>{item.GROSS_AMOUNT}</td>
 
-        <tbody>
+</tr>
 
-          {data.length === 0 ? (
-            <tr>
-              <td colSpan="5" style={{ textAlign: "center" }}>
-                No Data
-              </td>
-            </tr>
-          ) : (
+))}
 
-            data.map((item, index) => (
+</tbody>
 
-              <tr key={index}>
-                <td>{item.SALE_NO}</td>
-                <td>{item.SALE_DATE}</td>
-                <td>{item.CUST_NAME}</td>
-                <td>{item.NET_AMOUNT}</td>
-                <td>{item.GROSS_AMOUNT}</td>
-              </tr>
+</table>
 
-            ))
+</div>
 
-          )}
+);
 
-        </tbody>
-
-      </table>
-
-    </div>
-
-  );
 }
 
 export default SalesInvoice;
