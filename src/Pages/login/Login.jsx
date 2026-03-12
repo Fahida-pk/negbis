@@ -4,83 +4,88 @@ import "./login.css";
 
 function Login() {
 
-  const [username,setUsername] = useState("");
-  const [password,setPassword] = useState("");
-  const [error,setError] = useState("");
-  const [loading,setLoading] = useState(false);
+const [username,setUsername] = useState("");
+const [password,setPassword] = useState("");
+const [error,setError] = useState("");
+const [loading,setLoading] = useState(false);
 
-  const navigate = useNavigate();
+const navigate = useNavigate();
 
-  const handleLogin = async (e)=>{
-    e.preventDefault();
+const handleLogin = async(e)=>{
+e.preventDefault();
 
-    setError("");
-    setLoading(true);
+setError("");
+setLoading(true);
 
-    try{
+try{
 
-      const res = await fetch("/api/login",{
-        method:"POST",
-        headers:{ "Content-Type":"application/json" },
-        body:JSON.stringify({username,password})
-      });
+const res = await fetch("/api/login",{
+method:"POST",
+headers:{ "Content-Type":"application/json" },
+body:JSON.stringify({username,password})
+});
 
-      const data = await res.json();
+const data = await res.json();
 
-      if(data.status==="success"){
-        localStorage.setItem("user",data.user);
-        navigate("/dashboard");
-      }else{
-        setError(data.message || "Invalid login");
-      }
+if(data.status==="success"){
+localStorage.setItem("user",data.user);
+navigate("/dashboard");
+}else{
+setError(data.message || "Invalid login");
+}
 
-    }catch(err){
-      setError("Server error");
-    }
+}catch(err){
+setError("Server error");
+}
 
-    setLoading(false);
-  };
+setLoading(false);
+};
 
-  return(
+return(
 
 <div className="login-bg">
 
-{/* circles */}
+{/* animated circles */}
 
 <div className="circle c1"></div>
 <div className="circle c2"></div>
 <div className="circle c3"></div>
 
+
 <div className="login-container">
 
-{/* LEFT PANEL */}
+{/* LEFT TEXT */}
 
 <div className="login-left">
 
-<h2 className="brand">Storage</h2>
-
 <h1 className="title">
-Manage your files <br/> the best way
+Welcome to <br/> neGbis ERP
 </h1>
 
 <p className="subtitle">
-Awesome, we've created the perfect place for you
-to store all your documents.
+Smart ERP solution to manage your business,
+sales, accounts and reports efficiently.
 </p>
-
-<img
-src="https://cdn-icons-png.flaticon.com/512/4712/4712109.png"
-className="folder-img"
-/>
 
 </div>
 
 
-{/* RIGHT PANEL */}
+{/* RIGHT LOGIN */}
 
 <div className="login-right glass">
 
-<h2 className="login-title">Login</h2>
+<div className="avatar">
+
+<img
+src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+alt="avatar"
+/>
+
+</div>
+
+<h2 className="login-title">
+Login
+</h2>
 
 <form onSubmit={handleLogin}>
 
@@ -97,7 +102,6 @@ required
 
 </div>
 
-
 <div className="input-group">
 
 <label>Password</label>
@@ -110,7 +114,6 @@ required
 />
 
 </div>
-
 
 <button
 type="submit"
@@ -130,7 +133,7 @@ disabled={loading}
 
 </div>
 
-  );
+);
 }
 
 export default Login;

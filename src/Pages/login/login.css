@@ -14,28 +14,37 @@ overflow:hidden;
 position:absolute;
 border-radius:50%;
 background:rgba(255,255,255,0.15);
+animation:move 8s infinite alternate ease-in-out;
 }
 
 .c1{
-width:200px;
-height:200px;
+width:220px;
+height:220px;
 top:80px;
 left:120px;
 }
 
 .c2{
-width:300px;
-height:300px;
-bottom:100px;
-right:150px;
+width:280px;
+height:280px;
+bottom:120px;
+right:140px;
+animation-delay:2s;
 }
 
 .c3{
 width:150px;
 height:150px;
-bottom:50px;
-left:50px;
+bottom:60px;
+left:60px;
+animation-delay:4s;
 }
+
+@keyframes move{
+from{transform:translateY(0px);}
+to{transform:translateY(-25px);}
+}
+
 
 /* container */
 
@@ -45,61 +54,67 @@ max-width:95%;
 display:flex;
 border-radius:30px;
 overflow:hidden;
-box-shadow:0 20px 50px rgba(0,0,0,0.3);
+box-shadow:0 20px 50px rgba(0,0,0,0.35);
 }
+
 
 /* left side */
 
 .login-left{
 flex:1;
-padding:60px;
+padding:70px;
 color:white;
-}
-
-.brand{
-font-size:22px;
-margin-bottom:40px;
+display:flex;
+flex-direction:column;
+justify-content:center;
 }
 
 .title{
-font-size:32px;
+font-size:36px;
 font-weight:bold;
 line-height:1.3;
 margin-bottom:20px;
 }
 
 .subtitle{
-opacity:0.8;
+opacity:0.85;
 font-size:14px;
 }
 
-.folder-img{
-width:200px;
-margin-top:40px;
-}
 
 /* right side */
 
 .login-right{
 flex:1;
 padding:60px;
-background:white;
+background:rgba(255,255,255,0.75);
+backdrop-filter:blur(12px);
 }
 
-/* glass effect */
+/* avatar */
 
-.glass{
-background:rgba(255,255,255,0.7);
-backdrop-filter:blur(10px);
+.avatar{
+display:flex;
+justify-content:center;
+margin-bottom:20px;
 }
+
+.avatar img{
+width:120px;
+border-radius:50%;
+box-shadow:0 8px 20px rgba(0,0,0,0.2);
+}
+
 
 /* title */
 
 .login-title{
+text-align:center;
 font-size:28px;
-margin-bottom:30px;
+margin-bottom:25px;
 font-weight:bold;
 }
+
 
 /* inputs */
 
@@ -109,23 +124,24 @@ margin-bottom:20px;
 
 .input-group label{
 font-size:14px;
-color:#555;
+color:#444;
 }
 
 .input-group input{
 width:100%;
-padding:10px;
-border-radius:8px;
+padding:12px;
+border-radius:10px;
 border:1px solid #ccc;
-margin-top:5px;
+margin-top:6px;
 outline:none;
 }
+
 
 /* button */
 
 .login-btn{
 width:100%;
-padding:12px;
+padding:13px;
 border:none;
 border-radius:30px;
 background:linear-gradient(135deg,#667eea,#764ba2);
@@ -133,6 +149,11 @@ color:white;
 font-weight:bold;
 cursor:pointer;
 margin-top:10px;
+transition:0.3s;
+}
+
+.login-btn:hover{
+transform:scale(1.03);
 }
 
 /* error */
@@ -140,7 +161,9 @@ margin-top:10px;
 .error{
 color:red;
 margin-top:10px;
+text-align:center;
 }
+
 
 /* responsive */
 
@@ -152,6 +175,10 @@ flex-direction:column;
 
 .login-left{
 display:none;
+}
+
+.avatar img{
+width:90px;
 }
 
 }
