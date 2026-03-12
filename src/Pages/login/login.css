@@ -54,23 +54,23 @@ animation:move 12s infinite alternate ease-in-out;
 }
 
 .c1{
-width:220px;
-height:220px;
+width:50px;
+height:50px;
 top:80px;
 left:120px;
 }
 
 .c2{
-width:300px;
-height:300px;
+width:50px;
+height:50px;
 bottom:100px;
 right:120px;
 animation-delay:2s;
 }
 
 .c3{
-width:160px;
-height:160px;
+width:60px;
+height:60px;
 bottom:40px;
 left:40px;
 animation-delay:4s;
@@ -309,9 +309,12 @@ border-radius:30px;
 
 background: linear-gradient(
 135deg,
-#6fb8d6,
-#4ecdc4
+#5f6bd8 0%,
+#6a73d9 25%,
+#7b6bd1 60%,
+#8e5cc7 100%
 );
+
 
 color:white;
 
