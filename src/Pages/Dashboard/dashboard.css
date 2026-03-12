@@ -1,71 +1,179 @@
+/* ============================= */
+/* MAIN BACKGROUND */
+/* ============================= */
+
 .dashboard-container{
-  background-image:url('/image/bagroundimage.png');
-  background-size:cover;
-  background-position:center;
+
   min-height:100vh;
-  color:white;
+
+  background: linear-gradient(
+  135deg,
+  #ececec 0%,
+  #b8d2e5 30%,
+  #6fb8d6 60%,
+  #4ecdc4 100%
+  );
+
+  color:#2b2b2b;
+
   position:relative;
+
+  font-family:'Inter',sans-serif;
 }
+
+
+/* ============================= */
+/* TOP MENU */
+/* ============================= */
 
 .top-menu{
-  display:flex;
-  gap:20px;
-  padding:10px;
-background-color: #15345B;}
 
-.menu-item{
-  cursor:pointer;
+  display:flex;
+
+  gap:25px;
+
+  padding:15px 30px;
+
+  background: rgba(255,255,255,0.35);
+
+  backdrop-filter: blur(20px);
+
+  border-bottom:1px solid rgba(255,255,255,0.4);
+
+  box-shadow:0 5px 20px rgba(0,0,0,0.1);
+
 }
 
+.menu-item{
+
+  cursor:pointer;
+
+  font-weight:600;
+
+  font-size:17px;
+
+  color:#2b2b2b;
+
+  transition:0.3s;
+
+}
+
+.menu-item:hover{
+
+  color:#4ecdc4;
+
+}
+
+
+/* ============================= */
+/* DROPDOWN */
+/* ============================= */
+
 .dropdown{
+
   position:absolute;
+
   top:35px;
-  background:#15345B;
-  color:white;
-  padding: 5px;
-  width:160px;
-  border-radius:4px;
+
+  background:white;
+
+  color:#333;
+
+  padding:10px;
+
+  width:170px;
+
+  border-radius:8px;
+
+  box-shadow:0 10px 25px rgba(0,0,0,0.15);
+
 }
 
 .submenu{
+
   position:absolute;
-  left:160px;
+
+  left:170px;
+
   top:0;
-  background:#15345B;
-  color:white;
-  padding:5px;
-  width:160px;
-  border-radius:4px;
+
+  background:white;
+
+  color:#333;
+
+  padding:10px;
+
+  width:170px;
+
+  border-radius:8px;
+
+  box-shadow:0 10px 25px rgba(0,0,0,0.15);
+
 }
+
+
+/* ============================= */
+/* BOTTOM BAR */
+/* ============================= */
 
 .bottom-bar{
+
   position:absolute;
-  bottom:140px;
+
+  bottom:120px;
+
   width:100%;
+
   display:flex;
+
   justify-content:space-between;
+
   align-items:center;
+
   padding:0 160px;
+
+  background: rgba(255,255,255,0.25);
+
+  backdrop-filter: blur(20px);
+
+  border-top:1px solid rgba(255,255,255,0.4);
+
 }
+
+
+/* LOGO */
 
 .logo{
+
   width:200px;
-  filter:brightness(0) invert(1);
+
 }
 
+
+/* ============================= */
 /* MOBILE */
+/* ============================= */
 
 @media (max-width:768px){
 
   .bottom-bar{
+
     flex-direction:column;
+
     gap:20px;
-    padding:0 20px;
+
+    padding:20px;
+
     text-align:center;
+
+    bottom:60px;
+
   }
 
   .logo{
+
     width:140px;
+
   }
 
 }
