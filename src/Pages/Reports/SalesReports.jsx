@@ -1,50 +1,90 @@
 import { useState } from "react";
 import "./reports.css";
 
-function SalesReports(){
+function SalesReports() {
 
-const [report,setReport] = useState("sale_summary")
-const [fromDate,setFromDate] = useState("")
-const [toDate,setToDate] = useState("")
-const [data,setData] = useState([])
+const [report,setReport] = useState("sale_summary");
+const [fromDate,setFromDate] = useState("");
+const [toDate,setToDate] = useState("");
+const [data,setData] = useState([]);
 
-const [customerCode,setCustomerCode] = useState("")
-const [customerName,setCustomerName] = useState("")
+const [customerCode,setCustomerCode] = useState("");
+const [customerName,setCustomerName] = useState("");
 
-const [salesmanCode,setSalesmanCode] = useState("")
-const [salesmanName,setSalesmanName] = useState("")
+const [salesmanCode,setSalesmanCode] = useState("");
+const [salesmanName,setSalesmanName] = useState("");
+
+const [loading,setLoading] = useState(false);
+
 
 /* PRINT REPORT */
 
-const handlePrint = async ()=>{
+const handlePrint = async () => {
 
-const res = await fetch(
-`https://erp.codezyntax.com/api/salesSummary.php?from=${fromDate}&to=${toDate}`
-)
+if(!fromDate || !toDate){
+alert("Please select date range");
+return;
+}
 
-const result = await res.json()
+setLoading(true);
 
-setData(result.data)
+try{
+
+const res = await fetch("/api/salesSummary",{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({
+from:fromDate,
+to:toDate
+})
+});
+
+const result = await res.json();
+
+if(result.status === "success"){
+setData(result.data);
+}else{
+alert(result.message || "Report loading failed");
+}
+
+}catch(error){
+
+console.log(error);
+alert("Server error");
 
 }
+
+setLoading(false);
+
+};
+
 
 /* CLEAR */
 
-const handleClear = ()=>{
-setFromDate("")
-setToDate("")
-setCustomerCode("")
-setCustomerName("")
-setSalesmanCode("")
-setSalesmanName("")
-setData([])
-}
+const handleClear = () => {
+
+setFromDate("");
+setToDate("");
+
+setCustomerCode("");
+setCustomerName("");
+
+setSalesmanCode("");
+setSalesmanName("");
+
+setData([]);
+
+};
+
 
 /* CLOSE */
 
-const handleClose = ()=>{
-window.history.back()
-}
+const handleClose = () => {
+window.history.back();
+};
+
 
 return(
 
@@ -56,12 +96,13 @@ return(
 
 <div className="report-content">
 
-{/* LEFT SIDE */}
+{/* LEFT MENU */}
 
 <div className="report-left">
 
 <label>
-<input type="radio"
+<input
+type="radio"
 checked={report==="sale_summary"}
 onChange={()=>setReport("sale_summary")}
 name="report"
@@ -70,80 +111,70 @@ Sale Summary
 </label>
 
 <label>
-<input type="radio"
-name="report"
+<input type="radio" name="report"
 onChange={()=>setReport("daily_sales_summary")}
 />
 Daily Sales Summary
 </label>
 
 <label>
-<input type="radio"
-name="report"
+<input type="radio" name="report"
 onChange={()=>setReport("monthly_sales_summary")}
 />
 Monthly Sales Summary
 </label>
 
 <label>
-<input type="radio"
-name="report"
+<input type="radio" name="report"
 onChange={()=>setReport("sale_details")}
 />
 Sale Details
 </label>
 
 <label>
-<input type="radio"
-name="report"
+<input type="radio" name="report"
 onChange={()=>setReport("itemwise_sales")}
 />
 Item wise Sales
 </label>
 
 <label>
-<input type="radio"
-name="report"
+<input type="radio" name="report"
 onChange={()=>setReport("itemwise_profit")}
 />
 Item wise Profit
 </label>
 
 <label>
-<input type="radio"
-name="report"
+<input type="radio" name="report"
 onChange={()=>setReport("itemwise_summary")}
 />
 Item wise Summary
 </label>
 
 <label>
-<input type="radio"
-name="report"
+<input type="radio" name="report"
 onChange={()=>setReport("salesman_sales")}
 />
 Salesman wise Sales
 </label>
 
 <label>
-<input type="radio"
-name="report"
+<input type="radio" name="report"
 onChange={()=>setReport("daily_sales_report")}
 />
 Daily Sales Report
 </label>
 
 <label>
-<input type="radio"
-name="report"
+<input type="radio" name="report"
 onChange={()=>setReport("sales_profit")}
 />
 Sales Profit
 </label>
 
 <label>
-<input type="radio"
-name="report"
+<input type="radio" name="report"
 onChange={()=>setReport("sales_tax_summary")}
 />
 Sale Tax Summary
@@ -202,7 +233,7 @@ placeholder="Description"
 readOnly
 />
 
-<button>🔍</button>
+<button type="button">🔍</button>
 
 </div>
 
@@ -223,7 +254,7 @@ placeholder="Description"
 readOnly
 />
 
-<button>🔍</button>
+<button type="button">🔍</button>
 
 </div>
 
@@ -231,7 +262,7 @@ readOnly
 <div className="buttons">
 
 <button className="print" onClick={handlePrint}>
-Print
+{loading ? "Loading..." : "Print"}
 </button>
 
 <button className="clear" onClick={handleClear}>
@@ -249,7 +280,7 @@ Close
 </div>
 
 
-{/* REPORT RESULT */}
+{/* REPORT TABLE */}
 
 {data.length>0 &&(
 
@@ -269,9 +300,9 @@ Close
 
 <tbody>
 
-{data.map((row,i)=>(
+{data.map((row,index)=>(
 
-<tr key={i}>
+<tr key={index}>
 
 <td>{row.SALE_NO}</td>
 <td>{row.SALE_DATE}</td>
@@ -293,8 +324,8 @@ Close
 
 </div>
 
-)
+);
 
 }
 
-export default SalesReports
+export default SalesReports;

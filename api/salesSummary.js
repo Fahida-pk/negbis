@@ -2,15 +2,10 @@ export default async function handler(req, res) {
 
   try {
 
+    const { from, to } = req.body;
+
     const response = await fetch(
-      "https://erp.codezyntax.com/api/salesSummary.php",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(req.body)
-      }
+      `https://erp.codezyntax.com/api/salesSummary.php?from=${from}&to=${to}`
     );
 
     const data = await response.json();
@@ -20,8 +15,8 @@ export default async function handler(req, res) {
   } catch (error) {
 
     res.status(500).json({
-      status: "error",
-      message: "Proxy server error"
+      status:"error",
+      message:"Proxy server error"
     });
 
   }
