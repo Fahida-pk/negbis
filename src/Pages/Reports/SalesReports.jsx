@@ -1,90 +1,159 @@
 import { useState } from "react";
 import "./reports.css";
 
-function SalesReports() {
+function SalesReports(){
 
-const [report,setReport] = useState("sale_summary");
-const [fromDate,setFromDate] = useState("");
-const [toDate,setToDate] = useState("");
-const [data,setData] = useState([]);
+const [report,setReport] = useState("sale_summary")
+const [fromDate,setFromDate] = useState("")
+const [toDate,setToDate] = useState("")
+const [data,setData] = useState([])
 
-const [customerCode,setCustomerCode] = useState("");
-const [customerName,setCustomerName] = useState("");
+const [customerCode,setCustomerCode] = useState("")
+const [customerName,setCustomerName] = useState("")
 
-const [salesmanCode,setSalesmanCode] = useState("");
-const [salesmanName,setSalesmanName] = useState("");
+const [customerList,setCustomerList] = useState([])
+const [showCustomer,setShowCustomer] = useState(false)
 
-const [loading,setLoading] = useState(false);
+const [loading,setLoading] = useState(false)
 
 
 /* PRINT REPORT */
 
-const handlePrint = async () => {
+const handlePrint = async ()=>{
 
 if(!fromDate || !toDate){
-alert("Please select date range");
-return;
+alert("Select date")
+return
 }
 
-setLoading(true);
+setLoading(true)
 
 try{
 
 const res = await fetch("/api/salesSummary",{
 method:"POST",
-headers:{
-"Content-Type":"application/json"
-},
+headers:{ "Content-Type":"application/json" },
 body:JSON.stringify({
 from:fromDate,
-to:toDate
+to:toDate,
+customer:customerCode
 })
-});
+})
 
-const result = await res.json();
+const result = await res.json()
 
-if(result.status === "success"){
-setData(result.data);
+if(result.status==="success"){
+setData(result.data)
 }else{
-alert(result.message || "Report loading failed");
+alert("Report failed")
 }
 
-}catch(error){
+}catch(err){
+console.log(err)
+alert("Server error")
+}
 
-console.log(error);
-alert("Server error");
+setLoading(false)
 
 }
 
-setLoading(false);
 
-};
+/* PRINT TABLE */
+
+const printTable = ()=>{
+
+const printContent = document.getElementById("reportTable").outerHTML
+
+const win = window.open("","","width=900,height=700")
+
+win.document.write(`
+<html>
+<head>
+<title>Sales Report</title>
+
+<style>
+
+body{
+font-family:Arial;
+padding:20px;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+}
+
+th,td{
+border:1px solid #999;
+padding:8px;
+text-align:left;
+}
+
+th{
+background:#eee;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h2>Sales Summary Report</h2>
+
+${printContent}
+
+<script>
+window.print()
+window.close()
+</script>
+
+</body>
+
+</html>
+`)
+
+}
 
 
 /* CLEAR */
 
-const handleClear = () => {
+const handleClear = ()=>{
 
-setFromDate("");
-setToDate("");
+setFromDate("")
+setToDate("")
+setCustomerCode("")
+setCustomerName("")
+setData([])
 
-setCustomerCode("");
-setCustomerName("");
-
-setSalesmanCode("");
-setSalesmanName("");
-
-setData([]);
-
-};
+}
 
 
-/* CLOSE */
+/* CUSTOMER LOOKUP */
 
-const handleClose = () => {
-window.history.back();
-};
+const openCustomer = async ()=>{
 
+const res = await fetch("/api/customerLookup")
+const result = await res.json()
+
+if(result.data){
+setCustomerList(result.data)
+setShowCustomer(true)
+}
+
+}
+
+const selectCustomer = (c)=>{
+
+setCustomerCode(c.CODE)
+setCustomerName(c.DESCRIPTION)
+
+setShowCustomer(false)
+
+}
+
+
+/* UI */
 
 return(
 
@@ -96,13 +165,13 @@ return(
 
 <div className="report-content">
 
-{/* LEFT MENU */}
+
+{/* LEFT */}
 
 <div className="report-left">
 
 <label>
-<input
-type="radio"
+<input type="radio"
 checked={report==="sale_summary"}
 onChange={()=>setReport("sale_summary")}
 name="report"
@@ -110,80 +179,21 @@ name="report"
 Sale Summary
 </label>
 
-<label>
-<input type="radio" name="report"
-onChange={()=>setReport("daily_sales_summary")}
-/>
-Daily Sales Summary
-</label>
-
-<label>
-<input type="radio" name="report"
-onChange={()=>setReport("monthly_sales_summary")}
-/>
-Monthly Sales Summary
-</label>
-
-<label>
-<input type="radio" name="report"
-onChange={()=>setReport("sale_details")}
-/>
-Sale Details
-</label>
-
-<label>
-<input type="radio" name="report"
-onChange={()=>setReport("itemwise_sales")}
-/>
-Item wise Sales
-</label>
-
-<label>
-<input type="radio" name="report"
-onChange={()=>setReport("itemwise_profit")}
-/>
-Item wise Profit
-</label>
-
-<label>
-<input type="radio" name="report"
-onChange={()=>setReport("itemwise_summary")}
-/>
-Item wise Summary
-</label>
-
-<label>
-<input type="radio" name="report"
-onChange={()=>setReport("salesman_sales")}
-/>
-Salesman wise Sales
-</label>
-
-<label>
-<input type="radio" name="report"
-onChange={()=>setReport("daily_sales_report")}
-/>
-Daily Sales Report
-</label>
-
-<label>
-<input type="radio" name="report"
-onChange={()=>setReport("sales_profit")}
-/>
-Sales Profit
-</label>
-
-<label>
-<input type="radio" name="report"
-onChange={()=>setReport("sales_tax_summary")}
-/>
-Sale Tax Summary
-</label>
+<label><input type="radio" name="report"/>Daily Sales Summary</label>
+<label><input type="radio" name="report"/>Monthly Sales Summary</label>
+<label><input type="radio" name="report"/>Sale Details</label>
+<label><input type="radio" name="report"/>Item wise Sales</label>
+<label><input type="radio" name="report"/>Item wise Profit</label>
+<label><input type="radio" name="report"/>Item wise Summary</label>
+<label><input type="radio" name="report"/>Salesman wise Sales</label>
+<label><input type="radio" name="report"/>Daily Sales Report</label>
+<label><input type="radio" name="report"/>Sales Profit</label>
+<label><input type="radio" name="report"/>Sale Tax Summary</label>
 
 </div>
 
 
-{/* RIGHT SIDE */}
+{/* RIGHT */}
 
 <div className="report-right">
 
@@ -233,28 +243,7 @@ placeholder="Description"
 readOnly
 />
 
-<button type="button">🔍</button>
-
-</div>
-
-
-<div className="filter-row">
-
-<label>Salesman</label>
-
-<input
-value={salesmanCode}
-placeholder="Code"
-readOnly
-/>
-
-<input
-value={salesmanName}
-placeholder="Description"
-readOnly
-/>
-
-<button type="button">🔍</button>
+<button onClick={openCustomer}>🔍</button>
 
 </div>
 
@@ -262,15 +251,15 @@ readOnly
 <div className="buttons">
 
 <button className="print" onClick={handlePrint}>
-{loading ? "Loading..." : "Print"}
+{loading ? "Loading..." : "Load"}
+</button>
+
+<button className="print" onClick={printTable}>
+Print
 </button>
 
 <button className="clear" onClick={handleClear}>
 Clear
-</button>
-
-<button className="close" onClick={handleClose}>
-Close
 </button>
 
 </div>
@@ -284,7 +273,7 @@ Close
 
 {data.length>0 &&(
 
-<table className="report-table">
+<table className="report-table" id="reportTable">
 
 <thead>
 
@@ -300,9 +289,9 @@ Close
 
 <tbody>
 
-{data.map((row,index)=>(
+{data.map((row,i)=>(
 
-<tr key={index}>
+<tr key={i}>
 
 <td>{row.SALE_NO}</td>
 <td>{row.SALE_DATE}</td>
@@ -320,12 +309,53 @@ Close
 
 )}
 
-</div>
+
+{/* CUSTOMER LOOKUP */}
+
+{showCustomer && (
+
+<div className="lookup">
+
+<h3>Customer Lookup</h3>
+
+<table>
+
+<thead>
+<tr>
+<th>Code</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+
+{customerList.map((c,i)=>(
+
+<tr key={i} onClick={()=>selectCustomer(c)}>
+
+<td>{c.CODE}</td>
+<td>{c.DESCRIPTION}</td>
+
+</tr>
+
+))}
+
+</tbody>
+
+</table>
+
+<button onClick={()=>setShowCustomer(false)}>Close</button>
 
 </div>
 
-);
+)}
+
+</div>
+
+</div>
+
+)
 
 }
 
-export default SalesReports;
+export default SalesReports
