@@ -36,40 +36,66 @@ overflow:hidden;
 /* ANIMATED CIRCLES */
 /* ============================= */
 
+/* ============================= */
+/* ANIMATED CIRCLES */
+/* ============================= */
+
 .circle{
-width:300px;
-height:300px;
+position:absolute;
 border-radius:50%;
-background: rgba(255,255,255,0.15);
-
-
-backdrop-filter: blur(15px);
-
+background:rgba(255,255,255,0.15);
+backdrop-filter:blur(15px);
 box-shadow:0 10px 40px rgba(0,0,0,0.15);
-
 animation:move 12s infinite alternate ease-in-out;
 }
 
+/* big circle top-left */
 .c1{
-width:50px;
-height:50px;
+width:280px;
+height:280px;
 top:80px;
-left:120px;
+left:100px;
 }
 
+/* big circle right side */
 .c2{
-width:50px;
-height:50px;
-bottom:100px;
+width:300px;
+height:300px;
+bottom:80px;
 right:120px;
 animation-delay:2s;
 }
 
+/* small bottom circle */
 .c3{
-width:60px;
-height:60px;
-bottom:40px;
-left:40px;
+width:140px;
+height:140px;
+bottom:60px;
+left:120px;
+animation-delay:4s;
+}
+
+/* 3 small dots center */
+.c4{
+width:40px;
+height:40px;
+top:50%;
+left:35%;
+}
+
+.c5{
+width:40px;
+height:40px;
+top:50%;
+left:39%;
+animation-delay:2s;
+}
+
+.c6{
+width:40px;
+height:40px;
+top:50%;
+left:43%;
 animation-delay:4s;
 }
 
@@ -77,7 +103,6 @@ animation-delay:4s;
 0%{ transform:translateY(0px); }
 100%{ transform:translateY(-25px); }
 }
-
 
 /* ============================= */
 /* LOGIN CONTAINER */
