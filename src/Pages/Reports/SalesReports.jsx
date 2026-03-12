@@ -13,6 +13,7 @@ const [customerName,setCustomerName] = useState("")
 
 const [customerList,setCustomerList] = useState([])
 const [showCustomer,setShowCustomer] = useState(false)
+const [showReport,setShowReport] = useState(false)
 
 const [loading,setLoading] = useState(false)
 
@@ -44,6 +45,7 @@ const result = await res.json()
 
 if(result.status==="success"){
 setData(result.data)
+setShowReport(true)
 }else{
 alert("Report failed")
 }
@@ -72,27 +74,10 @@ win.document.write(`
 <title>Sales Report</title>
 
 <style>
-
-body{
-font-family:Arial;
-padding:20px;
-}
-
-table{
-width:100%;
-border-collapse:collapse;
-}
-
-th,td{
-border:1px solid #999;
-padding:8px;
-text-align:left;
-}
-
-th{
-background:#eee;
-}
-
+body{font-family:Arial;padding:20px;}
+table{width:100%;border-collapse:collapse;}
+th,td{border:1px solid #999;padding:8px;text-align:left;}
+th{background:#eee;}
 </style>
 
 </head>
@@ -118,13 +103,11 @@ window.close()
 /* CLEAR */
 
 const handleClear = ()=>{
-
 setFromDate("")
 setToDate("")
 setCustomerCode("")
 setCustomerName("")
 setData([])
-
 }
 
 
@@ -143,12 +126,9 @@ setShowCustomer(true)
 }
 
 const selectCustomer = (c)=>{
-
 setCustomerCode(c.CODE)
 setCustomerName(c.DESCRIPTION)
-
 setShowCustomer(false)
-
 }
 
 
@@ -160,14 +140,13 @@ return(
 
 <div className="report-box">
 
+<div className="report-header">
 <h3>Sales Invoice Reports</h3>
-<button
-className="close-btn"
-onClick={()=>window.history.back()}
->
-X
-</button>
+<button className="close-btn" onClick={()=>window.history.back()}>X</button>
+</div>
+
 <div className="report-content">
+
 
 {/* LEFT PANEL */}
 
@@ -225,7 +204,6 @@ onChange={(e)=>setToDate(e.target.value)}
 <div className="filter-row">
 
 <label>Store</label>
-
 <input placeholder="DEFAULT STORE"/>
 
 </div>
@@ -235,17 +213,9 @@ onChange={(e)=>setToDate(e.target.value)}
 
 <label>Customer</label>
 
-<input
-value={customerCode}
-placeholder="Code"
-readOnly
-/>
+<input value={customerCode} placeholder="Code" readOnly/>
 
-<input
-value={customerName}
-placeholder="Description"
-readOnly
-/>
+<input value={customerName} placeholder="Description" readOnly/>
 
 <button onClick={openCustomer}>🔍</button>
 
@@ -273,9 +243,21 @@ Clear
 </div>
 
 
-{/* REPORT TABLE */}
+{/* REPORT POPUP */}
 
-{data.length>0 &&(
+{showReport &&(
+
+<div className="report-overlay">
+
+<div className="report-modal">
+
+<div className="report-modal-header">
+
+<h3>Sales Summary Report</h3>
+
+<button onClick={()=>setShowReport(false)}>X</button>
+
+</div>
 
 <table className="report-table" id="reportTable">
 
@@ -307,6 +289,10 @@ Clear
 
 </table>
 
+</div>
+
+</div>
+
 )}
 
 
@@ -324,11 +310,14 @@ Clear
 </div>
 
 <div className="lookup-search">
+
 <input
-placeholder="Find"
+placeholder="Find Code or Description"
 value={search}
 onChange={(e)=>setSearch(e.target.value)}
+autoFocus
 />
+
 </div>
 
 <div className="lookup-table">
@@ -352,10 +341,8 @@ c.CODE.toString().includes(search)
 .map((c,i)=>(
 
 <tr key={i} onClick={()=>selectCustomer(c)}>
-
 <td>{c.CODE}</td>
 <td>{c.DESCRIPTION}</td>
-
 </tr>
 
 ))}

@@ -9,7 +9,7 @@ background:#0b2a5c;
 padding:20px;
 }
 
-/* BOX */
+/* MAIN BOX */
 
 .report-box{
 background:#dcdcdc;
@@ -17,6 +17,24 @@ width:900px;
 max-width:100%;
 padding:20px;
 border:4px solid black;
+}
+
+/* HEADER */
+
+.report-header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:15px;
+}
+
+.close-btn{
+background:black;
+color:white;
+border:none;
+padding:5px 10px;
+cursor:pointer;
+font-weight:bold;
 }
 
 /* CONTENT */
@@ -83,19 +101,10 @@ border:none;
 cursor:pointer;
 }
 
-.close{
-background:black;
-color:red;
-padding:10px 20px;
-border:none;
-cursor:pointer;
-}
-
 /* REPORT TABLE */
 
 .report-table{
 width:100%;
-margin-top:20px;
 border-collapse:collapse;
 }
 
@@ -105,6 +114,56 @@ border:1px solid #999;
 padding:8px;
 text-align:left;
 }
+
+.report-table th{
+background:#eee;
+}
+
+/* ========================= */
+/* REPORT POPUP */
+/* ========================= */
+
+.report-overlay{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.6);
+display:flex;
+justify-content:center;
+align-items:center;
+z-index:2000;
+}
+
+.report-modal{
+background:white;
+width:900px;
+max-width:95%;
+max-height:80vh;
+overflow:auto;
+padding:20px;
+border:3px solid black;
+}
+
+.report-modal-header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:10px;
+}
+
+.report-modal-header button{
+background:black;
+color:white;
+border:none;
+padding:5px 10px;
+cursor:pointer;
+}
+
+/* ========================= */
+/* CUSTOMER LOOKUP */
+/* ========================= */
 
 .lookup-overlay{
 position:fixed;
@@ -121,6 +180,7 @@ z-index:1000;
 
 .lookup-modal{
 width:600px;
+max-width:95%;
 background:#ddd;
 border:3px solid black;
 box-shadow:0 0 10px black;
@@ -132,6 +192,7 @@ color:white;
 padding:10px;
 display:flex;
 justify-content:space-between;
+align-items:center;
 }
 
 .lookup-search{
@@ -169,6 +230,7 @@ cursor:pointer;
 padding:10px;
 text-align:center;
 }
+
 /* ========================= */
 /* TABLET VIEW */
 /* ========================= */
@@ -191,7 +253,6 @@ padding:10px;
 
 }
 
-
 /* ========================= */
 /* MOBILE VIEW */
 /* ========================= */
@@ -206,10 +267,6 @@ padding:15px;
 flex-direction:column;
 }
 
-.filter-row label{
-width:100%;
-}
-
 .filter-row input{
 width:100%;
 }
@@ -219,9 +276,43 @@ flex-direction:column;
 }
 
 .print,
-.clear,
-.close{
+.clear{
 width:100%;
+}
+
+}
+
+/* ========================= */
+/* PRINT VIEW */
+/* ========================= */
+
+@media print{
+
+body{
+background:white;
+}
+
+.report-container{
+background:white;
+padding:0;
+}
+
+.report-box{
+border:none;
+width:100%;
+}
+
+.buttons,
+.close-btn{
+display:none;
+}
+
+.report-left{
+display:none;
+}
+
+.report-table{
+font-size:12px;
 }
 
 }
