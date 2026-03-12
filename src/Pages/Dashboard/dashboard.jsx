@@ -1,14 +1,7 @@
-import { useNavigate } from "react-router-dom";
-import { useState } from "react";
 import Sidebar from "../Components/Sidebar";
 import "./dashboard.css";
 
-function Dashboard() {
-
-const navigate = useNavigate();
-
-const [showReports,setShowReports] = useState(false);
-const [showSales,setShowSales] = useState(false);
+function Dashboard(){
 
 return(
 
@@ -18,69 +11,11 @@ return(
 
 <div className="dashboard-main">
 
-{/* TOP MENU */}
+{/* CONTENT AREA */}
 
-<div className="top-menu">
+<div className="content-area">
 
-<span className="menu-item">Dashboard</span>
-
-<div
-style={{position:"relative"}}
-onMouseEnter={()=>setShowReports(true)}
->
-
-<span className="menu-item">Reports</span>
-
-{showReports && (
-
-<div
-className="dropdown"
-onMouseLeave={()=>{
-
-setShowReports(false);
-setShowSales(false);
-
-}}
->
-
-<div
-style={{
-position:"relative",
-padding:"6px",
-cursor:"pointer"
-}}
-onMouseEnter={()=>setShowSales(true)}
->
-
-Sales ▶
-
-{showSales && (
-
-<div
-className="submenu"
-onMouseLeave={()=>setShowSales(false)}
->
-
-<div
-style={{padding:"6px",cursor:"pointer"}}
-onClick={()=>navigate("/reports")}
->
-
-Sales Report
-
-</div>
-
-</div>
-
-)}
-
-</div>
-
-</div>
-
-)}
-
-</div>
+<h1>Dashboard</h1>
 
 </div>
 

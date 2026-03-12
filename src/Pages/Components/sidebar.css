@@ -29,7 +29,23 @@ flex-direction:column;
 box-shadow:2px 0 15px rgba(0,0,0,0.15);
 
 }
+.sidebar-subitem{
 
+padding-left:20px;
+
+cursor:pointer;
+
+font-size:14px;
+
+color:#333;
+
+}
+
+.sidebar-subitem:hover{
+
+text-decoration:underline;
+
+}
 .logo-title{
 
 margin-bottom:40px;

@@ -20,13 +20,22 @@ onClick={()=>navigate("/dashboard")}
 Dashboard
 </div>
 
-<div
-className="sidebar-item"
-onClick={()=>navigate("/reports")}
->
+<div className="sidebar-item">
 Reports
 </div>
 
+<div
+className="sidebar-subitem"
+onClick={()=>navigate("/reports")}
+>
+Sales 
+</div>
+<div
+className="sidebar-subitem"
+onClick={()=>navigate("/reports")}
+>
+Invoice
+</div>
 </div>
 
 </div>
