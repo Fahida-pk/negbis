@@ -187,8 +187,39 @@ margin-bottom:25px;
 font-weight:bold;
 color:#222;
 }
+.animate-title{
+opacity:0;
+transform:translateY(40px);
+animation:titleFade 1.2s ease forwards;
+}
 
+.animate-subtitle{
+opacity:0;
+transform:translateY(40px);
+animation:subtitleFade 1.5s ease forwards;
+animation-delay:0.5s;
+}
+@keyframes titleFade{
+0%{
+opacity:0;
+transform:translateY(40px);
+}
+100%{
+opacity:1;
+transform:translateY(0);
+}
+}
 
+@keyframes subtitleFade{
+0%{
+opacity:0;
+transform:translateY(30px);
+}
+100%{
+opacity:1;
+transform:translateY(0);
+}
+}
 /* ============================= */
 /* INPUT GROUP */
 /* ============================= */

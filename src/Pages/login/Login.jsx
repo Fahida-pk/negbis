@@ -58,13 +58,13 @@ return(
 
 <div className="login-left">
 
-<h1 className="title">
-Welcome to <br/> neGbis ERP
+<h1 className="title animate-title">
+  Welcome to <br/> neGbis ERP
 </h1>
 
-<p className="subtitle">
-Business ERP system for Sales, Accounts,
-Stock and Reports management.
+<p className="subtitle animate-subtitle">
+  Business ERP system for Sales, Accounts,
+  Stock and Reports management.
 </p>
 
 </div>
