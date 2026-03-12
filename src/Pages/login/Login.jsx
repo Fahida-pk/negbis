@@ -1,146 +1,111 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "./login.css";
 
-function Login(){
+function Login() {
 
-const [username,setUsername] = useState("");
-const [password,setPassword] = useState("");
-const [error,setError] = useState("");
-const [loading,setLoading] = useState(false);
+  const [username,setUsername] = useState("");
+  const [password,setPassword] = useState("");
+  const [error,setError] = useState("");
+  const [loading,setLoading] = useState(false);
 
-const navigate = useNavigate();
+  const navigate = useNavigate();
 
-const handleLogin = async(e)=>{
-e.preventDefault();
+  const handleLogin = async (e)=>{
+    e.preventDefault();
 
-setLoading(true);
-setError("");
+    setError("");
+    setLoading(true);
 
-try{
+    try{
 
-const res = await fetch("/api/login",{
-method:"POST",
-headers:{ "Content-Type":"application/json"},
-body:JSON.stringify({username,password})
-});
+      const res = await fetch("/api/login",{
+        method:"POST",
+        headers:{ "Content-Type":"application/json" },
+        body:JSON.stringify({username,password})
+      });
 
-const data = await res.json();
+      const data = await res.json();
 
-if(data.status==="success"){
-localStorage.setItem("user",data.user);
-navigate("/dashboard");
-}else{
-setError(data.message || "Invalid login");
-}
+      if(data.status==="success"){
+        localStorage.setItem("user",data.user);
+        navigate("/dashboard");
+      }else{
+        setError(data.message || "Invalid login");
+      }
 
-}catch(err){
-setError("Server error");
-}
+    }catch(err){
+      setError("Server error");
+    }
 
-setLoading(false);
-};
+    setLoading(false);
+  };
 
-return(
+  return(
 
-<div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-500 to-purple-600 relative overflow-hidden px-4">
+<div className="login-bg">
 
-{/* moving circles */}
+{/* circles */}
 
-<div className="absolute w-80 h-80 bg-white/20 rounded-full top-10 left-10 animate-pulse"></div>
+<div className="circle c1"></div>
+<div className="circle c2"></div>
+<div className="circle c3"></div>
 
-<div className="absolute w-96 h-96 bg-white/20 rounded-full bottom-10 right-10 animate-bounce"></div>
+<div className="login-container">
 
-<div className="absolute w-40 h-40 bg-white/20 rounded-full bottom-32 left-32 animate-ping"></div>
+{/* LEFT PANEL */}
 
+<div className="login-left">
 
-<div className="w-full max-w-[900px] flex rounded-[30px] overflow-hidden shadow-2xl backdrop-blur-lg bg-white/20">
+<h2 className="brand">Storage</h2>
 
-{/* LEFT SIDE */}
-
-<div className="hidden md:flex flex-col justify-center p-12 text-white w-1/2">
-
-<h2 className="text-xl mb-6 flex items-center gap-2">
-
-<span className="w-4 h-4 bg-white rounded-full"></span>
-
-Storage
-
-</h2>
-
-<h1 className="text-3xl font-bold leading-snug mb-4">
-
+<h1 className="title">
 Manage your files <br/> the best way
-
 </h1>
 
-<p className="text-white/80 text-sm mb-8">
-
+<p className="subtitle">
 Awesome, we've created the perfect place for you
 to store all your documents.
-
 </p>
 
 <img
 src="https://cdn-icons-png.flaticon.com/512/4712/4712109.png"
-className="w-52"
+className="folder-img"
 />
 
 </div>
 
 
-{/* RIGHT SIDE LOGIN */}
+{/* RIGHT PANEL */}
 
-<div className="w-full md:w-1/2 bg-white/70 backdrop-blur-xl p-10">
+<div className="login-right glass">
 
-<h2 className="text-3xl font-bold text-center text-indigo-600 mb-6">
+<h2 className="login-title">Login</h2>
 
-Welcome to neGbis ERP
+<form onSubmit={handleLogin}>
 
-</h2>
+<div className="input-group">
 
-
-{/* avatar */}
-
-<div className="flex justify-center mb-6">
-
-<img
-src="https://cdn-icons-png.flaticon.com/512/4140/4140048.png"
-className="w-28 h-28 rounded-full shadow-lg"
-/>
-
-</div>
-
-
-<form onSubmit={handleLogin} className="space-y-5">
-
-<div>
-
-<label className="text-sm text-gray-600">
-Login Name
-</label>
+<label>Username</label>
 
 <input
 type="text"
 value={username}
 onChange={(e)=>setUsername(e.target.value)}
-className="w-full mt-1 px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-400 outline-none"
 required
 />
 
 </div>
 
 
-<div>
+<div className="input-group">
 
-<label className="text-sm text-gray-600">
-Password
-</label>
+<label>Password</label>
 
 <input
 type="password"
 value={password}
 onChange={(e)=>setPassword(e.target.value)}
-className="w-full mt-1 px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-400 outline-none"
 required
 />
 
@@ -149,24 +114,13 @@ required
 
 <button
 type="submit"
+className="login-btn"
 disabled={loading}
-className="w-full py-3 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 text-white font-semibold shadow-lg hover:scale-105 transition"
 >
-
 {loading ? "Logging in..." : "Login"}
-
 </button>
 
-
-{error &&(
-
-<p className="text-red-500 text-center">
-
-{error}
-
-</p>
-
-)}
+{error && <p className="error">{error}</p>}
 
 </form>
 
@@ -176,7 +130,7 @@ className="w-full py-3 rounded-full bg-gradient-to-r from-indigo-500 to-purple-5
 
 </div>
 
-);
+  );
 }
 
 export default Login;
