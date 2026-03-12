@@ -161,7 +161,12 @@ return(
 <div className="report-box">
 
 <h3>Sales Invoice Reports</h3>
-
+<button
+className="close-btn"
+onClick={()=>window.history.back()}
+>
+X
+</button>
 <div className="report-content">
 
 {/* LEFT PANEL */}
