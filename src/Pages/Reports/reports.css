@@ -1,21 +1,31 @@
+/* MAIN CONTAINER */
+
 .report-container{
 display:flex;
 justify-content:center;
 align-items:center;
-height:100vh;
+min-height:100vh;
 background:#0b2a5c;
+padding:20px;
 }
+
+/* BOX */
 
 .report-box{
 background:#dcdcdc;
 width:900px;
+max-width:100%;
 padding:20px;
 border:4px solid black;
 }
 
+/* CONTENT */
+
 .report-content{
 display:flex;
 }
+
+/* LEFT PANEL */
 
 .report-left{
 width:250px;
@@ -28,37 +38,128 @@ display:block;
 margin:8px 0;
 }
 
+/* RIGHT PANEL */
+
 .report-right{
 flex:1;
 padding:15px;
 }
 
+/* FILTER ROW */
+
 .filter-row{
 margin-bottom:10px;
 display:flex;
 gap:10px;
+flex-wrap:wrap;
 }
+
+.filter-row input{
+padding:6px;
+}
+
+/* BUTTONS */
 
 .buttons{
 margin-top:20px;
+display:flex;
+flex-wrap:wrap;
+gap:10px;
 }
 
 .print{
 background:black;
 color:magenta;
 padding:10px 20px;
-margin-right:10px;
+border:none;
+cursor:pointer;
 }
 
 .clear{
 background:black;
 color:yellow;
 padding:10px 20px;
-margin-right:10px;
+border:none;
+cursor:pointer;
 }
 
 .close{
 background:black;
 color:red;
 padding:10px 20px;
+border:none;
+cursor:pointer;
+}
+
+/* REPORT TABLE */
+
+.report-table{
+width:100%;
+margin-top:20px;
+border-collapse:collapse;
+}
+
+.report-table th,
+.report-table td{
+border:1px solid #999;
+padding:8px;
+text-align:left;
+}
+
+
+/* ========================= */
+/* TABLET VIEW */
+/* ========================= */
+
+@media (max-width:900px){
+
+.report-content{
+flex-direction:column;
+}
+
+.report-left{
+width:100%;
+border-right:none;
+border-bottom:1px solid gray;
+}
+
+.report-right{
+padding:10px;
+}
+
+}
+
+
+/* ========================= */
+/* MOBILE VIEW */
+/* ========================= */
+
+@media (max-width:600px){
+
+.report-box{
+padding:15px;
+}
+
+.filter-row{
+flex-direction:column;
+}
+
+.filter-row label{
+width:100%;
+}
+
+.filter-row input{
+width:100%;
+}
+
+.buttons{
+flex-direction:column;
+}
+
+.print,
+.clear,
+.close{
+width:100%;
+}
+
 }
