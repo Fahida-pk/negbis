@@ -21,7 +21,7 @@ try{
 
 const res = await fetch("/api/login",{
 method:"POST",
-headers:{ "Content-Type":"application/json" },
+headers:{ "Content-Type":"application/json"},
 body:JSON.stringify({username,password})
 });
 
@@ -51,10 +51,10 @@ return(
 <div className="circle c2"></div>
 <div className="circle c3"></div>
 
-
 <div className="login-container">
 
-{/* LEFT TEXT */}
+
+{/* LEFT SIDE */}
 
 <div className="login-left">
 
@@ -63,14 +63,14 @@ Welcome to <br/> neGbis ERP
 </h1>
 
 <p className="subtitle">
-Smart ERP solution to manage your business,
-sales, accounts and reports efficiently.
+Business ERP system for Sales, Accounts,
+Stock and Reports management.
 </p>
 
 </div>
 
 
-{/* RIGHT LOGIN */}
+{/* RIGHT SIDE LOGIN */}
 
 <div className="login-right glass">
 
@@ -120,7 +120,9 @@ type="submit"
 className="login-btn"
 disabled={loading}
 >
+
 {loading ? "Logging in..." : "Login"}
+
 </button>
 
 {error && <p className="error">{error}</p>}
