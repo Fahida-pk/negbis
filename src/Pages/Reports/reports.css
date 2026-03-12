@@ -116,12 +116,14 @@ background:rgba(0,0,0,0.5);
 display:flex;
 justify-content:center;
 align-items:center;
+z-index:1000;
 }
 
-.lookup-box{
+.lookup-modal{
 width:600px;
 background:#ddd;
 border:3px solid black;
+box-shadow:0 0 10px black;
 }
 
 .lookup-header{
