@@ -59,7 +59,8 @@ return(
 <div className="login-left">
 
 <h1 className="title">
-  {"Welcome to neGbis ERP".split("").map((char, index) => (
+  Welcome to <br/>
+  {"neGbis ERP".split("").map((char, index) => (
     <span key={index} style={{ animationDelay: `${index * 0.05}s` }}>
       {char === " " ? "\u00A0" : char}
     </span>
