@@ -339,7 +339,12 @@ onChange={(e)=>setSearch(e.target.value)}
 
 <tbody>
 
-{customerList.map((c,i)=>(
+{customerList
+.filter((c)=>
+c.DESCRIPTION.toLowerCase().includes(search.toLowerCase()) ||
+c.CODE.toString().includes(search)
+)
+.map((c,i)=>(
 
 <tr key={i} onClick={()=>selectCustomer(c)}>
 
