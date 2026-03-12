@@ -1,115 +1,135 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "./login.css";
 
 function Login() {
 
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [username,setUsername] = useState("");
+  const [password,setPassword] = useState("");
+  const [error,setError] = useState("");
+  const [loading,setLoading] = useState(false);
 
   const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
+  const handleLogin = async (e)=>{
     e.preventDefault();
 
     setError("");
     setLoading(true);
 
-    try {
+    try{
 
-  const res = await fetch("/api/login", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json"
-  },
-  body: JSON.stringify({ username, password })
-});
-      if (!res.ok) {
-        throw new Error("Network error");
-      }
+      const res = await fetch("/api/login",{
+        method:"POST",
+        headers:{ "Content-Type":"application/json" },
+        body:JSON.stringify({username,password})
+      });
 
       const data = await res.json();
 
-      if (data.status === "success") {
-
-        localStorage.setItem("user", data.user);
+      if(data.status==="success"){
+        localStorage.setItem("user",data.user);
         navigate("/dashboard");
-
-      } else {
-
-        setError(data.message || "Invalid username or password");
-
+      }else{
+        setError(data.message || "Invalid login");
       }
 
-    } catch (err) {
-
-      console.error("Login error:", err);
-      setError("Server error. Try again");
-
+    }catch(err){
+      setError("Server error");
     }
 
     setLoading(false);
   };
-  return (
 
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#6a7df2] to-[#8a8be9] px-4">
+  return(
 
-      <div className="w-full max-w-[850px] bg-white rounded-[30px] shadow-2xl p-6 md:p-12 flex flex-col md:flex-row items-center gap-8 md:gap-12">
+<div className="login-bg">
 
-        <div className="w-[120px] md:w-[220px]">
-          <img
-            src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
-            className="w-full"
-            alt="avatar"
-          />
-        </div>
+{/* circles */}
 
-        <form onSubmit={handleLogin} className="w-full md:w-[420px]">
+<div className="circle c1"></div>
+<div className="circle c2"></div>
+<div className="circle c3"></div>
 
-          <h2 className="text-xl md:text-2xl font-bold text-[#6a7df2] mb-6">
-            Welcome To ERP v8.0.7
-          </h2>
+<div className="login-container">
 
-          <div className="mb-4">
-            <label className="text-gray-600 text-sm">Login Name</label>
-            <input
-              type="text"
-              value={username}
-              onChange={(e)=>setUsername(e.target.value)}
-              className="w-full border border-gray-300 rounded-md px-3 py-2 mt-1 outline-none"
-              required
-            />
-          </div>
+{/* LEFT PANEL */}
 
-          <div className="mb-4">
-            <label className="text-gray-600 text-sm">Password</label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e)=>setPassword(e.target.value)}
-              className="w-full border border-gray-300 rounded-md px-3 py-2 mt-1 outline-none"
-              required
-            />
-          </div>
+<div className="login-left">
 
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full py-3 rounded-full bg-gradient-to-r from-[#6a7df2] to-[#8a8be9] text-white font-semibold shadow-md"
-          >
-            {loading ? "Logging in..." : "Login"}
-          </button>
+<h2 className="brand">Storage</h2>
 
-          {error && (
-            <p className="text-red-500 mt-4">{error}</p>
-          )}
+<h1 className="title">
+Manage your files <br/> the best way
+</h1>
 
-        </form>
+<p className="subtitle">
+Awesome, we've created the perfect place for you
+to store all your documents.
+</p>
 
-      </div>
+<img
+src="https://cdn-icons-png.flaticon.com/512/4712/4712109.png"
+className="folder-img"
+/>
 
-    </div>
+</div>
+
+
+{/* RIGHT PANEL */}
+
+<div className="login-right glass">
+
+<h2 className="login-title">Login</h2>
+
+<form onSubmit={handleLogin}>
+
+<div className="input-group">
+
+<label>Username</label>
+
+<input
+type="text"
+value={username}
+onChange={(e)=>setUsername(e.target.value)}
+required
+/>
+
+</div>
+
+
+<div className="input-group">
+
+<label>Password</label>
+
+<input
+type="password"
+value={password}
+onChange={(e)=>setPassword(e.target.value)}
+required
+/>
+
+</div>
+
+
+<button
+type="submit"
+className="login-btn"
+disabled={loading}
+>
+{loading ? "Logging in..." : "Login"}
+</button>
+
+{error && <p className="error">{error}</p>}
+
+</form>
+
+</div>
+
+</div>
+
+</div>
+
   );
 }
 
