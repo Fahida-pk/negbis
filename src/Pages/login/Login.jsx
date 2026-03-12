@@ -1,116 +1,182 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-function Login() {
+function Login(){
 
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+const [username,setUsername] = useState("");
+const [password,setPassword] = useState("");
+const [error,setError] = useState("");
+const [loading,setLoading] = useState(false);
 
-  const navigate = useNavigate();
+const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
+const handleLogin = async(e)=>{
+e.preventDefault();
 
-    setError("");
-    setLoading(true);
+setLoading(true);
+setError("");
 
-    try {
+try{
 
-  const res = await fetch("/api/login", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json"
-  },
-  body: JSON.stringify({ username, password })
+const res = await fetch("/api/login",{
+method:"POST",
+headers:{ "Content-Type":"application/json"},
+body:JSON.stringify({username,password})
 });
-      if (!res.ok) {
-        throw new Error("Network error");
-      }
 
-      const data = await res.json();
+const data = await res.json();
 
-      if (data.status === "success") {
+if(data.status==="success"){
+localStorage.setItem("user",data.user);
+navigate("/dashboard");
+}else{
+setError(data.message || "Invalid login");
+}
 
-        localStorage.setItem("user", data.user);
-        navigate("/dashboard");
+}catch(err){
+setError("Server error");
+}
 
-      } else {
+setLoading(false);
+};
 
-        setError(data.message || "Invalid username or password");
+return(
 
-      }
+<div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-500 to-purple-600 relative overflow-hidden px-4">
 
-    } catch (err) {
+{/* moving circles */}
 
-      console.error("Login error:", err);
-      setError("Server error. Try again");
+<div className="absolute w-80 h-80 bg-white/20 rounded-full top-10 left-10 animate-pulse"></div>
 
-    }
+<div className="absolute w-96 h-96 bg-white/20 rounded-full bottom-10 right-10 animate-bounce"></div>
 
-    setLoading(false);
-  };
-  return (
+<div className="absolute w-40 h-40 bg-white/20 rounded-full bottom-32 left-32 animate-ping"></div>
 
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#6a7df2] to-[#8a8be9] px-4">
 
-      <div className="w-full max-w-[850px] bg-white rounded-[30px] shadow-2xl p-6 md:p-12 flex flex-col md:flex-row items-center gap-8 md:gap-12">
+<div className="w-full max-w-[900px] flex rounded-[30px] overflow-hidden shadow-2xl backdrop-blur-lg bg-white/20">
 
-        <div className="w-[120px] md:w-[220px]">
-          <img
-            src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
-            className="w-full"
-            alt="avatar"
-          />
-        </div>
+{/* LEFT SIDE */}
 
-        <form onSubmit={handleLogin} className="w-full md:w-[420px]">
+<div className="hidden md:flex flex-col justify-center p-12 text-white w-1/2">
 
-          <h2 className="text-xl md:text-2xl font-bold text-[#6a7df2] mb-6">
-            Welcome To ERP v8.0.7
-          </h2>
+<h2 className="text-xl mb-6 flex items-center gap-2">
 
-          <div className="mb-4">
-            <label className="text-gray-600 text-sm">Login Name</label>
-            <input
-              type="text"
-              value={username}
-              onChange={(e)=>setUsername(e.target.value)}
-              className="w-full border border-gray-300 rounded-md px-3 py-2 mt-1 outline-none"
-              required
-            />
-          </div>
+<span className="w-4 h-4 bg-white rounded-full"></span>
 
-          <div className="mb-4">
-            <label className="text-gray-600 text-sm">Password</label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e)=>setPassword(e.target.value)}
-              className="w-full border border-gray-300 rounded-md px-3 py-2 mt-1 outline-none"
-              required
-            />
-          </div>
+Storage
 
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full py-3 rounded-full bg-gradient-to-r from-[#6a7df2] to-[#8a8be9] text-white font-semibold shadow-md"
-          >
-            {loading ? "Logging in..." : "Login"}
-          </button>
+</h2>
 
-          {error && (
-            <p className="text-red-500 mt-4">{error}</p>
-          )}
+<h1 className="text-3xl font-bold leading-snug mb-4">
 
-        </form>
+Manage your files <br/> the best way
 
-      </div>
+</h1>
 
-    </div>
-  );
+<p className="text-white/80 text-sm mb-8">
+
+Awesome, we've created the perfect place for you
+to store all your documents.
+
+</p>
+
+<img
+src="https://cdn-icons-png.flaticon.com/512/4712/4712109.png"
+className="w-52"
+/>
+
+</div>
+
+
+{/* RIGHT SIDE LOGIN */}
+
+<div className="w-full md:w-1/2 bg-white/70 backdrop-blur-xl p-10">
+
+<h2 className="text-3xl font-bold text-center text-indigo-600 mb-6">
+
+Welcome to neGbis ERP
+
+</h2>
+
+
+{/* avatar */}
+
+<div className="flex justify-center mb-6">
+
+<img
+src="https://cdn-icons-png.flaticon.com/512/4140/4140048.png"
+className="w-28 h-28 rounded-full shadow-lg"
+/>
+
+</div>
+
+
+<form onSubmit={handleLogin} className="space-y-5">
+
+<div>
+
+<label className="text-sm text-gray-600">
+Login Name
+</label>
+
+<input
+type="text"
+value={username}
+onChange={(e)=>setUsername(e.target.value)}
+className="w-full mt-1 px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-400 outline-none"
+required
+/>
+
+</div>
+
+
+<div>
+
+<label className="text-sm text-gray-600">
+Password
+</label>
+
+<input
+type="password"
+value={password}
+onChange={(e)=>setPassword(e.target.value)}
+className="w-full mt-1 px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-400 outline-none"
+required
+/>
+
+</div>
+
+
+<button
+type="submit"
+disabled={loading}
+className="w-full py-3 rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 text-white font-semibold shadow-lg hover:scale-105 transition"
+>
+
+{loading ? "Logging in..." : "Login"}
+
+</button>
+
+
+{error &&(
+
+<p className="text-red-500 text-center">
+
+{error}
+
+</p>
+
+)}
+
+</form>
+
+</div>
+
+</div>
+
+</div>
+
+);
 }
 
 export default Login;
