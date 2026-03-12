@@ -7,7 +7,7 @@ const [report,setReport] = useState("sale_summary")
 const [fromDate,setFromDate] = useState("")
 const [toDate,setToDate] = useState("")
 const [data,setData] = useState([])
-
+const [search,setSearch] = useState("")
 const [customerCode,setCustomerCode] = useState("")
 const [customerName,setCustomerName] = useState("")
 
@@ -319,7 +319,11 @@ Clear
 </div>
 
 <div className="lookup-search">
-<input placeholder="Find"/>
+<input
+placeholder="Find"
+value={search}
+onChange={(e)=>setSearch(e.target.value)}
+/>
 </div>
 
 <div className="lookup-table">
