@@ -17,7 +17,7 @@ const [showCustomer,setShowCustomer] = useState(false)
 const [loading,setLoading] = useState(false)
 
 
-/* PRINT REPORT */
+/* LOAD REPORT */
 
 const handlePrint = async ()=>{
 
@@ -109,7 +109,6 @@ window.close()
 </script>
 
 </body>
-
 </html>
 `)
 
@@ -165,13 +164,13 @@ return(
 
 <div className="report-content">
 
-
-{/* LEFT */}
+{/* LEFT PANEL */}
 
 <div className="report-left">
 
 <label>
-<input type="radio"
+<input
+type="radio"
 checked={report==="sale_summary"}
 onChange={()=>setReport("sale_summary")}
 name="report"
@@ -193,7 +192,7 @@ Sale Summary
 </div>
 
 
-{/* RIGHT */}
+{/* RIGHT PANEL */}
 
 <div className="report-right">
 
@@ -276,7 +275,6 @@ Clear
 <table className="report-table" id="reportTable">
 
 <thead>
-
 <tr>
 <th>SALE NO</th>
 <th>DATE</th>
@@ -284,7 +282,6 @@ Clear
 <th>GROSS</th>
 <th>CUSTOMER</th>
 </tr>
-
 </thead>
 
 <tbody>
@@ -292,13 +289,11 @@ Clear
 {data.map((row,i)=>(
 
 <tr key={i}>
-
 <td>{row.SALE_NO}</td>
 <td>{row.SALE_DATE}</td>
 <td>{row.NET_AMOUNT}</td>
 <td>{row.GROSS_AMOUNT}</td>
 <td>{row.CUST_NAME}</td>
-
 </tr>
 
 ))}
@@ -310,13 +305,24 @@ Clear
 )}
 
 
-{/* CUSTOMER LOOKUP */}
+{/* CUSTOMER LOOKUP MODAL */}
 
 {showCustomer && (
 
-<div className="lookup">
+<div className="lookup-overlay">
 
-<h3>Customer Lookup</h3>
+<div className="lookup-modal">
+
+<div className="lookup-header">
+<span>Customer Lookup</span>
+<button onClick={()=>setShowCustomer(false)}>X</button>
+</div>
+
+<div className="lookup-search">
+<input placeholder="Find"/>
+</div>
+
+<div className="lookup-table">
 
 <table>
 
@@ -344,7 +350,13 @@ Clear
 
 </table>
 
-<button onClick={()=>setShowCustomer(false)}>Close</button>
+</div>
+
+<div className="lookup-footer">
+<button onClick={()=>setShowCustomer(false)}>Cancel</button>
+</div>
+
+</div>
 
 </div>
 
