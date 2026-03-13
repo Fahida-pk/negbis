@@ -256,8 +256,13 @@ Clear
 
 <div className="report-modal-header">
 <h3>Sales Summary Report</h3>
-<button onClick={()=>setShowReport(false)}>X</button>
+
+<button onClick={()=>setShowReport(false)}>
+✕
+</button>
+
 </div>
+
 
 <div className="report-modal-body">
 

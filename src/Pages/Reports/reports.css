@@ -52,7 +52,23 @@ box-shadow:0 8px 25px rgba(0,0,0,0.15);
 position:relative;
 }
 
+.report-modal-header button{
+background:rgba(255,255,255,0.2);
+border:none;
+color:white;
+font-size:18px;
+width:32px;
+height:32px;
+border-radius:4px;
+cursor:pointer;
+display:flex;
+align-items:center;
+justify-content:center;
+}
 
+.report-modal-header button:hover{
+background:rgba(255,255,255,0.35);
+}
 /* ========================= */
 /* HEADER */
 /* ========================= */
