@@ -7,7 +7,8 @@ FaFileAlt,
 FaChartLine,
 FaFileInvoiceDollar,
 FaChevronDown,
-FaChevronRight
+FaChevronRight,
+FaBars
 } from "react-icons/fa";
 
 import "./sidebar.css";
@@ -19,9 +20,29 @@ const navigate = useNavigate();
 const [showReports,setShowReports] = useState(false);
 const [showSales,setShowSales] = useState(false);
 
+/* MOBILE SIDEBAR STATE */
+
+const [menuOpen,setMenuOpen] = useState(false);
+
 return(
 
-<div className="sidebar">
+<>
+
+{/* MOBILE TOPBAR */}
+
+<div className="mobile-topbar">
+
+<FaBars
+className="menu-btn"
+onClick={()=>setMenuOpen(!menuOpen)}
+/>
+
+<span className="mobile-title">neGbis</span>
+
+</div>
+
+
+<div className={`sidebar ${menuOpen ? "active" : ""}`}>
 
 {/* LOGO */}
 
@@ -95,6 +116,8 @@ onClick={()=>navigate("/reports")}
 )}
 
 </div>
+
+</>
 
 );
 

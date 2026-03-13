@@ -135,7 +135,63 @@ margin-right:10px;
 margin-left:10px;
 font-size:16px;
 }
+/* MOBILE TOPBAR */
 
+.mobile-topbar{
+
+display:none;
+
+position:fixed;
+top:0;
+left:0;
+right:0;
+
+height:60px;
+
+background:#5f6bd8;
+color:white;
+
+align-items:center;
+padding:0 15px;
+
+z-index:1000;
+
+}
+
+.menu-btn{
+font-size:24px;
+cursor:pointer;
+margin-right:15px;
+}
+
+.mobile-title{
+font-size:18px;
+font-weight:600;
+}
+
+
+/* MOBILE VIEW */
+
+@media (max-width:768px){
+
+.mobile-topbar{
+display:flex;
+}
+
+.sidebar{
+
+transform:translateX(-100%);
+transition:0.3s;
+
+z-index:999;
+
+}
+
+.sidebar.active{
+transform:translateX(0);
+}
+
+}
 /* RESPONSIVE */
 
 @media(max-width:768px){
