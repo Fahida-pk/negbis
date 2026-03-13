@@ -52,7 +52,25 @@ box-shadow:0 8px 25px rgba(0,0,0,0.15);
 position:relative;
 }
 
+/* REPORT BOX */
 
+
+
+/* CLOSE BUTTON */
+
+.close-btn{
+position:absolute;
+top:15px;
+right:15px;
+background:#5f6bd8;
+color:white;
+border:none;
+padding:6px 12px;
+border-radius:4px;
+cursor:pointer;
+font-weight:600;
+z-index:1000;
+}
 /* ========================= */
 /* HEADER */
 /* ========================= */
@@ -69,16 +87,7 @@ color:#333;
 
 /* CLOSE BUTTON */
 
-.close-btn{
-background:#5f6bd8;
-color:white;
-border:none;
-padding:6px 12px;
-cursor:pointer;
-border-radius:4px;
-font-weight:600;
-transition:0.2s;
-}
+
 
 .close-btn:hover{
 background:#4a54c7;
@@ -277,6 +286,17 @@ flex-direction:column;
 
 .buttons button{
 width:100%;
+}
+
+}
+@media (max-width:768px){
+
+.close-btn{
+top:10px;
+right:10px;
+padding:6px 10px;
+font-size:14px;
+z-index:2000;
 }
 
 }
