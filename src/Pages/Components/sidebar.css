@@ -46,7 +46,12 @@ border-radius:6px;
 font-size:20px;
 font-weight:600;
 }
-
+.dashboard-main{
+flex:1;
+margin-left:240px;
+min-height:100vh;
+position:relative;
+}
 
 /* MAIN MENU */
 
@@ -139,18 +144,9 @@ font-size:16px;
 width:70px;
 }
 
-.report-container{
+.dashboard-main{
 margin-left:70px;
 }
 
-.logo-title{
-display:none;
 }
 
-.sidebar-item span,
-.sidebar-subitem span,
-.sidebar-subitem2 span{
-display:none;
-}
-
-}
