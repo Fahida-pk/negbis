@@ -48,15 +48,13 @@ font-weight:600;
 }
 
 
-/* MENU ITEMS */
+/* MAIN MENU */
 
 .sidebar-item{
 display:flex;
 align-items:center;
-justify-content:space-between;
 
-padding:8px 12px;   /* gap kurachu */
-
+padding:8px 12px;
 border-radius:8px;
 
 cursor:pointer;
@@ -72,17 +70,15 @@ background:rgba(255,255,255,0.2);
 }
 
 
-/* SUB MENU LEVEL 1 */
+/* SUB MENU 1 */
 
 .sidebar-subitem{
 display:flex;
 align-items:center;
-justify-content:space-between;
 
-padding:6px 12px 6px 26px;
+padding:8px 12px 8px 28px;
 
 cursor:pointer;
-
 font-size:17px;
 
 transition:0.2s;
@@ -94,16 +90,15 @@ border-radius:6px;
 }
 
 
-/* SUB MENU LEVEL 2 */
+/* SUB MENU 2 */
 
 .sidebar-subitem2{
 display:flex;
 align-items:center;
 
-padding:6px 12px 6px 40px;
+padding:8px 12px 8px 45px;
 
 cursor:pointer;
-
 font-size:17px;
 
 transition:0.2s;
@@ -119,17 +114,16 @@ border-radius:6px;
 
 .icon{
 font-size:18px;
-margin-right:8px;
+margin-right:10px;
 }
 
 
 /* ARROW */
 
 .arrow{
+margin-left:auto;
 font-size:16px;
-margin-left:4px;
 }
-
 
 /* RESPONSIVE */
 
