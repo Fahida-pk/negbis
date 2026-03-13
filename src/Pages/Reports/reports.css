@@ -174,7 +174,7 @@ font-size:14px;
 
 }
 
-.filter-row input{
+.filter-row > input{
 
 padding:8px 10px;
 
@@ -198,6 +198,37 @@ border-color:#5f6bd8;
 
 
 /* ========================= */
+/* CUSTOMER ROW */
+/* ========================= */
+
+.customer-row{
+display:flex;
+gap:8px;
+width:100%;
+align-items:center;
+}
+
+.customer-row input{
+flex:1;
+min-width:0;
+padding:8px 10px;
+border-radius:5px;
+border:1px solid #cfd4e6;
+}
+
+.customer-row button{
+width:40px;
+height:36px;
+flex-shrink:0;
+border:none;
+background:#5f6bd8;
+color:white;
+border-radius:5px;
+cursor:pointer;
+}
+
+
+/* ========================= */
 /* BUTTONS */
 /* ========================= */
 
@@ -210,34 +241,6 @@ display:flex;
 gap:12px;
 
 }
-
-
-/* LOAD BUTTON */
-
-.load{
-
-background:#5f6bd8;
-
-color:white;
-
-padding:10px 24px;
-
-border:none;
-
-border-radius:6px;
-
-font-weight:600;
-
-cursor:pointer;
-
-}
-
-.load:hover{
-background:#4d57c7;
-}
-
-
-/* PRINT BUTTON */
 
 .print{
 
@@ -259,14 +262,12 @@ cursor:pointer;
 
 .print:hover{
 background:#4d57c7;
+color:black;
 }
-
-
-/* CLEAR BUTTON */
 
 .clear{
 
-background:#f44336;
+background:#5f6bd8;
 
 color:white;
 
@@ -283,7 +284,7 @@ cursor:pointer;
 }
 
 .clear:hover{
-background:#d93328;
+color:black;
 }
 
 
@@ -423,227 +424,15 @@ overflow:auto;
 
 }
 
-
-/* ========================= */
-/* CUSTOMER LOOKUP MODAL */
-/* ========================= */
-
-.lookup-overlay{
-
-position:fixed;
-
-top:0;
-left:0;
-
-width:100%;
-height:100%;
-
-background:rgba(0,0,0,0.4);
-
-display:flex;
-
-justify-content:center;
-align-items:center;
-
-z-index:6000;
-
-}
-
-.lookup-modal{
-
-width:600px;
-
-max-width:95%;
-
-background:white;
-
-border-radius:8px;
-
-box-shadow:0 10px 25px rgba(0,0,0,0.25);
-
-overflow:hidden;
-
-}
-
-
-/* ========================= */
-/* LOOKUP HEADER */
-/* ========================= */
-
-.lookup-header{
-
-background:#5f6bd8;
-
-color:white;
-
-padding:10px 15px;
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-font-weight:600;
-
-}
-
-.lookup-header button{
-
-background:white;
-
-color:#5f6bd8;
-
-border:none;
-
-width:30px;
-height:30px;
-
-border-radius:5px;
-
-cursor:pointer;
-
-}
-
-
-/* ========================= */
-/* LOOKUP SEARCH */
-/* ========================= */
-
-.lookup-search{
-
-padding:12px;
-
-border-bottom:1px solid #e5e7f4;
-
-}
-
-.lookup-search input{
-
-width:100%;
-
-padding:8px;
-
-border:1px solid #cfd4e6;
-
-border-radius:5px;
-
-}
-
-
-/* ========================= */
-/* LOOKUP TABLE */
-/* ========================= */
-
-.lookup-table{
-
-max-height:300px;
-
-overflow-y:auto;
-
-}
-
-.lookup-table table{
-
-width:100%;
-
-border-collapse:collapse;
-
-}
-
-.lookup-table th,
-.lookup-table td{
-
-border:1px solid #e2e5f2;
-
-padding:8px;
-
-font-size:14px;
-
-}
-
-.lookup-table tr:hover{
-
-background:#eef1ff;
-
-cursor:pointer;
-
-}
-
-
-/* ========================= */
-/* LOOKUP FOOTER */
-/* ========================= */
-
-.lookup-footer{
-
-padding:10px;
-
-display:flex;
-
-justify-content:flex-end;
-
-border-top:1px solid #e5e7f4;
-
-}
-
-.lookup-footer button{
-
-padding:6px 15px;
-
-border:none;
-
-background:#f44336;
-
-color:white;
-
-border-radius:4px;
-
-cursor:pointer;
-
-}
-
-/* CUSTOMER FIELD ROW */
-
-.customer-row{
-display:flex;
-gap:8px;
-width:100%;
-}
-
-.customer-row input{
-flex:1;
-}
-
-.customer-row button{
-width:45px;
-min-width:45px;
-height:36px;
-border:none;
-background:#5f6bd8;
-color:white;
-border-radius:5px;
-cursor:pointer;
-}
-.report-modal-body{
-padding:20px;
-max-height:500px;
-overflow:auto;
-}
-
 .report-table{
 min-width:600px;
 }
+
+
 /* ========================= */
 /* MOBILE */
 /* ========================= */
-@media(max-width:768px){
 
-.report-modal-body{
-overflow-x:auto;
-}
-
-}
 @media (max-width:768px){
 
 .report-container{
@@ -696,9 +485,11 @@ flex-direction:column;
 
 align-items:flex-start;
 
+width:100%;
+
 }
 
-.filter-row input{
+.filter-row > input{
 
 width:100%;
 
@@ -722,6 +513,10 @@ width:95%;
 
 .lookup-modal{
 width:95%;
+}
+
+.report-modal-body{
+overflow-x:auto;
 }
 
 .close-btn{
