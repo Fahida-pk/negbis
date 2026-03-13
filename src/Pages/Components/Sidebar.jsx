@@ -86,7 +86,7 @@ onClick={()=>setShowSales(!showSales)}
 
 <div
 className="sidebar-subitem2"
-onClick={()=>navigate("/SalesReport")}
+onClick={()=>navigate("/reports")}
 >
 <FaFileInvoiceDollar className="icon"/>
 <span>Invoice</span>

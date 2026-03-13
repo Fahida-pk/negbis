@@ -125,7 +125,7 @@ position:absolute;
 
 bottom:120px;
 
-width:80%;
+width:100%;
 
 display:flex;
 
@@ -135,7 +135,6 @@ align-items:center;
 
 padding:0 120px;
 
-background:rgba(255,255,255,0.3);
 
 
 }
