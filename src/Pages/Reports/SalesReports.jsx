@@ -284,11 +284,11 @@ Clear
 
 {data.map((row,i)=>(
 <tr key={i}>
-<td>{row.SALE_NO}</td>
-<td>{row.SALE_DATE}</td>
-<td>{row.NET_AMOUNT}</td>
-<td>{row.GROSS_AMOUNT}</td>
-<td>{row.CUST_NAME}</td>
+<td data-label="Sale No">{row.SALE_NO}</td>
+<td data-label="Date">{row.SALE_DATE}</td>
+<td data-label="Net">{row.NET_AMOUNT}</td>
+<td data-label="Gross">{row.GROSS_AMOUNT}</td>
+<td data-label="Customer">{row.CUST_NAME}</td>
 </tr>
 ))}
 
