@@ -201,3 +201,19 @@ width:120px;
 }
 
 }
+/* MOBILE VIEW BACKGROUND LIGHT */
+
+@media (max-width:768px){
+
+body{
+
+background: linear-gradient(
+135deg,
+#f2f4f8,
+#e6ecf5,
+#d8e0f0
+);
+
+}
+
+}
