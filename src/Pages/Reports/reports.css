@@ -566,7 +566,7 @@ padding:8px;
 font-size:14px;
 
 }
-button{
+button1{
   background:#f4f6fb;
   border:1px solid #d9dce7;
   padding:6px 10px;
@@ -574,7 +574,7 @@ button{
   cursor:pointer;
 }
 
-button:hover{
+button1:hover{
   background:#e9ecf5;
 }
 .lookup-table tr:hover{

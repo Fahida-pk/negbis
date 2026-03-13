@@ -290,7 +290,7 @@ onChange={(e)=>setStore(e.target.value)}
 
 <input value={customerName} placeholder="Description" readOnly/>
 
-<button onClick={openCustomer}>🔍</button>
+<button1 onClick={openCustomer}>🔍</button1>
 
 </div>
 
