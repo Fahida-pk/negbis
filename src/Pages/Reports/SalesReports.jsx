@@ -61,14 +61,38 @@ setLoading(false)
 }
 
 
-const printTable = () => {
+const printTable = async () => {
+
+if(!fromDate || !toDate){
+alert("Select date")
+return
+}
+
+setLoading(true)
+
+try{
+
+const res = await fetch("/api/salesSummary",{
+method:"POST",
+headers:{ "Content-Type":"application/json" },
+body:JSON.stringify({
+from:fromDate,
+to:toDate,
+customer:customerCode
+})
+})
+
+const result = await res.json()
+
+if(result.status==="success"){
+
+setData(result.data)
+
+setTimeout(()=>{
 
 const table = document.getElementById("reportTable")
 
-if(!table){
-alert("Please load the report first")
-return
-}
+if(!table) return
 
 const printContent = table.outerHTML
 
@@ -78,16 +102,13 @@ win.document.write(`
 <html>
 <head>
 <title>Sales Report</title>
-
 <style>
 body{font-family:Arial;padding:20px;}
 table{width:100%;border-collapse:collapse;}
-th,td{border:1px solid #999;padding:8px;text-align:left;}
+th,td{border:1px solid #999;padding:8px;}
 th{background:#eee;}
 </style>
-
 </head>
-
 <body>
 
 <h2>Sales Summary Report</h2>
@@ -99,8 +120,20 @@ ${printContent}
 `)
 
 win.document.close()
-win.focus()
 win.print()
+
+},300)
+
+}else{
+alert("Report failed")
+}
+
+}catch(err){
+console.log(err)
+alert("Server error")
+}
+
+setLoading(false)
 
 }
 
