@@ -1,6 +1,15 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { FaChartLine, FaFileInvoiceDollar, FaFileAlt, FaHome } from "react-icons/fa";
+
+import {
+FaHome,
+FaFileAlt,
+FaChartLine,
+FaFileInvoiceDollar,
+FaChevronDown,
+FaChevronRight
+} from "react-icons/fa";
+
 import "./sidebar.css";
 
 function Sidebar(){
@@ -16,7 +25,7 @@ return(
 
 {/* LOGO */}
 
-<div className="logo-section">
+<div className="logo-box">
 <img src="/image/logo.jpg" alt="logo" className="logo-img"/>
 <span className="logo-title">neGbis</span>
 </div>
@@ -28,19 +37,22 @@ return(
 className="sidebar-item"
 onClick={()=>navigate("/dashboard")}
 >
-<FaHome className="icon"/> Dashboard
+<FaHome className="icon"/>
+<span>Dashboard</span>
 </div>
 
 
-<div className="sidebar-menu">
-
-{/* REPORTS */}
+{/* REPORT */}
 
 <div
 className="sidebar-item"
 onClick={()=>setShowReports(!showReports)}
 >
-<FaFileAlt className="icon"/> Reports ^
+<FaFileAlt className="icon"/>
+<span>Reports</span>
+
+{showReports ? <FaChevronDown/> : <FaChevronRight/>}
+
 </div>
 
 
@@ -52,7 +64,11 @@ onClick={()=>setShowReports(!showReports)}
 className="sidebar-subitem"
 onClick={()=>setShowSales(!showSales)}
 >
-<FaChartLine className="icon"/> Sales
+<FaChartLine className="icon"/>
+<span>Sales</span>
+
+{showSales ? <FaChevronDown/> : <FaChevronRight/>}
+
 </div>
 
 )}
@@ -64,14 +80,13 @@ onClick={()=>setShowSales(!showSales)}
 
 <div
 className="sidebar-subitem2"
-onClick={()=>navigate("/reports")}
+onClick={()=>navigate("/invoice")}
 >
-<FaFileInvoiceDollar className="icon"/> Invoice
+<FaFileInvoiceDollar className="icon"/>
+<span>Invoice</span>
 </div>
 
 )}
-
-</div>
 
 </div>
 
