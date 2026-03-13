@@ -641,50 +641,7 @@ min-width:600px;
 /* ========================= */
 /* MOBILE VIEW */
 /* ========================= */
-/* ========================= */
-/* MOBILE TABLE */
-/* ========================= */
 
-@media (max-width:768px){
-
-.report-table{
-width:100%;
-border:0;
-}
-
-.report-table thead{
-display:none;
-}
-
-.report-table tr{
-display:block;
-margin-bottom:12px;
-border:1px solid #dfe3f5;
-border-radius:6px;
-background:#fff;
-padding:8px;
-}
-
-.report-table td{
-display:flex;
-justify-content:space-between;
-padding:6px 8px;
-border:none;
-border-bottom:1px solid #eee;
-font-size:13px;
-}
-
-.report-table td:last-child{
-border-bottom:none;
-}
-
-.report-table td::before{
-content:attr(data-label);
-font-weight:600;
-color:#444;
-}
-
-}
 @media (max-width:768px){
 
 /* CONTAINER */
