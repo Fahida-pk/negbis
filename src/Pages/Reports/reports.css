@@ -1,5 +1,7 @@
 /* MAIN CONTAINER */
-
+*{
+box-sizing:border-box;
+}
 html, body {
   margin: 0;
   padding: 0;
@@ -206,6 +208,68 @@ flex-direction:column;
 .clear{
 width:100%;
 }
+
+.report-table{
+font-size:12px;
+}
+
+}
+/* ========================= */
+/* MOBILE + TABLET VIEW */
+/* ========================= */
+
+@media (max-width:768px){
+
+.report-container{
+padding:10px;
+align-items:flex-start;
+}
+
+.report-box{
+width:100%;
+max-width:100%;
+padding:15px;
+}
+
+.report-content{
+flex-direction:column;
+}
+
+.report-left{
+width:100%;
+border-right:none;
+border-bottom:1px solid gray;
+padding:10px;
+}
+
+.report-right{
+width:100%;
+padding:10px;
+}
+
+/* filters */
+
+.filter-row{
+flex-direction:column;
+gap:8px;
+}
+
+.filter-row input{
+width:100%;
+}
+
+/* buttons */
+
+.buttons{
+flex-direction:column;
+}
+
+.print,
+.clear{
+width:100%;
+}
+
+/* table */
 
 .report-table{
 font-size:12px;
