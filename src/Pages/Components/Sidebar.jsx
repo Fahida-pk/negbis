@@ -43,16 +43,6 @@ onClick={()=>setShowReports(!showReports)}
 
 {/* DASHBOARD SHOW ONLY WHEN REPORT CLICK */}
 
-{showReports && (
-
-<div
-className="sidebar-subitem"
-onClick={()=>navigate("/dashboard")}
->
-<FaHome className="icon"/> Dashboard
-</div>
-
-)}
 
 
 {/* SALES */}
