@@ -246,21 +246,13 @@ Clear
 </div>
 
 
-{/* REPORT POPUP */}
+{/* REPORT TABLE */}
 
-{showReport &&(
+{showReport && (
 
-<div className="report-overlay">
-
-<div className="report-modal">
-
-<div className="report-modal-header">
+<div className="report-result">
 
 <h3>Sales Summary Report</h3>
-
-<button onClick={()=>setShowReport(false)}>X</button>
-
-</div>
 
 <table className="report-table" id="reportTable">
 
@@ -291,8 +283,6 @@ Clear
 </tbody>
 
 </table>
-
-</div>
 
 </div>
 

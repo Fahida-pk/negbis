@@ -178,7 +178,37 @@ transition:0.2s;
 opacity:0.9;
 }
 
+.report-result{
 
+margin-top:30px;
+background:#fff;
+padding:20px;
+border-radius:8px;
+box-shadow:0 4px 10px rgba(0,0,0,0.1);
+
+}
+
+.report-table{
+
+width:100%;
+border-collapse:collapse;
+
+}
+
+.report-table th,
+.report-table td{
+
+border:1px solid #ccc;
+padding:8px;
+text-align:left;
+
+}
+
+.report-table th{
+
+background:#f4f4f4;
+
+}
 /* PRINT BUTTON */
 
 .print{
