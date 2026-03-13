@@ -2,10 +2,9 @@ export default async function handler(req, res) {
 
   try {
 
-    const { from, to } = req.body;
-
+const { from, to, store } = req.body;
     const response = await fetch(
-      `https://erp.codezyntax.com/api/salesSummary.php?from=${from}&to=${to}`
+      `https://erp.codezyntax.com/api/salesSummary.php?from=${from}&to=${to}&store=${store}`
     );
 
     const data = await response.json();

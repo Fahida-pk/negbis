@@ -11,14 +11,25 @@ const [data,setData] = useState([])
 const [search,setSearch] = useState("")
 const [customerCode,setCustomerCode] = useState("")
 const [customerName,setCustomerName] = useState("")
-const [storeId,setStoreId] = useState(1)
+
 const [customerList,setCustomerList] = useState([])
 const [showCustomer,setShowCustomer] = useState(false)
 const [showReport,setShowReport] = useState(false)
 
 const [loading,setLoading] = useState(false)
 
+const [stores,setStores] = useState([])
+const [store,setStore] = useState("")
 
+useEffect(()=>{
+
+fetch("http://localhost/api/getStores.php")
+.then(res=>res.json())
+.then(data=>{
+setStores(data.data)
+})
+
+},[])
 /* LOAD REPORT */
 
 const handleLoad = async ()=>{
@@ -38,7 +49,9 @@ headers:{ "Content-Type":"application/json" },
 body:JSON.stringify({
 from:fromDate,
 to:toDate,
-customer:customerCode
+customer:customerCode,
+store:store
+
 })
 })
 
@@ -250,13 +263,17 @@ onChange={(e)=>setToDate(e.target.value)}
 <label>Store</label>
 
 <select
-value={storeId}
-onChange={(e)=>setStoreId(e.target.value)}
+value={store}
+onChange={(e)=>setStore(e.target.value)}
 >
 
-<option value="1">Default Store</option>
-<option value="2">Store 2</option>
-<option value="3">Store 3</option>
+<option value="">Select Store</option>
+
+{stores.map((s)=>(
+<option key={s.ID} value={s.ID}>
+{s.STORE_NAME}
+</option>
+))}
 
 </select>
 
