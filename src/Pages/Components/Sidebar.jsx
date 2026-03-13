@@ -1,20 +1,14 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import {
-FaTachometerAlt,
-FaChartPie,
-FaChevronDown,
-FaChevronRight,
-FaFileInvoiceDollar
-} from "react-icons/fa";
-
+import { FaChartLine, FaFileInvoiceDollar, FaFileAlt, FaHome } from "react-icons/fa";
 import "./sidebar.css";
 
 function Sidebar(){
 
 const navigate = useNavigate();
 
-const [reportOpen,setReportOpen] = useState(false);
+const [showReports,setShowReports] = useState(false);
+const [showSales,setShowSales] = useState(false);
 
 return(
 
@@ -24,62 +18,60 @@ return(
 
 <div className="logo-section">
 <img src="/image/logo.jpg" alt="logo" className="logo-img"/>
-<h2 className="logo-title">neGbis</h2>
+<span className="logo-title">neGbis</span>
 </div>
 
 
 {/* DASHBOARD */}
 
 <div
-className="menu-item"
+className="sidebar-item"
 onClick={()=>navigate("/dashboard")}
 >
-<FaTachometerAlt className="menu-icon"/>
-<span>Dashboard</span>
+<FaHome className="icon"/> Dashboard
 </div>
 
 
-{/* REPORT */}
+<div className="sidebar-menu">
+
+{/* REPORTS */}
 
 <div
-className="menu-item"
-onClick={()=>setReportOpen(!reportOpen)}
+className="sidebar-item"
+onClick={()=>setShowReports(!showReports)}
 >
-<FaChartPie className="menu-icon"/>
-
-<span className="menu-text">Report</span>
-
-{reportOpen
-? <FaChevronDown className="arrow"/>
-: <FaChevronRight className="arrow"/>}
-
+<FaFileAlt className="icon"/> Reports ^
 </div>
 
 
-{/* REPORT SUBMENU */}
+{/* SALES */}
 
-{reportOpen && (
-
-<div className="submenu">
+{showReports && (
 
 <div
-className="submenu-item"
-onClick={()=>navigate("/sales")}
+className="sidebar-subitem"
+onClick={()=>setShowSales(!showSales)}
 >
-Sales
-</div>
-
-<div
-className="submenu-item"
-onClick={()=>navigate("/invoice")}
->
-<FaFileInvoiceDollar className="submenu-icon"/>
-Invoice
-</div>
-
+<FaChartLine className="icon"/> Sales
 </div>
 
 )}
+
+
+{/* INVOICE */}
+
+{showSales && (
+
+<div
+className="sidebar-subitem2"
+onClick={()=>navigate("/reports")}
+>
+<FaFileInvoiceDollar className="icon"/> Invoice
+</div>
+
+)}
+
+</div>
 
 </div>
 

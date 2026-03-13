@@ -12,27 +12,25 @@ background: linear-gradient(
 #8e5cc7 100%
 );
 
-padding:25px 20px;
+padding:20px;
 
 position:fixed;
 left:0;
 top:0;
 
-color:white;
+color:#1a1a1a;
 
 display:flex;
 flex-direction:column;
 
 box-shadow:2px 0 15px rgba(0,0,0,0.15);
-
-font-family:'Poppins',sans-serif;
 z-index:100;
 }
 
 
 /* LOGO */
 
-.logo-section{
+.logo-box{
 display:flex;
 align-items:center;
 gap:10px;
@@ -40,14 +38,14 @@ margin-bottom:40px;
 }
 
 .logo-img{
-width:34px;
-height:34px;
+width:32px;
+height:32px;
 border-radius:6px;
 }
 
 .logo-title{
 font-size:22px;
-font-weight:600;
+font-weight:bold;
 }
 
 
@@ -56,101 +54,62 @@ font-weight:600;
 .sidebar-menu{
 display:flex;
 flex-direction:column;
-gap:20px;
+gap:15px;
 }
 
 .sidebar-item{
-
+padding:10px;
+border-radius:8px;
+cursor:pointer;
+transition:0.3s;
+font-weight:600;
 display:flex;
 align-items:center;
-gap:14px;
-
-font-size:18px;
-
-padding:12px 10px;
-
-border-radius:8px;
-
-cursor:pointer;
-
-transition:0.3s;
-
+gap:10px;
 }
 
 .sidebar-item:hover{
-background:rgba(255,255,255,0.15);
-}
-
-
-/* ICON */
-
-.icon{
-font-size:20px;
-}
-
-
-/* ARROW */
-
-.arrow{
-margin-left:auto;
-font-size:14px;
+background:rgba(255,255,255,0.4);
 }
 
 
 /* SUB MENU */
 
 .sidebar-subitem{
-
-margin-left:40px;
-
-font-size:15px;
-
+padding-left:20px;
 cursor:pointer;
-
+font-size:14px;
+color:#333;
 display:flex;
 align-items:center;
+gap:10px;
+}
 
-gap:8px;
-
-opacity:0.9;
-
-transition:0.2s;
-
+.sidebar-subitem2{
+padding-left:40px;
+cursor:pointer;
+font-size:14px;
+color:#333;
+display:flex;
+align-items:center;
+gap:10px;
 }
 
 .sidebar-subitem:hover{
-
-opacity:1;
 text-decoration:underline;
+}
 
+.icon{
+font-size:15px;
 }
 
 
-/* MAIN DASHBOARD AREA */
 
-.dashboard-main{
-
-margin-left:220px;
-
-min-height:100vh;
-
-background: linear-gradient(
-135deg,
-#5f6bd8,
-#6a73d9 25%,
-#7b6bd1 60%,
-#8e5cc7
-);
-
-position:relative;
-
-}
 
 
 /* ========================= */
 /* RESPONSIVE MEDIA QUERY */
 /* ========================= */
-
 
 /* TABLET */
 
@@ -166,14 +125,6 @@ margin-left:180px;
 
 .logo-title{
 font-size:20px;
-}
-
-.sidebar-item{
-font-size:16px;
-}
-
-.icon{
-font-size:18px;
 }
 
 }
@@ -193,7 +144,8 @@ display:none;
 }
 
 .sidebar-item span,
-.sidebar-subitem span{
+.sidebar-subitem span,
+.sidebar-subitem2 span{
 display:none;
 }
 
@@ -202,11 +154,11 @@ margin-left:70px;
 }
 
 .sidebar-subitem{
-margin-left:10px;
+padding-left:10px;
 }
 
-.icon{
-font-size:18px;
+.sidebar-subitem2{
+padding-left:15px;
 }
 
 }
