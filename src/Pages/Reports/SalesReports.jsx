@@ -1,6 +1,5 @@
 import { useState } from "react";
 import Sidebar from "../Components/Sidebar";
-
 import "./reports.css";
 
 function SalesReports(){
@@ -62,7 +61,7 @@ setLoading(false)
 }
 
 
-/* PRINT TABLE */
+/* PRINT */
 
 const printTable = ()=>{
 
@@ -134,11 +133,10 @@ setShowCustomer(false)
 }
 
 
-/* UI */
-
 return(
 
 <div className="report-container">
+
 <Sidebar/>
 
 <div className="report-box">
@@ -245,14 +243,23 @@ Clear
 
 </div>
 
+</div>
 
-{/* REPORT TABLE */}
+
+{/* REPORT POPUP */}
 
 {showReport && (
 
-<div className="report-result">
+<div className="report-overlay">
 
+<div className="report-modal">
+
+<div className="report-modal-header">
 <h3>Sales Summary Report</h3>
+<button onClick={()=>setShowReport(false)}>X</button>
+</div>
+
+<div className="report-modal-body">
 
 <table className="report-table" id="reportTable">
 
@@ -269,7 +276,6 @@ Clear
 <tbody>
 
 {data.map((row,i)=>(
-
 <tr key={i}>
 <td>{row.SALE_NO}</td>
 <td>{row.SALE_DATE}</td>
@@ -277,7 +283,6 @@ Clear
 <td>{row.GROSS_AMOUNT}</td>
 <td>{row.CUST_NAME}</td>
 </tr>
-
 ))}
 
 </tbody>
@@ -286,10 +291,14 @@ Clear
 
 </div>
 
+</div>
+
+</div>
+
 )}
 
 
-{/* CUSTOMER LOOKUP MODAL */}
+{/* CUSTOMER LOOKUP */}
 
 {showCustomer && (
 
@@ -355,8 +364,6 @@ c.CODE.toString().includes(search)
 </div>
 
 )}
-
-</div>
 
 </div>
 
