@@ -126,6 +126,25 @@ text-decoration:underline;
 }
 
 
+/* MAIN DASHBOARD AREA */
+
+.dashboard-main{
+
+margin-left:220px;
+
+min-height:100vh;
+
+background: linear-gradient(
+135deg,
+#5f6bd8,
+#6a73d9 25%,
+#7b6bd1 60%,
+#8e5cc7
+);
+
+position:relative;
+
+}
 
 
 /* ========================= */
