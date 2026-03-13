@@ -61,20 +61,24 @@ setLoading(false)
 }
 
 
-/* PRINT REPORT */
-
 const printTable = () => {
 
-const table = document.getElementById("reportTable")
-
-if(!table){
-alert("Please load report first")
+if(data.length === 0){
+alert("No data to print")
 return
 }
 
-const printContent = table.outerHTML
-
 const win = window.open("","","width=900,height=700")
+
+const rows = data.map(row => `
+<tr>
+<td>${row.SALE_NO}</td>
+<td>${row.SALE_DATE}</td>
+<td>${row.NET_AMOUNT}</td>
+<td>${row.GROSS_AMOUNT}</td>
+<td>${row.CUST_NAME}</td>
+</tr>
+`).join("")
 
 win.document.write(`
 <html>
@@ -82,10 +86,29 @@ win.document.write(`
 <title>Sales Report</title>
 
 <style>
-body{font-family:Arial;padding:20px;}
-table{width:100%;border-collapse:collapse;}
-th,td{border:1px solid #999;padding:8px;text-align:left;}
-th{background:#eee;}
+body{
+font-family:Arial;
+padding:20px;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+}
+
+th,td{
+border:1px solid #999;
+padding:8px;
+text-align:left;
+}
+
+th{
+background:#eee;
+}
+
+h2{
+margin-bottom:10px;
+}
 </style>
 
 </head>
@@ -95,7 +118,22 @@ th{background:#eee;}
 <h2>Sales Summary Report</h2>
 <p>From: ${fromDate} To: ${toDate}</p>
 
-${printContent}
+<table>
+<thead>
+<tr>
+<th>SALE NO</th>
+<th>DATE</th>
+<th>NET</th>
+<th>GROSS</th>
+<th>CUSTOMER</th>
+</tr>
+</thead>
+
+<tbody>
+${rows}
+</tbody>
+
+</table>
 
 </body>
 </html>
@@ -105,7 +143,6 @@ win.document.close()
 win.print()
 
 }
-
 
 /* CLEAR */
 
