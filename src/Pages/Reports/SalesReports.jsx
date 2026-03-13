@@ -23,7 +23,8 @@ const [store,setStore] = useState("")
 
 useEffect(()=>{
 
-fetch("/api/getStores").then(res=>res.json())
+fetch(`/api/data?type=getStores`)
+.then(res=>res.json())
 .then(data=>{
 setStores(data.data)
 })
@@ -42,7 +43,7 @@ setLoading(true)
 
 try{
 
-const res = await fetch("/api/salesSummary",{
+const res = await fetch(`/api/data?type=salesSummary&from=${fromDate}&to=${toDate}&store=${store}`,{
 method:"POST",
 headers:{ "Content-Type":"application/json" },
 body:JSON.stringify({
