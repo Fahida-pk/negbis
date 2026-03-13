@@ -11,7 +11,7 @@ const [data,setData] = useState([])
 const [search,setSearch] = useState("")
 const [customerCode,setCustomerCode] = useState("")
 const [customerName,setCustomerName] = useState("")
-
+const [storeId,setStoreId] = useState(1)
 const [customerList,setCustomerList] = useState([])
 const [showCustomer,setShowCustomer] = useState(false)
 const [showReport,setShowReport] = useState(false)
@@ -248,7 +248,17 @@ onChange={(e)=>setToDate(e.target.value)}
 <div className="filter-row">
 
 <label>Store</label>
-<input placeholder="DEFAULT STORE"/>
+
+<select
+value={storeId}
+onChange={(e)=>setStoreId(e.target.value)}
+>
+
+<option value="1">Default Store</option>
+<option value="2">Store 2</option>
+<option value="3">Store 3</option>
+
+</select>
 
 </div>
 
