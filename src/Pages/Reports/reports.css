@@ -226,7 +226,7 @@ z-index:5000;
 .report-modal{
 width:900px;
 max-width:95%;
-background:white;
+background:linear-gradient(135deg,#5f6bd8,#8e5cc7);
 border-radius:8px;
 box-shadow:0 10px 30px rgba(0,0,0,0.3);
 overflow:hidden;
@@ -297,7 +297,7 @@ font-weight:600;
 }
 
 .lookup-header button{
-background:#333;
+background:linear-gradient(135deg,#5f6bd8,#8e5cc7);
 color:white;
 border:none;
 padding:4px 10px;
