@@ -639,101 +639,142 @@ overflow:auto;
 min-width:600px;
 }
 /* ========================= */
-/* MOBILE */
+/* MOBILE VIEW */
 /* ========================= */
-@media(max-width:768px){
+
+@media (max-width:768px){
+
+/* CONTAINER */
+
+.report-container{
+margin-left:0;
+padding:80px 12px 20px;
+align-items:flex-start;
+}
+
+
+/* BOX */
+
+.report-box{
+width:100%;
+padding:16px;
+}
+
+
+/* CONTENT STACK */
+
+.report-content{
+flex-direction:column;
+gap:15px;
+}
+
+
+/* LEFT PANEL */
+
+.report-left{
+width:100%;
+border-right:none;
+border-bottom:1px solid #e3e6f3;
+padding-bottom:10px;
+}
+
+
+/* RIGHT PANEL */
+
+.report-right{
+width:100%;
+padding:0;
+}
+
+
+/* FILTER ROW */
+
+.filter-row{
+flex-direction:column;
+align-items:stretch;
+gap:8px;
+}
+
+
+/* INPUT */
+
+.filter-row input{
+width:100%;
+}
+
+
+/* CUSTOMER ROW */
+
+.customer-row{
+display:flex;
+gap:6px;
+flex-wrap:nowrap;
+width:100%;
+}
+
+.customer-row input{
+flex:1;
+min-width:0;
+}
+
+.customer-row button{
+width:42px;
+min-width:42px;
+height:36px;
+background:#5f6bd8;
+}
+
+
+/* BUTTON GROUP */
+
+.buttons{
+flex-direction:column;
+gap:10px;
+}
+
+.buttons button{
+width:100%;
+}
+
+
+/* CLOSE BUTTON */
+
+.close-btn{
+top:10px;
+right:10px;
+width:32px;
+height:32px;
+}
+
+
+/* MODAL */
+
+.report-modal{
+width:95%;
+max-height:90vh;
+}
 
 .report-modal-body{
 overflow-x:auto;
 }
 
-}
-@media (max-width:768px){
 
-.report-container{
+/* TABLE SCROLL */
 
-margin-left:0;
-
-padding:90px 10px 20px;
-
-align-items:flex-start;
-
+.report-table{
+min-width:600px;
 }
 
-.report-box{
 
-width:100%;
-
-padding:18px;
-
-}
-
-.report-content{
-
-flex-direction:column;
-
-}
-
-.report-left{
-
-width:100%;
-
-border-right:none;
-
-border-bottom:1px solid #e3e6f3;
-
-padding-bottom:10px;
-
-}
-
-.report-right{
-
-width:100%;
-
-padding-top:10px;
-
-}
-
-.filter-row{
-
-flex-direction:column;
-
-align-items:flex-start;
-
-}
-
-.filter-row input{
-
-width:100%;
-
-}
-
-.buttons{
-
-flex-direction:column;
-
-}
-
-.buttons button{
-
-width:100%;
-
-}
-
-.report-modal{
-width:95%;
-}
+/* LOOKUP MODAL */
 
 .lookup-modal{
 width:95%;
+max-height:90vh;
 }
 
-.close-btn{
-
-top:10px;
-
-right:10px;
-
+.lookup-table{
+overflow:auto;
 }
 
 }
