@@ -6,8 +6,7 @@ FaHome,
 FaFileAlt,
 FaChartLine,
 FaFileInvoiceDollar,
-FaChevronDown,
-FaChevronRight
+FaChevronDown
 } from "react-icons/fa";
 
 import "./sidebar.css";
@@ -16,8 +15,7 @@ function Sidebar(){
 
 const navigate = useNavigate();
 
-const [showReports,setShowReports] = useState(false);
-const [showSales,setShowSales] = useState(false);
+const [openMenu,setOpenMenu] = useState(null);
 
 return(
 
@@ -46,28 +44,40 @@ onClick={()=>navigate("/dashboard")}
 
 <div
 className="sidebar-item"
-onClick={()=>setShowReports(!showReports)}
+onClick={()=>setOpenMenu(openMenu === "reports" ? null : "reports")}
 >
 <FaFileAlt className="icon"/>
 <span>Reports</span>
 
-{showReports ? <FaChevronDown className="arrow"/> : <FaChevronRight className="arrow"/>}
+<FaChevronDown
+className="arrow"
+style={{
+transform: openMenu === "reports" ? "rotate(180deg)" : "rotate(0deg)",
+transition:"0.3s"
+}}
+/>
 
 </div>
 
 
 {/* SALES */}
 
-{showReports && (
+{openMenu === "reports" && (
 
 <div
 className="sidebar-subitem"
-onClick={()=>setShowSales(!showSales)}
+onClick={()=>setOpenMenu(openMenu === "sales" ? null : "sales")}
 >
 <FaChartLine className="icon"/>
 <span>Sales</span>
 
-{showSales ? <FaChevronDown className="arrow"/> : <FaChevronRight className="arrow"/>}
+<FaChevronDown
+className="arrow"
+style={{
+transform: openMenu === "sales" ? "rotate(180deg)" : "rotate(0deg)",
+transition:"0.3s"
+}}
+/>
 
 </div>
 
@@ -76,7 +86,7 @@ onClick={()=>setShowSales(!showSales)}
 
 {/* INVOICE */}
 
-{showSales && (
+{openMenu === "sales" && (
 
 <div
 className="sidebar-subitem2"
