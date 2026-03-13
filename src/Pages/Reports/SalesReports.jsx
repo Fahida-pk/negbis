@@ -1,6 +1,7 @@
+import { useState, useEffect } from "react";
+
 import Sidebar from "../Components/Sidebar";
 import "./reports.css";
-import { useState, useEffect } from "react";
 function SalesReports(){
 
 const [report,setReport] = useState("sale_summary")
