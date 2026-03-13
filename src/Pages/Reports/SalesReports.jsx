@@ -234,7 +234,9 @@ Sale Summary
 
 {/* SALES TYPE */}
 
-<div className="filter-row">
+<div className="filter-group">
+
+<div className="radio-group">
 
 <label>
 <input type="radio" checked={opts===0} onChange={()=>setOpts(0)}/>
@@ -253,11 +255,16 @@ Sales Return
 
 </div>
 
-{/* B2B / B2C */}
+</div>
+
+
+{/* B2B B2C */}
 
 {opts===1 && (
 
-<div className="filter-row">
+<div className="filter-group">
+
+<div className="radio-group">
 
 <label>
 <input type="radio" checked={stype===0} onChange={()=>setStype(0)}/>
@@ -276,9 +283,14 @@ B2C
 
 </div>
 
+</div>
+
 )}
 
-<div className="filter-row">
+
+{/* DATE */}
+
+<div className="filter-group">
 
 <label>Date From</label>
 
@@ -298,7 +310,10 @@ onChange={(e)=>setToDate(e.target.value)}
 
 </div>
 
-<div className="filter-row">
+
+{/* STORE */}
+
+<div className="filter-group">
 
 <label>Store</label>
 
@@ -319,13 +334,17 @@ onChange={(e)=>setStore(e.target.value)}
 
 </div>
 
-<div className="filter-row">
+
+{/* CUSTOMER */}
+
+<div className="filter-group">
 
 <label>Customer</label>
 
 <div className="customer-row">
 
 <input value={customerCode} placeholder="Code" readOnly/>
+
 <input value={customerName} placeholder="Description" readOnly/>
 
 <button className="customer-btn" onClick={openCustomer}>
@@ -336,26 +355,27 @@ onChange={(e)=>setStore(e.target.value)}
 
 </div>
 
+
+{/* BUTTONS */}
+
 <div className="buttons">
 
-<button className="print" onClick={handleLoad}>
+<button className="btn load" onClick={handleLoad}>
 {loading ? "Loading..." : "Load"}
 </button>
 
-<button className="print" onClick={printTable}>
+<button className="btn print" onClick={printTable}>
 Print
 </button>
 
-<button className="clear" onClick={handleClear}>
+<button className="btn clear" onClick={handleClear}>
 Clear
 </button>
 
 </div>
 
 </div>
-
 </div>
-
 </div>
 
 {/* REPORT POPUP */}
