@@ -42,7 +42,7 @@ onClick={()=>navigate("/dashboard")}
 </div>
 
 
-{/* REPORT */}
+{/* REPORTS */}
 
 <div
 className="sidebar-item"
@@ -51,7 +51,7 @@ onClick={()=>setShowReports(!showReports)}
 <FaFileAlt className="icon"/>
 <span>Reports</span>
 
-{showReports ? <FaChevronDown/> : <FaChevronRight/>}
+{showReports ? <FaChevronDown className="arrow"/> : <FaChevronRight className="arrow"/>}
 
 </div>
 
@@ -67,7 +67,7 @@ onClick={()=>setShowSales(!showSales)}
 <FaChartLine className="icon"/>
 <span>Sales</span>
 
-{showSales ? <FaChevronDown/> : <FaChevronRight/>}
+{showSales ? <FaChevronDown className="arrow"/> : <FaChevronRight className="arrow"/>}
 
 </div>
 
