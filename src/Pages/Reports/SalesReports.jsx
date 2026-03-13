@@ -214,6 +214,8 @@ onChange={(e)=>setToDate(e.target.value)}
 
 <label>Customer</label>
 
+<div className="customer-row">
+
 <input value={customerCode} placeholder="Code" readOnly/>
 
 <input value={customerName} placeholder="Description" readOnly/>
@@ -222,7 +224,7 @@ onChange={(e)=>setToDate(e.target.value)}
 
 </div>
 
-
+</div>
 <div className="buttons">
 
 <button className="print" onClick={handlePrint}>

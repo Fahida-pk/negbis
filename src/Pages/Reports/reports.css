@@ -603,11 +603,47 @@ cursor:pointer;
 
 }
 
+/* CUSTOMER FIELD ROW */
 
+.customer-row{
+display:flex;
+gap:8px;
+width:100%;
+}
+
+.customer-row input{
+flex:1;
+}
+
+.customer-row button{
+width:45px;
+min-width:45px;
+height:36px;
+border:none;
+background:#5f6bd8;
+color:white;
+border-radius:5px;
+cursor:pointer;
+}
+.report-modal-body{
+padding:20px;
+max-height:500px;
+overflow:auto;
+}
+
+.report-table{
+min-width:600px;
+}
 /* ========================= */
 /* MOBILE */
 /* ========================= */
+@media(max-width:768px){
 
+.report-modal-body{
+overflow-x:auto;
+}
+
+}
 @media (max-width:768px){
 
 .report-container{
