@@ -566,21 +566,14 @@ padding:8px;
 font-size:14px;
 
 }
-button1{
-  background:#f4f6fb;
+
+
+.customer-btn{
+background:#f4f6fb;
   border:1px solid #d9dce7;
   padding:6px 10px;
   border-radius:5px;
   cursor:pointer;
-}
-
-.customer-btn{
-background:#4f6cff;
-color:white;
-border:none;
-padding:6px 10px;
-cursor:pointer;
-border-radius:4px;
 }
 
 .customer-btn:hover{
