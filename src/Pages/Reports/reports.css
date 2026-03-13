@@ -667,11 +667,20 @@ padding:8px;
 
 .report-table td{
 display:flex;
-justify-content:space-between;
+align-items:center;
+justify-content:flex-start;
+gap:8px;
 padding:6px 8px;
 border:none;
 border-bottom:1px solid #eee;
 font-size:13px;
+}
+
+.report-table td::before{
+content:attr(data-label);
+font-weight:600;
+color:#444;
+min-width:90px;
 }
 
 .report-table td:last-child{
