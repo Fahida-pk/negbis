@@ -32,10 +32,9 @@ display:flex;
 justify-content:center;
 align-items:center;
 min-height:100vh;
-padding:20px;
+padding:80px 20px 20px 20px;   /* top space */
 margin-left:240px;
 }
-
 
 /* ========================= */
 /* REPORT BOX */
@@ -246,9 +245,11 @@ background:#f0f1fa;
 
 .report-container{
 margin-left:0;
-padding:10px;
+padding:90px 10px 20px 10px; /* mobile header space */
 align-items:flex-start;
 }
+
+
 
 .report-box{
 width:100%;
