@@ -172,7 +172,7 @@ setData([])
 
 const openCustomer = async ()=>{
 
-const res = await fetch("/api/customerLookup")
+  const res = await fetch("/api/data?type=customerLookup");
 const result = await res.json()
 
 if(result.data){
