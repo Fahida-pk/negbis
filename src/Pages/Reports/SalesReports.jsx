@@ -23,7 +23,7 @@ const [store,setStore] = useState("")
 
 useEffect(()=>{
 
-fetch("http://localhost/api/getStores.php")
+fetch("https://erp.codezyntax.com/api/getStores.php")
 .then(res=>res.json())
 .then(data=>{
 setStores(data.data)
