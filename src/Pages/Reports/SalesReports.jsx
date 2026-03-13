@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Sidebar from "../Components/Sidebar";
 import "./reports.css";
-
+import { useState, useEffect } from "react";
 function SalesReports(){
 
 const [report,setReport] = useState("sale_summary")
@@ -450,4 +450,4 @@ c.CODE.toString().includes(search)
 
 }
 
-export default SalesReports
+export default SalesReports;
