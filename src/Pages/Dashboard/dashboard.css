@@ -144,6 +144,22 @@ padding:0 120px;
 width:180px;
 
 }
+.dashboard-container{
+
+min-height:100vh;
+
+display:flex;
+flex-direction:column;
+
+justify-content:flex-end; /* bottomil konduvarum */
+
+align-items:center;
+
+text-align:center;
+
+padding-bottom:40px;
+
+}
 /* ========================= */
 /* MOBILE VIEW */
 /* ========================= */
@@ -198,6 +214,17 @@ padding:10px;
 
 .logo{
 width:120px;
+}
+
+}
+@media (max-width:768px){
+
+.bottom-bar{
+flex-direction:column;
+gap:15px;
+padding:20px;
+text-align:center;
+margin-bottom:20px;
 }
 
 }
