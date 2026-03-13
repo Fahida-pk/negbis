@@ -1,14 +1,20 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { FaChartLine, FaFileInvoiceDollar, FaFileAlt, FaHome } from "react-icons/fa";
+import {
+FaTachometerAlt,
+FaChartPie,
+FaChevronDown,
+FaChevronRight,
+FaFileInvoiceDollar
+} from "react-icons/fa";
+
 import "./sidebar.css";
 
 function Sidebar(){
 
 const navigate = useNavigate();
 
-const [showReports,setShowReports] = useState(false);
-const [showSales,setShowSales] = useState(false);
+const [reportOpen,setReportOpen] = useState(false);
 
 return(
 
@@ -18,60 +24,62 @@ return(
 
 <div className="logo-section">
 <img src="/image/logo.jpg" alt="logo" className="logo-img"/>
-<span className="logo-title">neGbis</span>
+<h2 className="logo-title">neGbis</h2>
 </div>
 
 
 {/* DASHBOARD */}
 
 <div
-className="sidebar-item"
+className="menu-item"
 onClick={()=>navigate("/dashboard")}
 >
-<FaHome className="icon"/> Dashboard
+<FaTachometerAlt className="menu-icon"/>
+<span>Dashboard</span>
 </div>
 
 
-<div className="sidebar-menu">
-
-{/* REPORTS */}
+{/* REPORT */}
 
 <div
-className="sidebar-item"
-onClick={()=>setShowReports(!showReports)}
+className="menu-item"
+onClick={()=>setReportOpen(!reportOpen)}
 >
-<FaFileAlt className="icon"/> Reports
+<FaChartPie className="menu-icon"/>
+
+<span className="menu-text">Report</span>
+
+{reportOpen
+? <FaChevronDown className="arrow"/>
+: <FaChevronRight className="arrow"/>}
+
 </div>
 
 
-{/* SALES */}
+{/* REPORT SUBMENU */}
 
-{showReports && (
+{reportOpen && (
+
+<div className="submenu">
 
 <div
-className="sidebar-subitem"
-onClick={()=>setShowSales(!showSales)}
+className="submenu-item"
+onClick={()=>navigate("/sales")}
 >
-<FaChartLine className="icon"/> Sales
+Sales
+</div>
+
+<div
+className="submenu-item"
+onClick={()=>navigate("/invoice")}
+>
+<FaFileInvoiceDollar className="submenu-icon"/>
+Invoice
+</div>
+
 </div>
 
 )}
-
-
-{/* INVOICE */}
-
-{showSales && (
-
-<div
-className="sidebar-subitem2"
-onClick={()=>navigate("/reports")}
->
-<FaFileInvoiceDollar className="icon"/> Invoice
-</div>
-
-)}
-
-</div>
 
 </div>
 
