@@ -1,4 +1,6 @@
 import { useState } from "react";
+import Sidebar from "../Components/Sidebar";
+
 import "./reports.css";
 
 function SalesReports(){
@@ -137,6 +139,7 @@ setShowCustomer(false)
 return(
 
 <div className="report-container">
+<Sidebar/>
 
 <div className="report-box">
 
