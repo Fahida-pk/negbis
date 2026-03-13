@@ -125,7 +125,7 @@ position:absolute;
 
 bottom:120px;
 
-width:100%;
+width:80%;
 
 display:flex;
 
@@ -137,7 +137,6 @@ padding:0 120px;
 
 background:rgba(255,255,255,0.3);
 
-backdrop-filter:blur(5px);
 
 }
 
