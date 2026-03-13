@@ -14,8 +14,6 @@ return(
 {/* CONTENT AREA */}
 
 <div className="content-area">
-
-
 </div>
 
 
@@ -27,13 +25,13 @@ return(
 <img src="/image/logo.webp" className="logo"/>
 </div>
 
-<div style={{textAlign:"center"}}>
+<div className="contact-info">
 
-<p style={{margin:0,fontSize:"20px"}}>
+<p className="contact-number">
 +91 88484 18551
 </p>
 
-<p style={{margin:0,fontSize:"20px"}}>
+<p className="contact-mail">
 contact@codezyntax.com
 </p>
 
@@ -41,7 +39,7 @@ contact@codezyntax.com
 
 <div>
 
-<h1 style={{margin:0,fontSize:"36px"}}>
+<h1 className="erp-title">
 neGbis ERP v8.0.6
 </h1>
 

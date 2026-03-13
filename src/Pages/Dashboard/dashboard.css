@@ -163,7 +163,72 @@ padding-bottom:40px;
 /* ========================= */
 /* MOBILE VIEW */
 /* ========================= */
+.contact-number{
+margin:0;
+font-size:20px;
+}
 
+.contact-mail{
+margin:0;
+font-size:20px;
+}
+
+.erp-title{
+margin:0;
+font-size:36px;
+}
+
+
+/* MOBILE */
+
+@media (max-width:768px){
+
+.contact-number{
+font-size:16px;
+}
+
+.contact-mail{
+font-size:15px;
+}
+
+.erp-title{
+font-size:22px;
+}
+
+.logo{
+width:120px;
+}
+
+.bottom-bar{
+flex-direction:column;
+gap:15px;
+text-align:center;
+}
+
+}
+
+
+/* SMALL MOBILE */
+
+@media (max-width:480px){
+
+.contact-number{
+font-size:14px;
+}
+
+.contact-mail{
+font-size:13px;
+}
+
+.erp-title{
+font-size:18px;
+}
+
+.logo{
+width:100px;
+}
+
+}
 @media (max-width:768px){
 
 .dashboard-main{
