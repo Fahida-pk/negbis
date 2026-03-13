@@ -88,7 +88,13 @@ transition:0.2s;
 background:rgba(255,255,255,0.2);
 border-radius:6px;
 }
+/* MAIN CONTENT */
 
+.report-container{
+margin-left:240px;
+min-height:100vh;
+padding:20px;
+}
 
 /* SUB MENU 2 */
 
@@ -127,19 +133,14 @@ font-size:16px;
 
 /* RESPONSIVE */
 
-@media (max-width:900px){
-
-.sidebar{
-width:200px;
-}
-
-}
-
-@media (max-width:600px){
+@media(max-width:768px){
 
 .sidebar{
 width:70px;
-padding:15px 8px;
+}
+
+.report-container{
+margin-left:70px;
 }
 
 .logo-title{
@@ -150,17 +151,6 @@ display:none;
 .sidebar-subitem span,
 .sidebar-subitem2 span{
 display:none;
-}
-
-}
-@media(max-width:768px){
-
-.sidebar{
-width:70px;
-}
-
-.report-container{
-margin-left:70px;
 }
 
 }
