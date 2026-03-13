@@ -567,8 +567,15 @@ font-size:14px;
 
 }
 button{
-  background:#271981;
-  border:1px solid #ddd;
+  background:#f4f6fb;
+  border:1px solid #d9dce7;
+  padding:6px 10px;
+  border-radius:5px;
+  cursor:pointer;
+}
+
+button:hover{
+  background:#e9ecf5;
 }
 .lookup-table tr:hover{
 
