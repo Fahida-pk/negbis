@@ -21,7 +21,7 @@ const [loading,setLoading] = useState(false)
 
 /* LOAD REPORT */
 
-const handlePrint = async ()=>{
+const handleLoad = async ()=>{
 
 if(!fromDate || !toDate){
 alert("Select date")
@@ -61,38 +61,16 @@ setLoading(false)
 }
 
 
-const printTable = async () => {
+/* PRINT REPORT */
 
-if(!fromDate || !toDate){
-alert("Select date")
-return
-}
-
-setLoading(true)
-
-try{
-
-const res = await fetch("/api/salesSummary",{
-method:"POST",
-headers:{ "Content-Type":"application/json" },
-body:JSON.stringify({
-from:fromDate,
-to:toDate,
-customer:customerCode
-})
-})
-
-const result = await res.json()
-
-if(result.status==="success"){
-
-setData(result.data)
-
-setTimeout(()=>{
+const printTable = () => {
 
 const table = document.getElementById("reportTable")
 
-if(!table) return
+if(!table){
+alert("Please load report first")
+return
+}
 
 const printContent = table.outerHTML
 
@@ -102,16 +80,20 @@ win.document.write(`
 <html>
 <head>
 <title>Sales Report</title>
+
 <style>
 body{font-family:Arial;padding:20px;}
 table{width:100%;border-collapse:collapse;}
-th,td{border:1px solid #999;padding:8px;}
+th,td{border:1px solid #999;padding:8px;text-align:left;}
 th{background:#eee;}
 </style>
+
 </head>
+
 <body>
 
 <h2>Sales Summary Report</h2>
+<p>From: ${fromDate} To: ${toDate}</p>
 
 ${printContent}
 
@@ -122,20 +104,8 @@ ${printContent}
 win.document.close()
 win.print()
 
-},300)
-
-}else{
-alert("Report failed")
 }
 
-}catch(err){
-console.log(err)
-alert("Server error")
-}
-
-setLoading(false)
-
-}
 
 /* CLEAR */
 
@@ -261,9 +231,11 @@ onChange={(e)=>setToDate(e.target.value)}
 </div>
 
 </div>
+
+
 <div className="buttons">
 
-<button className="print" onClick={handlePrint}>
+<button className="print" onClick={handleLoad}>
 {loading ? "Loading..." : "Load"}
 </button>
 
