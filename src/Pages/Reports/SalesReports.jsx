@@ -61,11 +61,16 @@ setLoading(false)
 }
 
 
-/* PRINT */
+const printTable = () => {
 
-const printTable = ()=>{
+const table = document.getElementById("reportTable")
 
-const printContent = document.getElementById("reportTable").outerHTML
+if(!table){
+alert("Please load the report first")
+return
+}
+
+const printContent = table.outerHTML
 
 const win = window.open("","","width=900,height=700")
 
@@ -89,17 +94,15 @@ th{background:#eee;}
 
 ${printContent}
 
-<script>
-window.print()
-window.close()
-</script>
-
 </body>
 </html>
 `)
 
-}
+win.document.close()
+win.focus()
+win.print()
 
+}
 
 /* CLEAR */
 
