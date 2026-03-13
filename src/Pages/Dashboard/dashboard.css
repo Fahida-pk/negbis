@@ -173,7 +173,7 @@ font-size:15px;
 
 .bottom-bar{
 flex-direction:column;
-gap:15px;
+gap:20px;
 padding:20px;
 text-align:center;
 }
@@ -183,11 +183,11 @@ width:120px;
 }
 
 .contact-number{
-font-size:16px;
+font-size:25px;
 }
 
 .contact-mail{
-font-size:15px;
+font-size:25px;
 }
 
 .erp-title{
