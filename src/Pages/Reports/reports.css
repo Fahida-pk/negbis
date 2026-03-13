@@ -1,4 +1,3 @@
-
 /* ========================= */
 /* GLOBAL */
 /* ========================= */
@@ -152,9 +151,6 @@ color:#444;
 .report-right{
 flex:1;
 padding-left:10px;
-display:flex;
-flex-direction:column;
-gap:16px;
 }
 
 
@@ -164,94 +160,40 @@ gap:16px;
 
 .filter-row{
 
-background:#ffffff;
-
-border:1px solid #e1e4f2;
-
-padding:12px 14px;
-
-border-radius:6px;
+margin-bottom:15px;
 
 display:flex;
 
-align-items:center;
-
-gap:15px;
+gap:12px;
 
 flex-wrap:wrap;
+
+align-items:center;
 
 font-size:14px;
 
 }
 
-.filter-row label{
+.filter-row input{
 
-display:flex;
+padding:8px 10px;
 
-align-items:center;
-
-gap:6px;
-
-cursor:pointer;
-
-}
-
-.filter-row input,
-.filter-row select{
-
-padding:8px 12px;
-
-border-radius:6px;
+border-radius:5px;
 
 border:1px solid #cfd4e6;
 
 background:white;
-
-font-size:14px;
 
 min-width:150px;
 
 }
 
 .filter-row input:focus{
+
 outline:none;
+
 border-color:#5f6bd8;
-}
 
-
-/* ========================= */
-/* CUSTOMER FIELD ROW */
-/* ========================= */
-
-.customer-row{
-display:flex;
-gap:8px;
-width:100%;
-}
-
-.customer-row input{
-flex:1;
-}
-
-.customer-row button{
-
-width:42px;
-height:36px;
-
-border:none;
-
-background:#5f6bd8;
-
-color:white;
-
-border-radius:6px;
-
-cursor:pointer;
-
-}
-
-.customer-row button:hover{
-background:#4d57c7;
 }
 
 
@@ -261,21 +203,24 @@ background:#4d57c7;
 
 .buttons{
 
-margin-top:20px;
+margin-top:25px;
 
 display:flex;
 
-gap:15px;
+gap:12px;
 
 }
 
-.buttons button{
+
+/* LOAD BUTTON */
+
+.load{
 
 background:#5f6bd8;
 
 color:white;
 
-padding:10px 26px;
+padding:10px 24px;
 
 border:none;
 
@@ -287,9 +232,63 @@ cursor:pointer;
 
 }
 
-.buttons button:hover{
+.load:hover{
 background:#4d57c7;
-color:black;
+color: black;
+
+}
+
+
+/* PRINT BUTTON */
+
+.print{
+
+background:#5f6bd8;
+
+color:white;
+
+padding:10px 24px;
+
+border:none;
+
+border-radius:6px;
+
+font-weight:600;
+
+cursor:pointer;
+
+}
+
+.print:hover{
+background:#4d57c7;
+color: black;
+}
+
+
+/* CLEAR BUTTON */
+
+.clear{
+
+background:#5f6bd8;
+
+color:white;
+
+padding:10px 24px;
+
+border:none;
+
+border-radius:6px;
+
+font-weight:600;
+
+cursor:pointer;
+
+}
+
+.clear:hover{
+background:#5f6bd8;
+color: black;
+
 }
 
 
@@ -567,7 +566,26 @@ padding:8px;
 font-size:14px;
 
 }
+button1{
+  background:#f4f6fb;
+  border:1px solid #d9dce7;
+  padding:6px 10px;
+  border-radius:5px;
+  cursor:pointer;
+}
 
+.customer-btn{
+background:#4f6cff;
+color:white;
+border:none;
+padding:6px 10px;
+cursor:pointer;
+border-radius:4px;
+}
+
+.customer-btn:hover{
+background:#3048d4;
+}
 .lookup-table tr:hover{
 
 background:#eef1ff;
@@ -609,12 +627,95 @@ cursor:pointer;
 
 }
 
+/* CUSTOMER FIELD ROW */
 
+.customer-row{
+display:flex;
+gap:8px;
+width:100%;
+}
+
+.customer-row input{
+flex:1;
+}
+
+.customer-row button{
+width:45px;
+min-width:45px;
+height:36px;
+border:none;
+color:white;
+border-radius:5px;
+cursor:pointer;
+}
+.report-modal-body{
+padding:20px;
+max-height:500px;
+overflow:auto;
+}
+
+.report-table{
+min-width:600px;
+}
 /* ========================= */
 /* MOBILE VIEW */
 /* ========================= */
+/* ========================= */
+/* MOBILE TABLE */
+/* ========================= */
 
 @media (max-width:768px){
+
+.report-table{
+width:100%;
+border:0;
+}
+
+.report-table thead{
+display:none;
+}
+
+.report-table tr{
+display:block;
+margin-bottom:12px;
+border:1px solid #dfe3f5;
+border-radius:6px;
+background:#fff;
+padding:8px;
+}
+
+.report-table td{
+display:flex;
+align-items:center;
+justify-content:flex-start;
+gap:8px;
+padding:6px 8px;
+border:none;
+border-bottom:1px solid #eee;
+font-size:13px;
+}
+
+.report-table td::before{
+content:attr(data-label);
+font-weight:600;
+color:#444;
+min-width:90px;
+}
+
+.report-table td:last-child{
+border-bottom:none;
+}
+
+.report-table td::before{
+content:attr(data-label);
+font-weight:600;
+color:#444;
+}
+
+}
+@media (max-width:768px){
+
+/* CONTAINER */
 
 .report-container{
 margin-left:0;
@@ -622,15 +723,24 @@ padding:80px 12px 20px;
 align-items:flex-start;
 }
 
+
+/* BOX */
+
 .report-box{
 width:100%;
 padding:16px;
 }
 
+
+/* CONTENT STACK */
+
 .report-content{
 flex-direction:column;
 gap:15px;
 }
+
+
+/* LEFT PANEL */
 
 .report-left{
 width:100%;
@@ -639,10 +749,16 @@ border-bottom:1px solid #e3e6f3;
 padding-bottom:10px;
 }
 
+
+/* RIGHT PANEL */
+
 .report-right{
 width:100%;
 padding:0;
 }
+
+
+/* FILTER ROW */
 
 .filter-row{
 flex-direction:column;
@@ -650,9 +766,15 @@ align-items:stretch;
 gap:8px;
 }
 
+
+/* INPUT */
+
 .filter-row input{
 width:100%;
 }
+
+
+/* CUSTOMER ROW */
 
 .customer-row{
 display:flex;
@@ -672,6 +794,9 @@ min-width:42px;
 height:36px;
 }
 
+
+/* BUTTON GROUP */
+
 .buttons{
 flex-direction:column;
 gap:10px;
@@ -681,6 +806,19 @@ gap:10px;
 width:100%;
 }
 
+
+/* CLOSE BUTTON */
+
+.close-btn{
+top:10px;
+right:10px;
+width:32px;
+height:32px;
+}
+
+
+/* MODAL */
+
 .report-modal{
 width:95%;
 max-height:90vh;
@@ -689,6 +827,16 @@ max-height:90vh;
 .report-modal-body{
 overflow-x:auto;
 }
+
+
+/* TABLE SCROLL */
+
+.report-table{
+min-width:600px;
+}
+
+
+/* LOOKUP MODAL */
 
 .lookup-modal{
 width:95%;
@@ -700,4 +848,3 @@ overflow:auto;
 }
 
 }
-
