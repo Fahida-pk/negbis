@@ -566,7 +566,13 @@ padding:8px;
 font-size:14px;
 
 }
-
+button{
+  background-color: #ffffff; /* plain white */
+  border: 1px solid #ccc;
+  padding: 6px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
 .lookup-table tr:hover{
 
 background:#eef1ff;
