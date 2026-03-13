@@ -1,21 +1,28 @@
-import { useState, useEffect } from "react";
 
+import { useState, useEffect } from "react";
 import Sidebar from "../Components/Sidebar";
 import "./reports.css";
+
 function SalesReports(){
 
 const [report,setReport] = useState("sale_summary")
+
 const [fromDate,setFromDate] = useState("")
 const [toDate,setToDate] = useState("")
+
+const [opts,setOpts] = useState(0)   //0=All 1=Invoice 2=Return
+const [stype,setStype] = useState(0) //0=All 1=B2B 2=B2C
+
 const [data,setData] = useState([])
+
 const [search,setSearch] = useState("")
 const [customerCode,setCustomerCode] = useState("")
 const [customerName,setCustomerName] = useState("")
 
 const [customerList,setCustomerList] = useState([])
 const [showCustomer,setShowCustomer] = useState(false)
-const [showReport,setShowReport] = useState(false)
 
+const [showReport,setShowReport] = useState(false)
 const [loading,setLoading] = useState(false)
 
 const [stores,setStores] = useState([])
@@ -30,6 +37,7 @@ setStores(data.data)
 })
 
 },[])
+
 /* LOAD REPORT */
 
 const handleLoad = async ()=>{
@@ -43,17 +51,7 @@ setLoading(true)
 
 try{
 
-const res = await fetch(`/api/data?type=salesSummary&from=${fromDate}&to=${toDate}&store=${store}`,{
-method:"POST",
-headers:{ "Content-Type":"application/json" },
-body:JSON.stringify({
-from:fromDate,
-to:toDate,
-customer:customerCode,
-store:store
-
-})
-})
+const res = await fetch(`/api/data?type=salesSummary&from=${fromDate}&to=${toDate}&store=${store}&opts=${opts}&stype=${stype}`)
 
 const result = await res.json()
 
@@ -73,6 +71,7 @@ setLoading(false)
 
 }
 
+/* PRINT */
 
 const printTable = () => {
 
@@ -167,12 +166,11 @@ setCustomerName("")
 setData([])
 }
 
-
 /* CUSTOMER LOOKUP */
 
 const openCustomer = async ()=>{
 
-  const res = await fetch("/api/data?type=customerLookup");
+const res = await fetch("/api/data?type=customerLookup")
 const result = await res.json()
 
 if(result.data){
@@ -188,7 +186,6 @@ setCustomerName(c.DESCRIPTION)
 setShowCustomer(false)
 }
 
-
 return(
 
 <div className="report-container">
@@ -203,7 +200,6 @@ return(
 </div>
 
 <div className="report-content">
-
 
 {/* LEFT PANEL */}
 
@@ -232,10 +228,55 @@ Sale Summary
 
 </div>
 
-
 {/* RIGHT PANEL */}
 
 <div className="report-right">
+
+{/* SALES TYPE */}
+
+<div className="filter-row">
+
+<label>
+<input type="radio" checked={opts===0} onChange={()=>setOpts(0)}/>
+All
+</label>
+
+<label>
+<input type="radio" checked={opts===1} onChange={()=>setOpts(1)}/>
+Sales Invoice
+</label>
+
+<label>
+<input type="radio" checked={opts===2} onChange={()=>setOpts(2)}/>
+Sales Return
+</label>
+
+</div>
+
+{/* B2B / B2C */}
+
+{opts===1 && (
+
+<div className="filter-row">
+
+<label>
+<input type="radio" checked={stype===0} onChange={()=>setStype(0)}/>
+All
+</label>
+
+<label>
+<input type="radio" checked={stype===1} onChange={()=>setStype(1)}/>
+B2B
+</label>
+
+<label>
+<input type="radio" checked={stype===2} onChange={()=>setStype(2)}/>
+B2C
+</label>
+
+</div>
+
+)}
 
 <div className="filter-row">
 
@@ -256,7 +297,6 @@ onChange={(e)=>setToDate(e.target.value)}
 />
 
 </div>
-
 
 <div className="filter-row">
 
@@ -279,7 +319,6 @@ onChange={(e)=>setStore(e.target.value)}
 
 </div>
 
-
 <div className="filter-row">
 
 <label>Customer</label>
@@ -287,15 +326,15 @@ onChange={(e)=>setStore(e.target.value)}
 <div className="customer-row">
 
 <input value={customerCode} placeholder="Code" readOnly/>
-
 <input value={customerName} placeholder="Description" readOnly/>
 
-<button1 onClick={openCustomer}>🔍</button1>
+<button className="customer-btn" onClick={openCustomer}>
+🔍
+</button>
 
 </div>
 
 </div>
-
 
 <div className="buttons">
 
@@ -319,7 +358,6 @@ Clear
 
 </div>
 
-
 {/* REPORT POPUP */}
 
 {showReport && (
@@ -331,16 +369,13 @@ Clear
 <div className="report-modal-header">
 <h3>Sales Summary Report</h3>
 
-<button onClick={()=>setShowReport(false)}>
-✕
-</button>
+<button onClick={()=>setShowReport(false)}>✕</button>
 
 </div>
 
-
 <div className="report-modal-body">
 
-<table className="report-table" id="reportTable">
+<table className="report-table">
 
 <thead>
 <tr>
@@ -356,11 +391,11 @@ Clear
 
 {data.map((row,i)=>(
 <tr key={i}>
-<td data-label="Sale No">{row.SALE_NO}</td>
-<td data-label="Date">{row.SALE_DATE}</td>
-<td data-label="Net">{row.NET_AMOUNT}</td>
-<td data-label="Gross">{row.GROSS_AMOUNT}</td>
-<td data-label="Customer">{row.CUST_NAME}</td>
+<td>{row.SALE_NO}</td>
+<td>{row.SALE_DATE}</td>
+<td>{row.NET_AMOUNT}</td>
+<td>{row.GROSS_AMOUNT}</td>
+<td>{row.CUST_NAME}</td>
 </tr>
 ))}
 
@@ -375,7 +410,6 @@ Clear
 </div>
 
 )}
-
 
 {/* CUSTOMER LOOKUP */}
 
@@ -451,3 +485,4 @@ c.CODE.toString().includes(search)
 }
 
 export default SalesReports;
+

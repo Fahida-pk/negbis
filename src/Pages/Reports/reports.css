@@ -574,8 +574,17 @@ button1{
   cursor:pointer;
 }
 
-button1:hover{
-  background:#e9ecf5;
+.customer-btn{
+background:#4f6cff;
+color:white;
+border:none;
+padding:6px 10px;
+cursor:pointer;
+border-radius:4px;
+}
+
+.customer-btn:hover{
+background:#3048d4;
 }
 .lookup-table tr:hover{
 
