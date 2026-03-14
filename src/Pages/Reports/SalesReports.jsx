@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import Sidebar from "../Components/Sidebar";
 import "./reports.css";
@@ -10,8 +9,8 @@ const [report,setReport] = useState("sale_summary")
 const [fromDate,setFromDate] = useState("")
 const [toDate,setToDate] = useState("")
 
-const [opts,setOpts] = useState(0)   //0=All 1=Invoice 2=Return
-const [stype,setStype] = useState(0) //0=All 1=B2B 2=B2C
+const [opts,setOpts] = useState(0)
+const [stype,setStype] = useState(0)
 
 const [data,setData] = useState([])
 
@@ -26,15 +25,20 @@ const [showReport,setShowReport] = useState(false)
 const [loading,setLoading] = useState(false)
 
 const [stores,setStores] = useState([])
-const [store,setStore] = useState("")
+const [store,setStore] = useState(0)
+
+/* LOAD STORES */
 
 useEffect(()=>{
 
 fetch(`/api/data?type=getStores`)
 .then(res=>res.json())
-.then(data=>{
-setStores(data.data)
+.then(result=>{
+if(result?.data){
+setStores(result.data)
+}
 })
+.catch(err=>console.log(err))
 
 },[])
 
@@ -51,7 +55,9 @@ setLoading(true)
 
 try{
 
-const res = await fetch(`/api/data?type=salesSummary&from=${fromDate}&to=${toDate}&store=${store}&opts=${opts}&stype=${stype}`)
+const res = await fetch(
+`/api/data?type=salesSummary&from=${fromDate}&to=${toDate}&store=${store || 0}&custid=${customerCode || 0}&opts=${opts}&stype=${stype}`
+)
 
 const result = await res.json()
 
@@ -98,6 +104,7 @@ win.document.write(`
 <title>Sales Report</title>
 
 <style>
+
 body{
 font-family:Arial;
 padding:20px;
@@ -118,9 +125,6 @@ th{
 background:#eee;
 }
 
-h2{
-margin-bottom:10px;
-}
 </style>
 
 </head>
@@ -131,6 +135,7 @@ margin-bottom:10px;
 <p>From: ${fromDate} To: ${toDate}</p>
 
 <table>
+
 <thead>
 <tr>
 <th>SALE NO</th>
@@ -142,7 +147,9 @@ margin-bottom:10px;
 </thead>
 
 <tbody>
+
 ${rows}
+
 </tbody>
 
 </table>
@@ -232,8 +239,6 @@ Sale Summary
 
 <div className="report-right">
 
-{/* SALES TYPE */}
-
 <div className="filter-row">
 
 <label>
@@ -252,8 +257,6 @@ Sales Return
 </label>
 
 </div>
-
-{/* B2B / B2C */}
 
 {opts===1 && (
 
@@ -307,7 +310,7 @@ value={store}
 onChange={(e)=>setStore(e.target.value)}
 >
 
-<option value="">Select Store</option>
+<option value={0}>All Stores</option>
 
 {stores.map((s)=>(
 <option key={s.ID} value={s.ID}>
@@ -368,9 +371,7 @@ Clear
 
 <div className="report-modal-header">
 <h3>Sales Summary Report</h3>
-
 <button onClick={()=>setShowReport(false)}>✕</button>
-
 </div>
 
 <div className="report-modal-body">
@@ -390,6 +391,7 @@ Clear
 <tbody>
 
 {data.map((row,i)=>(
+
 <tr key={i}>
 <td>{row.SALE_NO}</td>
 <td>{row.SALE_DATE}</td>
@@ -397,6 +399,7 @@ Clear
 <td>{row.GROSS_AMOUNT}</td>
 <td>{row.CUST_NAME}</td>
 </tr>
+
 ))}
 
 </tbody>
@@ -484,5 +487,4 @@ c.CODE.toString().includes(search)
 
 }
 
-export default SalesReports;
-
+export default SalesReports
