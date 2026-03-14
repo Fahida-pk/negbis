@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import Sidebar from "../Components/Sidebar";
 import "./reports.css";
@@ -9,40 +10,23 @@ const [report,setReport] = useState("sale_summary")
 const [fromDate,setFromDate] = useState("")
 const [toDate,setToDate] = useState("")
 
-const [opts,setOpts] = useState(0)
-const [stype,setStype] = useState(0)
-
-const [billWise,setBillWise] = useState(true)
+const [opts,setOpts] = useState(0)   //0=All 1=Invoice 2=Return
+const [stype,setStype] = useState(0) //0=All 1=B2B 2=B2C
 
 const [data,setData] = useState([])
 
 const [search,setSearch] = useState("")
-
 const [customerCode,setCustomerCode] = useState("")
 const [customerName,setCustomerName] = useState("")
 
-const [userCode,setUserCode] = useState("")
-const [userName,setUserName] = useState("")
-
 const [customerList,setCustomerList] = useState([])
-const [userList,setUserList] = useState([])
-
 const [showCustomer,setShowCustomer] = useState(false)
-const [showUser,setShowUser] = useState(false)
 
 const [showReport,setShowReport] = useState(false)
 const [loading,setLoading] = useState(false)
 
 const [stores,setStores] = useState([])
 const [store,setStore] = useState("")
-
-const [status,setStatus] = useState({
-all:false,
-cancelled:false,
-open:false,
-partial:false,
-paid:false
-})
 
 useEffect(()=>{
 
@@ -54,10 +38,7 @@ setStores(data.data)
 
 },[])
 
-
-/* =====================
-LOAD REPORT
-===================== */
+/* LOAD REPORT */
 
 const handleLoad = async ()=>{
 
@@ -68,21 +49,9 @@ return
 
 setLoading(true)
 
-const statusParam = Object.keys(status)
-.filter(k=>status[k])
-.join(",")
-
 try{
 
-const res = await fetch(`/api/data?type=salesSummary
-&from=${fromDate}
-&to=${toDate}
-&store=${store}
-&opts=${opts}
-&stype=${stype}
-&user=${userCode}
-&status=${statusParam}
-&billwise=${billWise?1:0}`)
+const res = await fetch(`/api/data?type=salesSummary&from=${fromDate}&to=${toDate}&store=${store}&opts=${opts}&stype=${stype}`)
 
 const result = await res.json()
 
@@ -102,10 +71,7 @@ setLoading(false)
 
 }
 
-
-/* =====================
-PRINT
-===================== */
+/* PRINT */
 
 const printTable = () => {
 
@@ -120,8 +86,6 @@ const rows = data.map(row => `
 <tr>
 <td>${row.SALE_NO}</td>
 <td>${row.SALE_DATE}</td>
-<td>${row.STORE_NAME || ""}</td>
-<td>${row.USER_NAME || ""}</td>
 <td>${row.NET_AMOUNT}</td>
 <td>${row.GROSS_AMOUNT}</td>
 <td>${row.CUST_NAME}</td>
@@ -131,12 +95,32 @@ const rows = data.map(row => `
 win.document.write(`
 <html>
 <head>
+<title>Sales Report</title>
 
 <style>
-body{font-family:Arial;padding:20px}
-table{width:100%;border-collapse:collapse}
-th,td{border:1px solid #999;padding:8px}
-th{background:#eee}
+body{
+font-family:Arial;
+padding:20px;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+}
+
+th,td{
+border:1px solid #999;
+padding:8px;
+text-align:left;
+}
+
+th{
+background:#eee;
+}
+
+h2{
+margin-bottom:10px;
+}
 </style>
 
 </head>
@@ -144,16 +128,13 @@ th{background:#eee}
 <body>
 
 <h2>Sales Summary Report</h2>
-<p>${fromDate} To ${toDate}</p>
+<p>From: ${fromDate} To: ${toDate}</p>
 
 <table>
-
 <thead>
 <tr>
 <th>SALE NO</th>
 <th>DATE</th>
-<th>STORE</th>
-<th>USER</th>
 <th>NET</th>
 <th>GROSS</th>
 <th>CUSTOMER</th>
@@ -175,30 +156,21 @@ win.print()
 
 }
 
-
-/* =====================
-CLEAR
-===================== */
+/* CLEAR */
 
 const handleClear = ()=>{
 setFromDate("")
 setToDate("")
 setCustomerCode("")
 setCustomerName("")
-setUserCode("")
-setUserName("")
 setData([])
 }
 
-
-/* =====================
-CUSTOMER LOOKUP
-===================== */
+/* CUSTOMER LOOKUP */
 
 const openCustomer = async ()=>{
 
 const res = await fetch("/api/data?type=customerLookup")
-
 const result = await res.json()
 
 if(result.data){
@@ -214,35 +186,6 @@ setCustomerName(c.DESCRIPTION)
 setShowCustomer(false)
 }
 
-
-/* =====================
-USER LOOKUP
-===================== */
-
-const openUser = async ()=>{
-
-const res = await fetch("/api/data?type=userLookup")
-
-const result = await res.json()
-
-if(result.data){
-setUserList(result.data)
-setShowUser(true)
-}
-
-}
-
-const selectUser = (u)=>{
-setUserCode(u.CODE)
-setUserName(u.DESCRIPTION)
-setShowUser(false)
-}
-
-
-/* =====================
-UI
-===================== */
-
 return(
 
 <div className="report-container">
@@ -253,34 +196,87 @@ return(
 
 <div className="report-header">
 <h3>Sales Invoice Reports</h3>
-<button className="close-btn">X</button>
+<button className="close-btn" onClick={()=>window.history.back()}>X</button>
 </div>
 
-
 <div className="report-content">
-
 
 {/* LEFT PANEL */}
 
 <div className="report-left">
 
 <label>
-<input type="radio" checked={report==="sale_summary"} onChange={()=>setReport("sale_summary")}/>
+<input
+type="radio"
+checked={report==="sale_summary"}
+onChange={()=>setReport("sale_summary")}
+name="report"
+/>
 Sale Summary
 </label>
 
-<label><input type="radio"/>Daily Sales Summary</label>
-<label><input type="radio"/>Monthly Sales Summary</label>
+<label><input type="radio" name="report"/>Daily Sales Summary</label>
+<label><input type="radio" name="report"/>Monthly Sales Summary</label>
+<label><input type="radio" name="report"/>Sale Details</label>
+<label><input type="radio" name="report"/>Item wise Sales</label>
+<label><input type="radio" name="report"/>Item wise Profit</label>
+<label><input type="radio" name="report"/>Item wise Summary</label>
+<label><input type="radio" name="report"/>Salesman wise Sales</label>
+<label><input type="radio" name="report"/>Daily Sales Report</label>
+<label><input type="radio" name="report"/>Sales Profit</label>
+<label><input type="radio" name="report"/>Sale Tax Summary</label>
 
 </div>
-
 
 {/* RIGHT PANEL */}
 
 <div className="report-right">
 
+{/* SALES TYPE */}
 
-{/* DATE */}
+<div className="filter-row">
+
+<label>
+<input type="radio" checked={opts===0} onChange={()=>setOpts(0)}/>
+All
+</label>
+
+<label>
+<input type="radio" checked={opts===1} onChange={()=>setOpts(1)}/>
+Sales Invoice
+</label>
+
+<label>
+<input type="radio" checked={opts===2} onChange={()=>setOpts(2)}/>
+Sales Return
+</label>
+
+</div>
+
+{/* B2B / B2C */}
+
+{opts===1 && (
+
+<div className="filter-row">
+
+<label>
+<input type="radio" checked={stype===0} onChange={()=>setStype(0)}/>
+All
+</label>
+
+<label>
+<input type="radio" checked={stype===1} onChange={()=>setStype(1)}/>
+B2B
+</label>
+
+<label>
+<input type="radio" checked={stype===2} onChange={()=>setStype(2)}/>
+B2C
+</label>
+
+</div>
+
+)}
 
 <div className="filter-row">
 
@@ -302,27 +298,26 @@ onChange={(e)=>setToDate(e.target.value)}
 
 </div>
 
-
-{/* STORE */}
-
 <div className="filter-row">
 
 <label>Store</label>
 
-<select value={store} onChange={(e)=>setStore(e.target.value)}>
+<select
+value={store}
+onChange={(e)=>setStore(e.target.value)}
+>
 
 <option value="">Select Store</option>
 
 {stores.map((s)=>(
-<option key={s.ID} value={s.ID}>{s.STORE_NAME}</option>
+<option key={s.ID} value={s.ID}>
+{s.STORE_NAME}
+</option>
 ))}
 
 </select>
 
 </div>
-
-
-{/* CUSTOMER */}
 
 <div className="filter-row">
 
@@ -331,46 +326,27 @@ onChange={(e)=>setToDate(e.target.value)}
 <div className="customer-row">
 
 <input value={customerCode} placeholder="Code" readOnly/>
-
 <input value={customerName} placeholder="Description" readOnly/>
 
-<button onClick={openCustomer}>🔍</button>
+<button className="customer-btn" onClick={openCustomer}>
+🔍
+</button>
 
 </div>
 
 </div>
-
-
-{/* USER */}
-
-<div className="filter-row">
-
-<label>User</label>
-
-<div className="customer-row">
-
-<input value={userCode} placeholder="Code" readOnly/>
-
-<input value={userName} placeholder="Description" readOnly/>
-
-<button onClick={openUser}>🔍</button>
-
-</div>
-
-</div>
-
 
 <div className="buttons">
 
-<button onClick={handleLoad}>
+<button className="print" onClick={handleLoad}>
 {loading ? "Loading..." : "Load"}
 </button>
 
-<button onClick={printTable}>
+<button className="print" onClick={printTable}>
 Print
 </button>
 
-<button onClick={handleClear}>
+<button className="clear" onClick={handleClear}>
 Clear
 </button>
 
@@ -382,11 +358,60 @@ Clear
 
 </div>
 
+{/* REPORT POPUP */}
 
+{showReport && (
 
-{/* =====================
-CUSTOMER LOOKUP MODAL
-===================== */}
+<div className="report-overlay">
+
+<div className="report-modal">
+
+<div className="report-modal-header">
+<h3>Sales Summary Report</h3>
+
+<button onClick={()=>setShowReport(false)}>✕</button>
+
+</div>
+
+<div className="report-modal-body">
+
+<table className="report-table">
+
+<thead>
+<tr>
+<th>SALE NO</th>
+<th>DATE</th>
+<th>NET</th>
+<th>GROSS</th>
+<th>CUSTOMER</th>
+</tr>
+</thead>
+
+<tbody>
+
+{data.map((row,i)=>(
+<tr key={i}>
+<td>{row.SALE_NO}</td>
+<td>{row.SALE_DATE}</td>
+<td>{row.NET_AMOUNT}</td>
+<td>{row.GROSS_AMOUNT}</td>
+<td>{row.CUST_NAME}</td>
+</tr>
+))}
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+)}
+
+{/* CUSTOMER LOOKUP */}
 
 {showCustomer && (
 
@@ -394,15 +419,32 @@ CUSTOMER LOOKUP MODAL
 
 <div className="lookup-modal">
 
-<h3>Customer Lookup</h3>
+<div className="lookup-header">
+<span>Customer Lookup</span>
+<button onClick={()=>setShowCustomer(false)}>X</button>
+</div>
+
+<div className="lookup-search">
 
 <input
-placeholder="Search"
+placeholder="Find Code or Description"
 value={search}
 onChange={(e)=>setSearch(e.target.value)}
+autoFocus
 />
 
+</div>
+
+<div className="lookup-table">
+
 <table>
+
+<thead>
+<tr>
+<th>Code</th>
+<th>Description</th>
+</tr>
+</thead>
 
 <tbody>
 
@@ -426,58 +468,15 @@ c.CODE.toString().includes(search)
 
 </div>
 
+<div className="lookup-footer">
+<button onClick={()=>setShowCustomer(false)}>Cancel</button>
 </div>
-
-)}
-
-
-
-{/* =====================
-USER LOOKUP MODAL
-===================== */}
-
-{showUser && (
-
-<div className="lookup-overlay">
-
-<div className="lookup-modal">
-
-<h3>User Lookup</h3>
-
-<input
-placeholder="Search"
-value={search}
-onChange={(e)=>setSearch(e.target.value)}
-/>
-
-<table>
-
-<tbody>
-
-{userList
-.filter((u)=>
-u.DESCRIPTION.toLowerCase().includes(search.toLowerCase()) ||
-u.CODE.toString().includes(search)
-)
-.map((u,i)=>(
-
-<tr key={i} onClick={()=>selectUser(u)}>
-<td>{u.CODE}</td>
-<td>{u.DESCRIPTION}</td>
-</tr>
-
-))}
-
-</tbody>
-
-</table>
 
 </div>
 
 </div>
 
 )}
-
 
 </div>
 
@@ -485,4 +484,5 @@ u.CODE.toString().includes(search)
 
 }
 
-export default SalesReports
+export default SalesReports;
+
