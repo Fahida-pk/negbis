@@ -27,6 +27,12 @@ const [loading,setLoading] = useState(false)
 const [stores,setStores] = useState([])
 const [store,setStore] = useState(0)
 
+const [billWise,setBillWise] = useState(true)
+
+const [status,setStatus] = useState("")
+const [user,setUser] = useState(0)
+const [salesman,setSalesman] = useState(0)
+
 /* LOAD STORES */
 
 useEffect(()=>{
@@ -57,7 +63,16 @@ setLoading(true)
 try{
 
 const url =
-`/api/data?type=salesSummary&from=${fromDate}&to=${toDate}&store=${Number(store)||0}&custid=${Number(customerCode)||0}&opts=${opts}&stype=${stype}`
+`/api/data?type=salesSummary
+&from=${fromDate}
+&to=${toDate}
+&store=${Number(store)||0}
+&custid=${Number(customerCode)||0}
+&opts=${opts}
+&stype=${stype}
+&status=${status}
+&user=${user}
+&salesman=${salesman}`
 
 console.log("API URL:",url)
 
@@ -360,6 +375,54 @@ onChange={(e)=>setStore(e.target.value)}
 </button>
 
 </div>
+
+</div>
+
+<div className="filter-row">
+
+<label>
+<input
+type="radio"
+checked={billWise===true}
+onChange={()=>setBillWise(true)}
+/>
+Bill wise
+</label>
+
+<label>
+<input
+type="radio"
+checked={billWise===false}
+onChange={()=>setBillWise(false)}
+/>
+Sale Type
+</label>
+
+</div>
+
+<div className="filter-row">
+
+<label>Status</label>
+
+<label>
+<input type="checkbox" onChange={(e)=>setStatus(e.target.checked ? "1" : "")}/>
+Cancelled
+</label>
+
+<label>
+<input type="checkbox" onChange={(e)=>setStatus(e.target.checked ? "2" : "")}/>
+Open
+</label>
+
+<label>
+<input type="checkbox" onChange={(e)=>setStatus(e.target.checked ? "3" : "")}/>
+Partial
+</label>
+
+<label>
+<input type="checkbox" onChange={(e)=>setStatus(e.target.checked ? "4" : "")}/>
+Paid
+</label>
 
 </div>
 
