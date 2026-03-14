@@ -38,9 +38,10 @@ if(result?.data){
 setStores(result.data)
 }
 })
-.catch(err=>console.log(err))
+.catch(err=>console.log("Store Load Error:",err))
 
 },[])
+
 
 /* LOAD REPORT */
 
@@ -55,27 +56,39 @@ setLoading(true)
 
 try{
 
-const res = await fetch(
-`/api/data?type=salesSummary&from=${fromDate}&to=${toDate}&store=${store || 0}&custid=${customerCode || 0}&opts=${opts}&stype=${stype}`
-)
+const url =
+`/api/data?type=salesSummary&from=${fromDate}&to=${toDate}&store=${Number(store)||0}&custid=${Number(customerCode)||0}&opts=${opts}&stype=${stype}`
+
+console.log("API URL:",url)
+
+const res = await fetch(url)
 
 const result = await res.json()
 
+console.log("API RESULT:",result)
+
 if(result.status==="success"){
-setData(result.data)
+
+setData(result.data || [])
 setShowReport(true)
+
 }else{
-alert("Report failed")
+
+alert(result.message || "Report failed")
+
 }
 
 }catch(err){
-console.log(err)
+
+console.log("Fetch Error:",err)
 alert("Server error")
+
 }
 
 setLoading(false)
 
 }
+
 
 /* PRINT */
 
@@ -163,6 +176,7 @@ win.print()
 
 }
 
+
 /* CLEAR */
 
 const handleClear = ()=>{
@@ -173,24 +187,33 @@ setCustomerName("")
 setData([])
 }
 
+
 /* CUSTOMER LOOKUP */
 
 const openCustomer = async ()=>{
 
+try{
+
 const res = await fetch("/api/data?type=customerLookup")
 const result = await res.json()
 
-if(result.data){
+if(result?.data){
 setCustomerList(result.data)
 setShowCustomer(true)
+}
+
+}catch(err){
+console.log("Customer Load Error:",err)
 }
 
 }
 
 const selectCustomer = (c)=>{
+
 setCustomerCode(c.CODE)
 setCustomerName(c.DESCRIPTION)
 setShowCustomer(false)
+
 }
 
 return(
@@ -234,6 +257,7 @@ Sale Summary
 <label><input type="radio" name="report"/>Sale Tax Summary</label>
 
 </div>
+
 
 {/* RIGHT PANEL */}
 
