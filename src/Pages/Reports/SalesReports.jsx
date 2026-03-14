@@ -41,6 +41,7 @@ setStores(data.data)
 
 },[])
 
+
 /* LOAD REPORT */
 
 const handleLoad = async ()=>{
@@ -55,7 +56,7 @@ setLoading(true)
 try{
 
 const res = await fetch(
-`/api/data?from=${fromDate}&to=${toDate}&store=${store}&opts=${opts}&stype=${stype}&custid=${customerCode || 0}`
+`/api/data?type=salesSummary&from=${fromDate}&to=${toDate}&store=${store}&opts=${opts}&stype=${stype}&custid=${customerCode || 0}`
 )
 
 const result = await res.json()
@@ -64,7 +65,7 @@ if(result.status==="success"){
 setData(result.data)
 setShowReport(true)
 }else{
-alert("Report failed")
+alert(result.message || "Report failed")
 }
 
 }catch(err){
@@ -75,6 +76,7 @@ alert("Server error")
 setLoading(false)
 
 }
+
 
 /* PRINT */
 
@@ -103,7 +105,6 @@ win.document.write(`
 <title>Sales Report</title>
 
 <style>
-
 body{
 font-family:Arial;
 padding:20px;
@@ -123,7 +124,6 @@ text-align:left;
 th{
 background:#eee;
 }
-
 </style>
 
 </head>
@@ -162,6 +162,7 @@ win.print()
 
 }
 
+
 /* CLEAR */
 
 const handleClear = ()=>{
@@ -171,6 +172,7 @@ setCustomerCode("")
 setCustomerName("")
 setData([])
 }
+
 
 /* CUSTOMER LOOKUP */
 
@@ -191,6 +193,7 @@ setCustomerCode(c.ID)
 setCustomerName(c.DESCRIPTION)
 setShowCustomer(false)
 }
+
 
 return(
 
@@ -277,6 +280,7 @@ Sales Return
 
 </div>
 
+
 {opts===1 && (
 
 <div className="filter-row">
@@ -312,6 +316,7 @@ B2C
 
 )}
 
+
 <div className="filter-row">
 
 <label>Date From</label>
@@ -331,6 +336,7 @@ onChange={(e)=>setToDate(e.target.value)}
 />
 
 </div>
+
 
 <div className="filter-row">
 
@@ -352,6 +358,7 @@ onChange={(e)=>setStore(e.target.value)}
 </select>
 
 </div>
+
 
 <div className="filter-row">
 
@@ -381,6 +388,7 @@ onClick={openCustomer}
 </div>
 
 </div>
+
 
 <div className="buttons">
 
@@ -419,4 +427,4 @@ Clear
 
 }
 
-export default SalesReports;
+export default SalesReports
