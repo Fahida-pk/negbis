@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import Sidebar from "../Components/Sidebar";
 import "./reports.css";
@@ -10,8 +9,8 @@ const [report,setReport] = useState("sale_summary")
 const [fromDate,setFromDate] = useState("")
 const [toDate,setToDate] = useState("")
 
-const [opts,setOpts] = useState(0)   //0=All 1=Invoice 2=Return
-const [stype,setStype] = useState(0) //0=All 1=B2B 2=B2C
+const [opts,setOpts] = useState(0)
+const [stype,setStype] = useState(0)
 
 const [data,setData] = useState([])
 
@@ -26,14 +25,18 @@ const [showReport,setShowReport] = useState(false)
 const [loading,setLoading] = useState(false)
 
 const [stores,setStores] = useState([])
-const [store,setStore] = useState("")
+const [store,setStore] = useState(0)
+
+/* LOAD STORES */
 
 useEffect(()=>{
 
 fetch(`/api/data?type=getStores`)
 .then(res=>res.json())
 .then(data=>{
+if(data.data){
 setStores(data.data)
+}
 })
 
 },[])
@@ -51,7 +54,9 @@ setLoading(true)
 
 try{
 
-const res = await fetch(`/api/data?type=salesSummary&from=${fromDate}&to=${toDate}&store=${store}&opts=${opts}&stype=${stype}`)
+const res = await fetch(
+`/api/data?from=${fromDate}&to=${toDate}&store=${store}&opts=${opts}&stype=${stype}&custid=${customerCode}`
+)
 
 const result = await res.json()
 
@@ -98,6 +103,7 @@ win.document.write(`
 <title>Sales Report</title>
 
 <style>
+
 body{
 font-family:Arial;
 padding:20px;
@@ -118,9 +124,6 @@ th{
 background:#eee;
 }
 
-h2{
-margin-bottom:10px;
-}
 </style>
 
 </head>
@@ -131,6 +134,7 @@ margin-bottom:10px;
 <p>From: ${fromDate} To: ${toDate}</p>
 
 <table>
+
 <thead>
 <tr>
 <th>SALE NO</th>
@@ -142,7 +146,9 @@ margin-bottom:10px;
 </thead>
 
 <tbody>
+
 ${rows}
+
 </tbody>
 
 </table>
@@ -181,7 +187,7 @@ setShowCustomer(true)
 }
 
 const selectCustomer = (c)=>{
-setCustomerCode(c.CODE)
+setCustomerCode(c.ID)
 setCustomerName(c.DESCRIPTION)
 setShowCustomer(false)
 }
@@ -195,8 +201,16 @@ return(
 <div className="report-box">
 
 <div className="report-header">
+
 <h3>Sales Invoice Reports</h3>
-<button className="close-btn" onClick={()=>window.history.back()}>X</button>
+
+<button
+className="close-btn"
+onClick={()=>window.history.back()}
+>
+X
+</button>
+
 </div>
 
 <div className="report-content">
@@ -237,46 +251,72 @@ Sale Summary
 <div className="filter-row">
 
 <label>
-<input type="radio" checked={opts===0} onChange={()=>setOpts(0)}/>
+<input
+type="radio"
+checked={opts===0}
+onChange={()=>setOpts(0)}
+/>
 All
 </label>
 
 <label>
-<input type="radio" checked={opts===1} onChange={()=>setOpts(1)}/>
+<input
+type="radio"
+checked={opts===1}
+onChange={()=>setOpts(1)}
+/>
 Sales Invoice
 </label>
 
 <label>
-<input type="radio" checked={opts===2} onChange={()=>setOpts(2)}/>
+<input
+type="radio"
+checked={opts===2}
+onChange={()=>setOpts(2)}
+/>
 Sales Return
 </label>
 
 </div>
 
-{/* B2B / B2C */}
+{/* B2B B2C */}
 
 {opts===1 && (
 
 <div className="filter-row">
 
 <label>
-<input type="radio" checked={stype===0} onChange={()=>setStype(0)}/>
+<input
+type="radio"
+checked={stype===0}
+onChange={()=>setStype(0)}
+/>
 All
 </label>
 
 <label>
-<input type="radio" checked={stype===1} onChange={()=>setStype(1)}/>
+<input
+type="radio"
+checked={stype===1}
+onChange={()=>setStype(1)}
+/>
 B2B
 </label>
 
 <label>
-<input type="radio" checked={stype===2} onChange={()=>setStype(2)}/>
+<input
+type="radio"
+checked={stype===2}
+onChange={()=>setStype(2)}
+/>
 B2C
 </label>
 
 </div>
 
 )}
+
+{/* DATE */}
 
 <div className="filter-row">
 
@@ -298,6 +338,8 @@ onChange={(e)=>setToDate(e.target.value)}
 
 </div>
 
+{/* STORE */}
+
 <div className="filter-row">
 
 <label>Store</label>
@@ -307,7 +349,7 @@ value={store}
 onChange={(e)=>setStore(e.target.value)}
 >
 
-<option value="">Select Store</option>
+<option value="0">All Stores</option>
 
 {stores.map((s)=>(
 <option key={s.ID} value={s.ID}>
@@ -319,16 +361,30 @@ onChange={(e)=>setStore(e.target.value)}
 
 </div>
 
+{/* CUSTOMER */}
+
 <div className="filter-row">
 
 <label>Customer</label>
 
 <div className="customer-row">
 
-<input value={customerCode} placeholder="Code" readOnly/>
-<input value={customerName} placeholder="Description" readOnly/>
+<input
+value={customerCode}
+placeholder="Code"
+readOnly
+/>
 
-<button className="customer-btn" onClick={openCustomer}>
+<input
+value={customerName}
+placeholder="Description"
+readOnly
+/>
+
+<button
+className="customer-btn"
+onClick={openCustomer}
+>
 🔍
 </button>
 
@@ -336,17 +392,28 @@ onChange={(e)=>setStore(e.target.value)}
 
 </div>
 
+{/* BUTTONS */}
+
 <div className="buttons">
 
-<button className="print" onClick={handleLoad}>
+<button
+className="print"
+onClick={handleLoad}
+>
 {loading ? "Loading..." : "Load"}
 </button>
 
-<button className="print" onClick={printTable}>
+<button
+className="print"
+onClick={printTable}
+>
 Print
 </button>
 
-<button className="clear" onClick={handleClear}>
+<button
+className="clear"
+onClick={handleClear}
+>
 Clear
 </button>
 
@@ -367,9 +434,14 @@ Clear
 <div className="report-modal">
 
 <div className="report-modal-header">
+
 <h3>Sales Summary Report</h3>
 
-<button onClick={()=>setShowReport(false)}>✕</button>
+<button
+onClick={()=>setShowReport(false)}
+>
+✕
+</button>
 
 </div>
 
@@ -378,6 +450,7 @@ Clear
 <table className="report-table">
 
 <thead>
+
 <tr>
 <th>SALE NO</th>
 <th>DATE</th>
@@ -385,11 +458,13 @@ Clear
 <th>GROSS</th>
 <th>CUSTOMER</th>
 </tr>
+
 </thead>
 
 <tbody>
 
 {data.map((row,i)=>(
+
 <tr key={i}>
 <td>{row.SALE_NO}</td>
 <td>{row.SALE_DATE}</td>
@@ -397,6 +472,7 @@ Clear
 <td>{row.GROSS_AMOUNT}</td>
 <td>{row.CUST_NAME}</td>
 </tr>
+
 ))}
 
 </tbody>
@@ -420,8 +496,15 @@ Clear
 <div className="lookup-modal">
 
 <div className="lookup-header">
+
 <span>Customer Lookup</span>
-<button onClick={()=>setShowCustomer(false)}>X</button>
+
+<button
+onClick={()=>setShowCustomer(false)}
+>
+X
+</button>
+
 </div>
 
 <div className="lookup-search">
@@ -440,10 +523,12 @@ autoFocus
 <table>
 
 <thead>
+
 <tr>
 <th>Code</th>
 <th>Description</th>
 </tr>
+
 </thead>
 
 <tbody>
@@ -469,7 +554,13 @@ c.CODE.toString().includes(search)
 </div>
 
 <div className="lookup-footer">
-<button onClick={()=>setShowCustomer(false)}>Cancel</button>
+
+<button
+onClick={()=>setShowCustomer(false)}
+>
+Cancel
+</button>
+
 </div>
 
 </div>
@@ -485,4 +576,3 @@ c.CODE.toString().includes(search)
 }
 
 export default SalesReports;
-
