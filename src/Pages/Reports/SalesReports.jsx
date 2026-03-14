@@ -55,7 +55,7 @@ setLoading(true)
 try{
 
 const res = await fetch(
-`/api/data?from=${fromDate}&to=${toDate}&store=${store}&opts=${opts}&stype=${stype}&custid=${customerCode}`
+`/api/data?from=${fromDate}&to=${toDate}&store=${store}&opts=${opts}&stype=${stype}&custid=${customerCode || 0}`
 )
 
 const result = await res.json()
@@ -246,8 +246,6 @@ Sale Summary
 
 <div className="report-right">
 
-{/* SALES TYPE */}
-
 <div className="filter-row">
 
 <label>
@@ -278,8 +276,6 @@ Sales Return
 </label>
 
 </div>
-
-{/* B2B B2C */}
 
 {opts===1 && (
 
@@ -316,8 +312,6 @@ B2C
 
 )}
 
-{/* DATE */}
-
 <div className="filter-row">
 
 <label>Date From</label>
@@ -337,8 +331,6 @@ onChange={(e)=>setToDate(e.target.value)}
 />
 
 </div>
-
-{/* STORE */}
 
 <div className="filter-row">
 
@@ -360,8 +352,6 @@ onChange={(e)=>setStore(e.target.value)}
 </select>
 
 </div>
-
-{/* CUSTOMER */}
 
 <div className="filter-row">
 
@@ -391,8 +381,6 @@ onClick={openCustomer}
 </div>
 
 </div>
-
-{/* BUTTONS */}
 
 <div className="buttons">
 
@@ -424,150 +412,6 @@ Clear
 </div>
 
 </div>
-
-{/* REPORT POPUP */}
-
-{showReport && (
-
-<div className="report-overlay">
-
-<div className="report-modal">
-
-<div className="report-modal-header">
-
-<h3>Sales Summary Report</h3>
-
-<button
-onClick={()=>setShowReport(false)}
->
-✕
-</button>
-
-</div>
-
-<div className="report-modal-body">
-
-<table className="report-table">
-
-<thead>
-
-<tr>
-<th>SALE NO</th>
-<th>DATE</th>
-<th>NET</th>
-<th>GROSS</th>
-<th>CUSTOMER</th>
-</tr>
-
-</thead>
-
-<tbody>
-
-{data.map((row,i)=>(
-
-<tr key={i}>
-<td>{row.SALE_NO}</td>
-<td>{row.SALE_DATE}</td>
-<td>{row.NET_AMOUNT}</td>
-<td>{row.GROSS_AMOUNT}</td>
-<td>{row.CUST_NAME}</td>
-</tr>
-
-))}
-
-</tbody>
-
-</table>
-
-</div>
-
-</div>
-
-</div>
-
-)}
-
-{/* CUSTOMER LOOKUP */}
-
-{showCustomer && (
-
-<div className="lookup-overlay">
-
-<div className="lookup-modal">
-
-<div className="lookup-header">
-
-<span>Customer Lookup</span>
-
-<button
-onClick={()=>setShowCustomer(false)}
->
-X
-</button>
-
-</div>
-
-<div className="lookup-search">
-
-<input
-placeholder="Find Code or Description"
-value={search}
-onChange={(e)=>setSearch(e.target.value)}
-autoFocus
-/>
-
-</div>
-
-<div className="lookup-table">
-
-<table>
-
-<thead>
-
-<tr>
-<th>Code</th>
-<th>Description</th>
-</tr>
-
-</thead>
-
-<tbody>
-
-{customerList
-.filter((c)=>
-c.DESCRIPTION.toLowerCase().includes(search.toLowerCase()) ||
-c.CODE.toString().includes(search)
-)
-.map((c,i)=>(
-
-<tr key={i} onClick={()=>selectCustomer(c)}>
-<td>{c.CODE}</td>
-<td>{c.DESCRIPTION}</td>
-</tr>
-
-))}
-
-</tbody>
-
-</table>
-
-</div>
-
-<div className="lookup-footer">
-
-<button
-onClick={()=>setShowCustomer(false)}
->
-Cancel
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-)}
 
 </div>
 
