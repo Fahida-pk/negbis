@@ -41,7 +41,6 @@ setStores(data.data)
 
 },[])
 
-
 /* LOAD REPORT */
 
 const handleLoad = async ()=>{
@@ -56,7 +55,7 @@ setLoading(true)
 try{
 
 const res = await fetch(
-`/api/data?type=salesSummary&from=${fromDate}&to=${toDate}&store=${store}&opts=${opts}&stype=${stype}&custid=${customerCode || 0}`
+`/api/data?from=${fromDate}&to=${toDate}&store=${store}&opts=${opts}&stype=${stype}&custid=${customerCode}`
 )
 
 const result = await res.json()
@@ -65,7 +64,7 @@ if(result.status==="success"){
 setData(result.data)
 setShowReport(true)
 }else{
-alert(result.message || "Report failed")
+alert("Report failed")
 }
 
 }catch(err){
@@ -76,7 +75,6 @@ alert("Server error")
 setLoading(false)
 
 }
-
 
 /* PRINT */
 
@@ -105,6 +103,7 @@ win.document.write(`
 <title>Sales Report</title>
 
 <style>
+
 body{
 font-family:Arial;
 padding:20px;
@@ -124,6 +123,7 @@ text-align:left;
 th{
 background:#eee;
 }
+
 </style>
 
 </head>
@@ -162,7 +162,6 @@ win.print()
 
 }
 
-
 /* CLEAR */
 
 const handleClear = ()=>{
@@ -172,7 +171,6 @@ setCustomerCode("")
 setCustomerName("")
 setData([])
 }
-
 
 /* CUSTOMER LOOKUP */
 
@@ -193,7 +191,6 @@ setCustomerCode(c.ID)
 setCustomerName(c.DESCRIPTION)
 setShowCustomer(false)
 }
-
 
 return(
 
@@ -249,6 +246,8 @@ Sale Summary
 
 <div className="report-right">
 
+{/* SALES TYPE */}
+
 <div className="filter-row">
 
 <label>
@@ -280,6 +279,7 @@ Sales Return
 
 </div>
 
+{/* B2B B2C */}
 
 {opts===1 && (
 
@@ -316,6 +316,7 @@ B2C
 
 )}
 
+{/* DATE */}
 
 <div className="filter-row">
 
@@ -337,6 +338,7 @@ onChange={(e)=>setToDate(e.target.value)}
 
 </div>
 
+{/* STORE */}
 
 <div className="filter-row">
 
@@ -359,6 +361,7 @@ onChange={(e)=>setStore(e.target.value)}
 
 </div>
 
+{/* CUSTOMER */}
 
 <div className="filter-row">
 
@@ -389,6 +392,7 @@ onClick={openCustomer}
 
 </div>
 
+{/* BUTTONS */}
 
 <div className="buttons">
 
@@ -421,10 +425,154 @@ Clear
 
 </div>
 
+{/* REPORT POPUP */}
+
+{showReport && (
+
+<div className="report-overlay">
+
+<div className="report-modal">
+
+<div className="report-modal-header">
+
+<h3>Sales Summary Report</h3>
+
+<button
+onClick={()=>setShowReport(false)}
+>
+✕
+</button>
+
+</div>
+
+<div className="report-modal-body">
+
+<table className="report-table">
+
+<thead>
+
+<tr>
+<th>SALE NO</th>
+<th>DATE</th>
+<th>NET</th>
+<th>GROSS</th>
+<th>CUSTOMER</th>
+</tr>
+
+</thead>
+
+<tbody>
+
+{data.map((row,i)=>(
+
+<tr key={i}>
+<td>{row.SALE_NO}</td>
+<td>{row.SALE_DATE}</td>
+<td>{row.NET_AMOUNT}</td>
+<td>{row.GROSS_AMOUNT}</td>
+<td>{row.CUST_NAME}</td>
+</tr>
+
+))}
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+)}
+
+{/* CUSTOMER LOOKUP */}
+
+{showCustomer && (
+
+<div className="lookup-overlay">
+
+<div className="lookup-modal">
+
+<div className="lookup-header">
+
+<span>Customer Lookup</span>
+
+<button
+onClick={()=>setShowCustomer(false)}
+>
+X
+</button>
+
+</div>
+
+<div className="lookup-search">
+
+<input
+placeholder="Find Code or Description"
+value={search}
+onChange={(e)=>setSearch(e.target.value)}
+autoFocus
+/>
+
+</div>
+
+<div className="lookup-table">
+
+<table>
+
+<thead>
+
+<tr>
+<th>Code</th>
+<th>Description</th>
+</tr>
+
+</thead>
+
+<tbody>
+
+{customerList
+.filter((c)=>
+c.DESCRIPTION.toLowerCase().includes(search.toLowerCase()) ||
+c.CODE.toString().includes(search)
+)
+.map((c,i)=>(
+
+<tr key={i} onClick={()=>selectCustomer(c)}>
+<td>{c.CODE}</td>
+<td>{c.DESCRIPTION}</td>
+</tr>
+
+))}
+
+</tbody>
+
+</table>
+
+</div>
+
+<div className="lookup-footer">
+
+<button
+onClick={()=>setShowCustomer(false)}
+>
+Cancel
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+)}
+
 </div>
 
 )
 
 }
 
-export default SalesReports
+export default SalesReports;
