@@ -123,20 +123,17 @@ padding-left:10px;
 /* ========================= */
 
 .filter-row{
-display:flex;
-align-items:center;
-gap:25px;
-flex-wrap:wrap;
+border-bottom:1px solid #eee;
+padding-bottom:10px;
+margin-bottom:10px;
 }
 
 .filter-row label{
 display:flex;
 align-items:center;
 gap:6px;
+font-size:14px;
 cursor:pointer;
-}
-.filter-row input[type="radio"]{
-transform:scale(1.1);
 }
 
 .filter-row input{
@@ -280,7 +277,7 @@ background:#f7f8fc;
 
 .customer-row{
 display:flex;
-gap:7px;
+gap:8px;
 width:100%;
 }
 
@@ -292,8 +289,7 @@ flex:1;
 width:45px;
 min-width:45px;
 height:36px;
-border:solid black 2px;
-
+border:none;
 color:white;
 border-radius:5px;
 cursor:pointer;
