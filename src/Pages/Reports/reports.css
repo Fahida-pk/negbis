@@ -116,21 +116,18 @@ transform:translateY(-1px);
 
 /* LEFT PANEL */
 
-.report-left label{
+/* RADIO + TEXT NO GAP */
 
+.filter-row label,
+.report-left label{
 display:flex;
 align-items:center;
-gap:6px;
-
+gap:0;
 }
 
-
-/* RADIO SPACING */
-
+.filter-row input[type="radio"],
 .report-left input[type="radio"]{
-
-margin-right:5px;
-
+margin-right:3px;
 }
 /* ========================= */
 /* HEADER */
@@ -680,7 +677,38 @@ justify-content:flex-end;
 border-top:1px solid #e5e7f4;
 
 }
+/* STATUS BOX */
 
+.status-row{
+
+border:1px solid #dcdff1;
+border-radius:6px;
+
+padding:10px 15px;
+
+background:#ffffff;
+
+display:flex;
+flex-wrap:wrap;
+
+gap:15px;
+
+align-items:center;
+
+}
+
+/* STATUS TITLE */
+
+.status-row > label:first-child{
+font-weight:600;
+margin-right:10px;
+}
+
+/* CHECKBOX */
+
+.status-row input[type="checkbox"]{
+margin-right:4px;
+}
 .lookup-footer button{
 
 padding:6px 15px;
