@@ -16,7 +16,6 @@ font-family:"Poppins",sans-serif;
 overflow-x:hidden;
 }
 
-
 /* ========================= */
 /* MAIN CONTAINER */
 /* ========================= */
@@ -30,105 +29,67 @@ padding:80px 20px 20px;
 margin-left:240px;
 }
 
-
 /* ========================= */
 /* REPORT BOX */
 /* ========================= */
 
 .report-box{
-
 background:#f7f8fc;
-
 width:900px;
 max-width:100%;
-
 padding:25px;
-
 border-radius:8px;
-
 border:1px solid #dcdff1;
-
 box-shadow:0 6px 20px rgba(0,0,0,0.08);
-
 position:relative;
-
 }
 
+/* ========================= */
 /* FILTER LABEL */
+/* ========================= */
 
 .filter-row label{
 font-weight:500;
 color:#333;
-min-width:90px;
-}
-
-
-/* RADIO GROUP */
-
-.filter-row input[type="radio"]{
-margin-right:6px;
+display:inline-flex;
+align-items:center;
+gap:4px;
+min-width:auto;
 cursor:pointer;
 }
 
+/* ========================= */
+/* RADIO */
+/* ========================= */
 
-/* CHECKBOX GROUP */
-
-.status-row{
-gap:20px;
-align-items:center;
+.filter-row input[type="radio"],
+.report-left input[type="radio"]{
+margin:0;
+margin-right:4px;
+cursor:pointer;
 }
 
-.status-row label{
-display:flex;
-align-items:center;
-gap:5px;
+/* ========================= */
+/* CHECKBOX */
+/* ========================= */
+
+.status-row input[type="checkbox"]{
+margin-right:4px;
+cursor:pointer;
 }
 
-
+/* ========================= */
 /* SELECT */
+/* ========================= */
 
 .filter-row select{
-
 padding:8px 10px;
 border-radius:5px;
 border:1px solid #cfd4e6;
 background:white;
 min-width:180px;
-
 }
 
-
-/* BUTTON STYLE */
-
-.buttons button{
-
-min-width:110px;
-transition:0.2s;
-
-}
-
-.buttons button:hover{
-
-transform:translateY(-1px);
-
-}
-
-
-/* LEFT PANEL */
-
-/* RADIO + TEXT NO GAP */
-
-.filter-row label,
-.report-left label{
-display:flex;
-align-items:center;
-gap:0;
-}
-
-.filter-row input[type="radio"],
-.report-left input[type="radio"]{
-margin-right:3px;
-}
 /* ========================= */
 /* HEADER */
 /* ========================= */
@@ -143,41 +104,27 @@ font-size:18px;
 color:#333;
 }
 
-
 /* ========================= */
 /* CLOSE BUTTON */
 /* ========================= */
 
 .close-btn{
-
 position:absolute;
-
 top:15px;
 right:15px;
-
 background:#5f6bd8;
-
 color:white;
-
 border:none;
-
 width:34px;
 height:34px;
-
 border-radius:6px;
-
 font-weight:700;
-
 cursor:pointer;
-
 display:flex;
 align-items:center;
 justify-content:center;
-
 font-size:16px;
-
 }
-
 
 /* ========================= */
 /* CONTENT */
@@ -188,35 +135,25 @@ display:flex;
 gap:25px;
 }
 
-
 /* ========================= */
 /* LEFT PANEL */
 /* ========================= */
 
 .report-left{
-
 width:260px;
-
 border-right:1px solid #e3e6f3;
-
 padding-right:15px;
-
 }
 
 .report-left label{
-
-display:block;
-
+display:flex;
+align-items:center;
+gap:4px;
 margin:12px 0;
-
 font-size:14px;
-
 cursor:pointer;
-
 color:#444;
-
 }
-
 
 /* ========================= */
 /* RIGHT PANEL */
@@ -227,589 +164,149 @@ flex:1;
 padding-left:10px;
 }
 
-
 /* ========================= */
 /* FILTER ROW */
 /* ========================= */
 
 .filter-row{
-
 margin-bottom:15px;
-
 display:flex;
-
-gap:12px;
-
+gap:20px;
 flex-wrap:wrap;
-
 align-items:center;
-
 font-size:14px;
-
 }
 
 .filter-row input{
-
 padding:8px 10px;
-
 border-radius:5px;
-
 border:1px solid #cfd4e6;
-
 background:white;
-
 min-width:150px;
-
 }
 
 .filter-row input:focus{
-
 outline:none;
-
 border-color:#5f6bd8;
-
 }
-
 
 /* ========================= */
-/* BUTTONS */
-/* ========================= */
-
-.buttons{
-
-margin-top:25px;
-
-display:flex;
-
-gap:12px;
-
-}
-
-
-/* LOAD BUTTON */
-
-.load{
-
-background:#5f6bd8;
-
-color:white;
-
-padding:10px 24px;
-
-border:none;
-
-border-radius:6px;
-
-font-weight:600;
-
-cursor:pointer;
-
-}
-
-.load:hover{
-background:#4d57c7;
-color: black;
-
-}
-
-
-/* PRINT BUTTON */
-
-.print{
-
-background:#5f6bd8;
-
-color:white;
-
-padding:10px 24px;
-
-border:none;
-
-border-radius:6px;
-
-font-weight:600;
-
-cursor:pointer;
-
-}
-
-.print:hover{
-background:#4d57c7;
-color: black;
-}
-
-
-/* CLEAR BUTTON */
-
-.clear{
-
-background:#5f6bd8;
-
-color:white;
-
-padding:10px 24px;
-
-border:none;
-
-border-radius:6px;
-
-font-weight:600;
-
-cursor:pointer;
-
-}
-
-.clear:hover{
-background:#5f6bd8;
-color: black;
-
-}
-
-
-/* ========================= */
-/* TABLE */
-/* ========================= */
-
-.report-table{
-
-width:100%;
-
-border-collapse:collapse;
-
-margin-top:10px;
-
-}
-
-.report-table th,
-.report-table td{
-
-border:1px solid #dfe3f5;
-
-padding:10px;
-
-font-size:14px;
-
-}
-
-.report-table th{
-
-background:#eef1fb;
-
-font-weight:600;
-
-}
-
-.report-table tr:nth-child(even){
-background:#f7f8fc;
-}
-
-
-/* ========================= */
-/* REPORT MODAL */
-/* ========================= */
-
-.report-overlay{
-
-position:fixed;
-
-top:0;
-left:0;
-
-width:100%;
-height:100%;
-
-background:rgba(0,0,0,0.4);
-
-display:flex;
-
-justify-content:center;
-align-items:center;
-
-z-index:5000;
-
-}
-
-.report-modal{
-
-width:900px;
-
-max-width:95%;
-
-background:white;
-
-border-radius:8px;
-
-box-shadow:0 10px 25px rgba(0,0,0,0.25);
-
-overflow:hidden;
-
-}
-
-
-/* ========================= */
-/* MODAL HEADER */
-/* ========================= */
-
-.report-modal-header{
-
-background:#5f6bd8;
-
-color:white;
-
-padding:12px 20px;
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-font-weight:600;
-
-}
-
-.report-modal-header button{
-
-background:white;
-
-color:#5f6bd8;
-
-border:none;
-
-width:32px;
-height:32px;
-
-border-radius:6px;
-
-font-weight:bold;
-
-cursor:pointer;
-
-}
-
-
-/* ========================= */
-/* MODAL BODY */
-/* ========================= */
-
-.report-modal-body{
-
-padding:20px;
-
-max-height:500px;
-
-overflow:auto;
-
-}
-
-
-/* ========================= */
-/* CUSTOMER LOOKUP MODAL */
-/* ========================= */
-
-.lookup-overlay{
-
-position:fixed;
-
-top:0;
-left:0;
-
-width:100%;
-height:100%;
-
-background:rgba(0,0,0,0.4);
-
-display:flex;
-
-justify-content:center;
-align-items:center;
-
-z-index:6000;
-
-}
-
-.lookup-modal{
-
-width:600px;
-
-max-width:95%;
-
-background:white;
-
-border-radius:8px;
-
-box-shadow:0 10px 25px rgba(0,0,0,0.25);
-
-overflow:hidden;
-
-}
-
-
-/* ========================= */
-/* LOOKUP HEADER */
-/* ========================= */
-
-.lookup-header{
-
-background:#5f6bd8;
-
-color:white;
-
-padding:10px 15px;
-
-display:flex;
-
-justify-content:space-between;
-
-align-items:center;
-
-font-weight:600;
-
-}
-
-.lookup-header button{
-
-background:white;
-
-color:#5f6bd8;
-
-border:none;
-
-width:30px;
-height:30px;
-
-border-radius:5px;
-
-cursor:pointer;
-
-}
-
-
-/* ========================= */
-/* LOOKUP SEARCH */
-/* ========================= */
-
-.lookup-search{
-
-padding:12px;
-
-border-bottom:1px solid #e5e7f4;
-
-}
-
-.lookup-search input{
-
-width:100%;
-
-padding:8px;
-
-border:1px solid #cfd4e6;
-
-border-radius:5px;
-
-}
-
-
-/* ========================= */
-/* LOOKUP TABLE */
-/* ========================= */
-
-.lookup-table{
-
-max-height:300px;
-
-overflow-y:auto;
-
-}
-
-.lookup-table table{
-
-width:100%;
-
-border-collapse:collapse;
-
-}
-
-.lookup-table th,
-.lookup-table td{
-
-border:1px solid #e2e5f2;
-
-padding:8px;
-
-font-size:14px;
-
-}
-
-
-.customer-btn{
-background:#f4f6fb;
-  border:1px solid #d9dce7;
-  padding:6px 10px;
-  border-radius:5px;
-  cursor:pointer;
-}
-
-.customer-btn:hover{
-background:#3048d4;
-}
-.lookup-table tr:hover{
-
-background:#eef1ff;
-
-cursor:pointer;
-
-}
-
-
-/* ========================= */
-/* LOOKUP FOOTER */
-/* ========================= */
-
-.lookup-footer{
-
-padding:10px;
-
-display:flex;
-
-justify-content:flex-end;
-
-border-top:1px solid #e5e7f4;
-
-}
 /* STATUS BOX */
+/* ========================= */
 
 .status-row{
-
 border:1px solid #dcdff1;
 border-radius:6px;
-
-padding:10px 15px;
-
+padding:12px 15px;
 background:#ffffff;
-
 display:flex;
 flex-wrap:wrap;
-
-gap:15px;
-
+gap:20px;
 align-items:center;
-
 }
-
-/* STATUS TITLE */
 
 .status-row > label:first-child{
 font-weight:600;
 margin-right:10px;
 }
 
-/* CHECKBOX */
+/* ========================= */
+/* BUTTONS */
+/* ========================= */
 
-.status-row input[type="checkbox"]{
-margin-right:4px;
-}
-.lookup-footer button{
-
-padding:6px 15px;
-
-border:none;
-
-background:#f44336;
-
-color:white;
-
-border-radius:4px;
-
-cursor:pointer;
-
-}
-
-/* CUSTOMER FIELD ROW */
-
-.customer-row{
+.buttons{
+margin-top:25px;
 display:flex;
-gap:8px;
-width:100%;
+gap:12px;
 }
 
-.customer-row input{
-flex:1;
+.buttons button{
+min-width:110px;
+transition:0.2s;
 }
 
-.customer-row button{
-width:45px;
-min-width:45px;
-height:36px;
-border:none;
+.buttons button:hover{
+transform:translateY(-1px);
+}
+
+/* ========================= */
+/* LOAD BUTTON */
+/* ========================= */
+
+.load{
+background:#5f6bd8;
 color:white;
-border-radius:5px;
-cursor:pointer;
-}
-.report-modal-body{
-padding:20px;
-max-height:500px;
-overflow:auto;
-}
-
-.report-table{
-min-width:600px;
-}
-/* ========================= */
-/* MOBILE VIEW */
-/* ========================= */
-/* ========================= */
-/* MOBILE TABLE */
-/* ========================= */
-
-@media (max-width:768px){
-
-.report-table{
-width:100%;
-border:0;
-}
-
-.report-table thead{
-display:none;
-}
-
-.report-table tr{
-display:block;
-margin-bottom:12px;
-border:1px solid #dfe3f5;
+padding:10px 24px;
+border:none;
 border-radius:6px;
-background:#fff;
-padding:8px;
+font-weight:600;
+cursor:pointer;
 }
 
-.report-table td{
-display:flex;
-align-items:center;
-justify-content:flex-start;
-gap:8px;
-padding:6px 8px;
+.load:hover{
+background:#4d57c7;
+}
+
+/* ========================= */
+/* PRINT BUTTON */
+/* ========================= */
+
+.print{
+background:#5f6bd8;
+color:white;
+padding:10px 24px;
 border:none;
-border-bottom:1px solid #eee;
-font-size:13px;
-}
-
-.report-table td::before{
-content:attr(data-label);
+border-radius:6px;
 font-weight:600;
-color:#444;
-min-width:90px;
+cursor:pointer;
 }
 
-.report-table td:last-child{
-border-bottom:none;
+.print:hover{
+background:#4d57c7;
 }
 
-.report-table td::before{
-content:attr(data-label);
+/* ========================= */
+/* CLEAR BUTTON */
+/* ========================= */
+
+.clear{
+background:#5f6bd8;
+color:white;
+padding:10px 24px;
+border:none;
+border-radius:6px;
 font-weight:600;
-color:#444;
+cursor:pointer;
 }
 
+.clear:hover{
+background:#4d57c7;
+}
+
+/* ========================= */
+/* TABLE */
+/* ========================= */
+
+.report-table{
+width:100%;
+border-collapse:collapse;
+margin-top:10px;
+}
+
+.report-table th,
+.report-table td{
+border:1px solid #dfe3f5;
+padding:10px;
+font-size:14px;
+}
+
+.report-table th{
+background:#eef1fb;
+font-weight:600;
+}
+
+.report-table tr:nth-child(even){
+background:#f7f8fc;
 }
 @media (max-width:768px){
 
