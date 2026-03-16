@@ -44,10 +44,24 @@ if(result?.data){
 setStores(result.data)
 }
 })
-.catch(err=>console.log("Store Load Error:",err))
 
 },[])
 
+/* STATUS MULTI SELECT */
+
+const toggleStatus=(value)=>{
+
+let arr = status ? status.split(",") : []
+
+if(arr.includes(value)){
+arr = arr.filter(v=>v!==value)
+}else{
+arr.push(value)
+}
+
+setStatus(arr.join(","))
+
+}
 
 /* LOAD REPORT */
 
@@ -60,111 +74,58 @@ return
 
 setLoading(true)
 
-try{
-
 const url =
 `/api/data?type=salesSummary
 &from=${fromDate}
 &to=${toDate}
-&store=${Number(store)||0}
-&custid=${Number(customerCode)||0}
+&store=${store}
+&custid=${customerCode||0}
 &opts=${opts}
 &stype=${stype}
 &status=${status}
 &user=${user}
 &salesman=${salesman}`
 
-console.log("API URL:",url)
-
 const res = await fetch(url)
-
 const result = await res.json()
 
-console.log("API RESULT:",result)
-
 if(result.status==="success"){
-
-setData(result.data || [])
+setData(result.data)
 setShowReport(true)
-
 }else{
-
-alert(result.message || "Report failed")
-
-}
-
-}catch(err){
-
-console.log("Fetch Error:",err)
-alert("Server error")
-
+alert("Report failed")
 }
 
 setLoading(false)
 
 }
 
-
 /* PRINT */
 
-const printTable = () => {
+const printTable=()=>{
 
-if(data.length === 0){
-alert("No data to print")
+if(data.length===0){
+alert("No data")
 return
 }
 
 const win = window.open("","","width=900,height=700")
 
-const rows = data.map(row => `
+const rows=data.map(r=>`
 <tr>
-<td>${row.SALE_NO}</td>
-<td>${row.SALE_DATE}</td>
-<td>${row.NET_AMOUNT}</td>
-<td>${row.GROSS_AMOUNT}</td>
-<td>${row.CUST_NAME}</td>
+<td>${r.SALE_NO}</td>
+<td>${r.SALE_DATE}</td>
+<td>${r.NET_AMOUNT}</td>
+<td>${r.GROSS_AMOUNT}</td>
+<td>${r.CUST_NAME}</td>
 </tr>
 `).join("")
 
 win.document.write(`
 <html>
-<head>
-<title>Sales Report</title>
-
-<style>
-
-body{
-font-family:Arial;
-padding:20px;
-}
-
-table{
-width:100%;
-border-collapse:collapse;
-}
-
-th,td{
-border:1px solid #999;
-padding:8px;
-text-align:left;
-}
-
-th{
-background:#eee;
-}
-
-</style>
-
-</head>
-
 <body>
-
-<h2>Sales Summary Report</h2>
-<p>From: ${fromDate} To: ${toDate}</p>
-
-<table>
-
-<thead>
+<h2>Sales Summary</h2>
+<table border="1" width="100%">
 <tr>
 <th>SALE NO</th>
 <th>DATE</th>
@@ -172,63 +133,41 @@ background:#eee;
 <th>GROSS</th>
 <th>CUSTOMER</th>
 </tr>
-</thead>
-
-<tbody>
-
 ${rows}
-
-</tbody>
-
 </table>
-
 </body>
 </html>
 `)
 
-win.document.close()
 win.print()
 
 }
 
-
 /* CLEAR */
 
-const handleClear = ()=>{
+const handleClear=()=>{
 setFromDate("")
 setToDate("")
 setCustomerCode("")
 setCustomerName("")
-setData([])
 }
-
 
 /* CUSTOMER LOOKUP */
 
-const openCustomer = async ()=>{
-
-try{
+const openCustomer=async()=>{
 
 const res = await fetch("/api/data?type=customerLookup")
 const result = await res.json()
 
-if(result?.data){
 setCustomerList(result.data)
 setShowCustomer(true)
-}
-
-}catch(err){
-console.log("Customer Load Error:",err)
-}
 
 }
 
-const selectCustomer = (c)=>{
-
+const selectCustomer=(c)=>{
 setCustomerCode(c.CODE)
 setCustomerName(c.DESCRIPTION)
 setShowCustomer(false)
-
 }
 
 return(
@@ -239,44 +178,38 @@ return(
 
 <div className="report-box">
 
-<div className="report-header">
 <h3>Sales Invoice Reports</h3>
-<button className="close-btn" onClick={()=>window.history.back()}>X</button>
-</div>
 
 <div className="report-content">
 
-{/* LEFT PANEL */}
+{/* LEFT */}
 
 <div className="report-left">
 
 <label>
-<input
-type="radio"
-checked={report==="sale_summary"}
-onChange={()=>setReport("sale_summary")}
-name="report"
-/>
+<input type="radio" checked={report==="sale_summary"} onChange={()=>setReport("sale_summary")}/>
 Sale Summary
 </label>
 
-<label><input type="radio" name="report"/>Daily Sales Summary</label>
-<label><input type="radio" name="report"/>Monthly Sales Summary</label>
-<label><input type="radio" name="report"/>Sale Details</label>
-<label><input type="radio" name="report"/>Item wise Sales</label>
-<label><input type="radio" name="report"/>Item wise Profit</label>
-<label><input type="radio" name="report"/>Item wise Summary</label>
-<label><input type="radio" name="report"/>Salesman wise Sales</label>
-<label><input type="radio" name="report"/>Daily Sales Report</label>
-<label><input type="radio" name="report"/>Sales Profit</label>
-<label><input type="radio" name="report"/>Sale Tax Summary</label>
+<label><input type="radio"/>Daily Sales Summary</label>
+<label><input type="radio"/>Monthly Sales Summary</label>
+<label><input type="radio"/>Sale Details</label>
+<label><input type="radio"/>Item wise Sales</label>
+<label><input type="radio"/>Item wise Profit</label>
+<label><input type="radio"/>Item wise Summary</label>
+<label><input type="radio"/>Salesman wise Sales</label>
+<label><input type="radio"/>Daily Sales Report</label>
+<label><input type="radio"/>Sales Profit</label>
+<label><input type="radio"/>Sale Tax Summary</label>
 
 </div>
 
 
-{/* RIGHT PANEL */}
+{/* RIGHT */}
 
 <div className="report-right">
+
+{/* OPTS */}
 
 <div className="filter-row">
 
@@ -297,69 +230,51 @@ Sales Return
 
 </div>
 
+{/* STYPE */}
+
 {opts===1 && (
 
 <div className="filter-row">
 
-<label>
-<input type="radio" checked={stype===0} onChange={()=>setStype(0)}/>
-All
-</label>
-
-<label>
-<input type="radio" checked={stype===1} onChange={()=>setStype(1)}/>
-B2B
-</label>
-
-<label>
-<input type="radio" checked={stype===2} onChange={()=>setStype(2)}/>
-B2C
-</label>
+<label><input type="radio" checked={stype===0} onChange={()=>setStype(0)}/>All</label>
+<label><input type="radio" checked={stype===1} onChange={()=>setStype(1)}/>B2B</label>
+<label><input type="radio" checked={stype===2} onChange={()=>setStype(2)}/>B2C</label>
 
 </div>
 
 )}
 
+{/* DATE */}
+
 <div className="filter-row">
 
 <label>Date From</label>
-
-<input
-type="date"
-value={fromDate}
-onChange={(e)=>setFromDate(e.target.value)}
-/>
+<input type="date" value={fromDate} onChange={(e)=>setFromDate(e.target.value)}/>
 
 <label>To</label>
-
-<input
-type="date"
-value={toDate}
-onChange={(e)=>setToDate(e.target.value)}
-/>
+<input type="date" value={toDate} onChange={(e)=>setToDate(e.target.value)}/>
 
 </div>
+
+{/* STORE */}
 
 <div className="filter-row">
 
 <label>Store</label>
 
-<select
-value={store}
-onChange={(e)=>setStore(e.target.value)}
->
+<select value={store} onChange={(e)=>setStore(e.target.value)}>
 
 <option value={0}>All Stores</option>
 
-{stores.map((s)=>(
-<option key={s.ID} value={s.ID}>
-{s.STORE_NAME}
-</option>
-))}
+{stores.map(s=>
+<option key={s.ID} value={s.ID}>{s.STORE_NAME}</option>
+)}
 
 </select>
 
 </div>
+
+{/* CUSTOMER */}
 
 <div className="filter-row">
 
@@ -370,73 +285,91 @@ onChange={(e)=>setStore(e.target.value)}
 <input value={customerCode} placeholder="Code" readOnly/>
 <input value={customerName} placeholder="Description" readOnly/>
 
-<button className="customer-btn" onClick={openCustomer}>
-🔍
-</button>
+<button onClick={openCustomer}>🔍</button>
 
 </div>
 
 </div>
+
+{/* USER */}
 
 <div className="filter-row">
 
-<label>
-<input
-type="radio"
-checked={billWise===true}
-onChange={()=>setBillWise(true)}
-/>
-Bill wise
-</label>
+<label>User</label>
 
-<label>
-<input
-type="radio"
-checked={billWise===false}
-onChange={()=>setBillWise(false)}
-/>
-Sale Type
-</label>
+<div className="customer-row">
+
+<input value={user} onChange={(e)=>setUser(e.target.value)} placeholder="Code"/>
+<input placeholder="Description" readOnly/>
 
 </div>
+
+</div>
+
+{/* DISABLED FIELDS */}
+
+<div className="filter-row disabled-field">
+<label>Agent</label>
+<input placeholder="Code" disabled/>
+<input placeholder="Description" disabled/>
+</div>
+
+<div className="filter-row disabled-field">
+<label>Salesman</label>
+<input placeholder="Code" disabled/>
+<input placeholder="Description" disabled/>
+</div>
+
+<div className="filter-row disabled-field">
+<label>Division</label>
+<input placeholder="Code" disabled/>
+<input placeholder="Description" disabled/>
+</div>
+
+<div className="filter-row disabled-field">
+<label>Category</label>
+<input placeholder="Code" disabled/>
+<input placeholder="Description" disabled/>
+</div>
+
+<div className="filter-row disabled-field">
+<label>Brand</label>
+<input placeholder="Code" disabled/>
+<input placeholder="Description" disabled/>
+</div>
+
+<div className="filter-row disabled-field">
+<label>Item</label>
+<input placeholder="Code" disabled/>
+<input placeholder="Description" disabled/>
+</div>
+
+{/* STATUS */}
 
 <div className="filter-row">
 
 <label>Status</label>
 
-<label>
-<input type="checkbox" onChange={(e)=>setStatus(e.target.checked ? "1" : "")}/>
-Cancelled
-</label>
-
-<label>
-<input type="checkbox" onChange={(e)=>setStatus(e.target.checked ? "2" : "")}/>
-Open
-</label>
-
-<label>
-<input type="checkbox" onChange={(e)=>setStatus(e.target.checked ? "3" : "")}/>
-Partial
-</label>
-
-<label>
-<input type="checkbox" onChange={(e)=>setStatus(e.target.checked ? "4" : "")}/>
-Paid
-</label>
+<label><input type="checkbox" onChange={()=>toggleStatus("1")}/>Cancelled</label>
+<label><input type="checkbox" onChange={()=>toggleStatus("2")}/>Open</label>
+<label><input type="checkbox" onChange={()=>toggleStatus("3")}/>Partial</label>
+<label><input type="checkbox" onChange={()=>toggleStatus("4")}/>Paid</label>
 
 </div>
 
+{/* BUTTONS */}
+
 <div className="buttons">
 
-<button className="print" onClick={handleLoad}>
+<button onClick={handleLoad}>
 {loading ? "Loading..." : "Load"}
 </button>
 
-<button className="print" onClick={printTable}>
+<button onClick={printTable}>
 Print
 </button>
 
-<button className="clear" onClick={handleClear}>
+<button onClick={handleClear}>
 Clear
 </button>
 
@@ -447,126 +380,6 @@ Clear
 </div>
 
 </div>
-
-{/* REPORT POPUP */}
-
-{showReport && (
-
-<div className="report-overlay">
-
-<div className="report-modal">
-
-<div className="report-modal-header">
-<h3>Sales Summary Report</h3>
-<button onClick={()=>setShowReport(false)}>✕</button>
-</div>
-
-<div className="report-modal-body">
-
-<table className="report-table">
-
-<thead>
-<tr>
-<th>SALE NO</th>
-<th>DATE</th>
-<th>NET</th>
-<th>GROSS</th>
-<th>CUSTOMER</th>
-</tr>
-</thead>
-
-<tbody>
-
-{data.map((row,i)=>(
-
-<tr key={i}>
-<td>{row.SALE_NO}</td>
-<td>{row.SALE_DATE}</td>
-<td>{row.NET_AMOUNT}</td>
-<td>{row.GROSS_AMOUNT}</td>
-<td>{row.CUST_NAME}</td>
-</tr>
-
-))}
-
-</tbody>
-
-</table>
-
-</div>
-
-</div>
-
-</div>
-
-)}
-
-{/* CUSTOMER LOOKUP */}
-
-{showCustomer && (
-
-<div className="lookup-overlay">
-
-<div className="lookup-modal">
-
-<div className="lookup-header">
-<span>Customer Lookup</span>
-<button onClick={()=>setShowCustomer(false)}>X</button>
-</div>
-
-<div className="lookup-search">
-
-<input
-placeholder="Find Code or Description"
-value={search}
-onChange={(e)=>setSearch(e.target.value)}
-autoFocus
-/>
-
-</div>
-
-<div className="lookup-table">
-
-<table>
-
-<thead>
-<tr>
-<th>Code</th>
-<th>Description</th>
-</tr>
-</thead>
-
-<tbody>
-
-{customerList
-.filter((c)=>
-c.DESCRIPTION.toLowerCase().includes(search.toLowerCase()) ||
-c.CODE.toString().includes(search)
-)
-.map((c,i)=>(
-
-<tr key={i} onClick={()=>selectCustomer(c)}>
-<td>{c.CODE}</td>
-<td>{c.DESCRIPTION}</td>
-</tr>
-
-))}
-
-</tbody>
-
-</table>
-
-</div>
-
-<div className="lookup-footer">
-<button onClick={()=>setShowCustomer(false)}>Cancel</button>
-</div>
-
-</div>
-
-</div>
-
-)}
 
 </div>
 
