@@ -142,12 +142,11 @@ accent-color:#5f6bd8;
 
 .filter-row{
 display:grid;
-grid-template-columns:120px auto auto;
+grid-template-columns:120px 200px 60px 200px;
 align-items:center;
 gap:15px;
 margin-bottom:14px;
 }
-
 .filter-row label:first-child{
 font-weight:500;
 }
