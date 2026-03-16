@@ -154,12 +154,13 @@ html, body {
 /* RADIO & CHECKBOX GROUPS */
 /* ========================= */
 
+/* RADIO & CHECKBOX GROUPS - FLUSH LABEL TEXT */
 .radio-group,
 .checkbox-group,
 .status-row {
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 24px; /* gap between each option */
   margin-bottom: 10px;
 }
 
@@ -168,12 +169,12 @@ html, body {
 .status-row label {
   display: flex;
   align-items: center;
-  gap: 0;
+  gap: 0; /* no gap between input and label text */
   font-size: 15px;
   font-weight: 500;
   color: #444;
   cursor: pointer;
-  margin-right: 18px;
+  margin-right: 0; /* remove extra margin */
 }
 
 .radio-group input[type="radio"],
@@ -182,12 +183,13 @@ html, body {
   accent-color: #5f6bd8;
   width: 18px;
   height: 18px;
-  margin-right: 6px;
-  cursor: pointer;
+  margin-right: 0;   /* <-- remove gap between input and label text */
   margin-left: 0;
+  cursor: pointer;
   vertical-align: middle;
 }
 
+/* Remove default margin for inputs */
 .radio-group input,
 .checkbox-group input,
 .status-row input {
