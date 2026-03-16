@@ -15,11 +15,20 @@ const [stype,setStype] = useState(0)
 const [data,setData] = useState([])
 
 const [search,setSearch] = useState("")
+
+/* CUSTOMER */
+
 const [customerCode,setCustomerCode] = useState("")
 const [customerName,setCustomerName] = useState("")
-
 const [customerList,setCustomerList] = useState([])
 const [showCustomer,setShowCustomer] = useState(false)
+
+/* USER */
+
+const [userCode,setUserCode] = useState("")
+const [userName,setUserName] = useState("")
+const [userList,setUserList] = useState([])
+const [showUser,setShowUser] = useState(false)
 
 const [showReport,setShowReport] = useState(false)
 const [loading,setLoading] = useState(false)
@@ -30,7 +39,6 @@ const [store,setStore] = useState(0)
 const [billWise,setBillWise] = useState(true)
 
 const [status,setStatus] = useState("")
-const [user,setUser] = useState(0)
 const [salesman,setSalesman] = useState(0)
 
 /* LOAD STORES */
@@ -47,21 +55,6 @@ setStores(result.data)
 
 },[])
 
-/* STATUS MULTI SELECT */
-
-const toggleStatus=(value)=>{
-
-let arr = status ? status.split(",") : []
-
-if(arr.includes(value)){
-arr = arr.filter(v=>v!==value)
-}else{
-arr.push(value)
-}
-
-setStatus(arr.join(","))
-
-}
 
 /* LOAD REPORT */
 
@@ -78,53 +71,60 @@ const url =
 `/api/data?type=salesSummary
 &from=${fromDate}
 &to=${toDate}
-&store=${store}
-&custid=${customerCode||0}
+&store=${Number(store)||0}
+&custid=${Number(customerCode)||0}
 &opts=${opts}
 &stype=${stype}
 &status=${status}
-&user=${user}
+&user=${Number(userCode)||0}
 &salesman=${salesman}`
 
 const res = await fetch(url)
 const result = await res.json()
 
 if(result.status==="success"){
-setData(result.data)
+
+setData(result.data || [])
 setShowReport(true)
+
 }else{
+
 alert("Report failed")
+
 }
 
 setLoading(false)
 
 }
 
+
 /* PRINT */
 
-const printTable=()=>{
+const printTable = () => {
 
-if(data.length===0){
+if(data.length === 0){
 alert("No data")
 return
 }
 
 const win = window.open("","","width=900,height=700")
 
-const rows=data.map(r=>`
+const rows = data.map(row => `
 <tr>
-<td>${r.SALE_NO}</td>
-<td>${r.SALE_DATE}</td>
-<td>${r.NET_AMOUNT}</td>
-<td>${r.GROSS_AMOUNT}</td>
-<td>${r.CUST_NAME}</td>
+<td>${row.SALE_NO}</td>
+<td>${row.SALE_DATE}</td>
+<td>${row.NET_AMOUNT}</td>
+<td>${row.GROSS_AMOUNT}</td>
+<td>${row.CUST_NAME}</td>
 </tr>
 `).join("")
 
 win.document.write(`
 <html>
 <body>
-<h2>Sales Summary</h2>
+
+<h2>Sales Summary Report</h2>
+
 <table border="1" width="100%">
 <tr>
 <th>SALE NO</th>
@@ -133,8 +133,11 @@ win.document.write(`
 <th>GROSS</th>
 <th>CUSTOMER</th>
 </tr>
+
 ${rows}
+
 </table>
+
 </body>
 </html>
 `)
@@ -143,18 +146,22 @@ win.print()
 
 }
 
+
 /* CLEAR */
 
-const handleClear=()=>{
+const handleClear = ()=>{
 setFromDate("")
 setToDate("")
 setCustomerCode("")
 setCustomerName("")
+setUserCode("")
+setUserName("")
 }
+
 
 /* CUSTOMER LOOKUP */
 
-const openCustomer=async()=>{
+const openCustomer = async ()=>{
 
 const res = await fetch("/api/data?type=customerLookup")
 const result = await res.json()
@@ -164,11 +171,35 @@ setShowCustomer(true)
 
 }
 
-const selectCustomer=(c)=>{
+const selectCustomer = (c)=>{
+
 setCustomerCode(c.CODE)
 setCustomerName(c.DESCRIPTION)
 setShowCustomer(false)
+
 }
+
+
+/* USER LOOKUP */
+
+const openUser = async ()=>{
+
+const res = await fetch("/api/data?type=userLookup")
+const result = await res.json()
+
+setUserList(result.data)
+setShowUser(true)
+
+}
+
+const selectUser = (u)=>{
+
+setUserCode(u.CODE)
+setUserName(u.DESCRIPTION)
+setShowUser(false)
+
+}
+
 
 return(
 
@@ -187,7 +218,11 @@ return(
 <div className="report-left">
 
 <label>
-<input type="radio" checked={report==="sale_summary"} onChange={()=>setReport("sale_summary")}/>
+<input type="radio"
+checked={report==="sale_summary"}
+onChange={()=>setReport("sale_summary")}
+name="report"
+/>
 Sale Summary
 </label>
 
@@ -209,7 +244,7 @@ Sale Summary
 
 <div className="report-right">
 
-{/* OPTS */}
+{/* OPTIONS */}
 
 <div className="filter-row">
 
@@ -230,7 +265,7 @@ Sales Return
 
 </div>
 
-{/* STYPE */}
+{/* SALE TYPE */}
 
 {opts===1 && (
 
@@ -266,9 +301,11 @@ Sales Return
 
 <option value={0}>All Stores</option>
 
-{stores.map(s=>
-<option key={s.ID} value={s.ID}>{s.STORE_NAME}</option>
-)}
+{stores.map((s)=>(
+<option key={s.ID} value={s.ID}>
+{s.STORE_NAME}
+</option>
+))}
 
 </select>
 
@@ -299,50 +336,15 @@ Sales Return
 
 <div className="customer-row">
 
-<input value={user} onChange={(e)=>setUser(e.target.value)} placeholder="Code"/>
-<input placeholder="Description" readOnly/>
+<input value={userCode} placeholder="Code" readOnly/>
+<input value={userName} placeholder="Description" readOnly/>
+
+<button onClick={openUser}>🔍</button>
 
 </div>
 
 </div>
 
-{/* DISABLED FIELDS */}
-
-<div className="filter-row disabled-field">
-<label>Agent</label>
-<input placeholder="Code" disabled/>
-<input placeholder="Description" disabled/>
-</div>
-
-<div className="filter-row disabled-field">
-<label>Salesman</label>
-<input placeholder="Code" disabled/>
-<input placeholder="Description" disabled/>
-</div>
-
-<div className="filter-row disabled-field">
-<label>Division</label>
-<input placeholder="Code" disabled/>
-<input placeholder="Description" disabled/>
-</div>
-
-<div className="filter-row disabled-field">
-<label>Category</label>
-<input placeholder="Code" disabled/>
-<input placeholder="Description" disabled/>
-</div>
-
-<div className="filter-row disabled-field">
-<label>Brand</label>
-<input placeholder="Code" disabled/>
-<input placeholder="Description" disabled/>
-</div>
-
-<div className="filter-row disabled-field">
-<label>Item</label>
-<input placeholder="Code" disabled/>
-<input placeholder="Description" disabled/>
-</div>
 
 {/* STATUS */}
 
@@ -350,14 +352,13 @@ Sales Return
 
 <label>Status</label>
 
-<label><input type="checkbox" onChange={()=>toggleStatus("1")}/>Cancelled</label>
-<label><input type="checkbox" onChange={()=>toggleStatus("2")}/>Open</label>
-<label><input type="checkbox" onChange={()=>toggleStatus("3")}/>Partial</label>
-<label><input type="checkbox" onChange={()=>toggleStatus("4")}/>Paid</label>
+<label><input type="checkbox" onChange={(e)=>setStatus(e.target.checked ? "1" : "")}/>Cancelled</label>
+<label><input type="checkbox" onChange={(e)=>setStatus(e.target.checked ? "2" : "")}/>Open</label>
+<label><input type="checkbox" onChange={(e)=>setStatus(e.target.checked ? "3" : "")}/>Partial</label>
+<label><input type="checkbox" onChange={(e)=>setStatus(e.target.checked ? "4" : "")}/>Paid</label>
 
 </div>
 
-{/* BUTTONS */}
 
 <div className="buttons">
 
@@ -380,6 +381,133 @@ Clear
 </div>
 
 </div>
+
+
+{/* REPORT POPUP */}
+
+{showReport && (
+
+<div className="report-overlay">
+
+<div className="report-modal">
+
+<h3>Sales Summary Report</h3>
+
+<table>
+
+<thead>
+<tr>
+<th>SALE NO</th>
+<th>DATE</th>
+<th>NET</th>
+<th>GROSS</th>
+<th>CUSTOMER</th>
+</tr>
+</thead>
+
+<tbody>
+
+{data.map((row,i)=>(
+<tr key={i}>
+<td>{row.SALE_NO}</td>
+<td>{row.SALE_DATE}</td>
+<td>{row.NET_AMOUNT}</td>
+<td>{row.GROSS_AMOUNT}</td>
+<td>{row.CUST_NAME}</td>
+</tr>
+))}
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+)}
+
+
+{/* CUSTOMER LOOKUP */}
+
+{showCustomer && (
+
+<div className="lookup-overlay">
+
+<div className="lookup-modal">
+
+<input
+placeholder="Search"
+value={search}
+onChange={(e)=>setSearch(e.target.value)}
+/>
+
+<table>
+
+<tbody>
+
+{customerList
+.filter(c =>
+c.DESCRIPTION.toLowerCase().includes(search.toLowerCase()) ||
+c.CODE.toString().includes(search)
+)
+.map((c,i)=>(
+<tr key={i} onClick={()=>selectCustomer(c)}>
+<td>{c.CODE}</td>
+<td>{c.DESCRIPTION}</td>
+</tr>
+))}
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+)}
+
+
+{/* USER LOOKUP */}
+
+{showUser && (
+
+<div className="lookup-overlay">
+
+<div className="lookup-modal">
+
+<input
+placeholder="Search"
+value={search}
+onChange={(e)=>setSearch(e.target.value)}
+/>
+
+<table>
+
+<tbody>
+
+{userList
+.filter(u =>
+u.DESCRIPTION.toLowerCase().includes(search.toLowerCase()) ||
+u.CODE.toString().includes(search)
+)
+.map((u,i)=>(
+<tr key={i} onClick={()=>selectUser(u)}>
+<td>{u.CODE}</td>
+<td>{u.DESCRIPTION}</td>
+</tr>
+))}
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+)}
 
 </div>
 

@@ -35,7 +35,11 @@ export default async function handler(req, res) {
       url = `https://erp.codezyntax.com/api/customerLookup.php`;
 
     }
+else if (type === "userLookup") {
 
+url = `https://erp.codezyntax.com/api/userLookup.php`;
+
+}
     else {
 
       return res.status(400).json({

@@ -567,10 +567,7 @@ font-size:14px;
 
 }
 
-.disabled-field{
-opacity:0.4;
-pointer-events:none;
-}
+
 .customer-btn{
 background:#f4f6fb;
   border:1px solid #d9dce7;
