@@ -11,7 +11,10 @@ const [toDate,setToDate] = useState("")
 
 const [opts,setOpts] = useState(0)
 const [stype,setStype] = useState(0)
-
+const [userCode,setUserCode] = useState("")
+const [userName,setUserName] = useState("")
+const [userList,setUserList] = useState([])
+const [showUser,setShowUser] = useState(false)
 const [data,setData] = useState([])
 
 const [search,setSearch] = useState("")
@@ -230,7 +233,32 @@ setCustomerName(c.DESCRIPTION)
 setShowCustomer(false)
 
 }
+const openUser = async ()=>{
 
+try{
+
+const res = await fetch("/api/data?type=userLookup")
+const result = await res.json()
+
+if(result?.data){
+setUserList(result.data)
+setShowUser(true)
+}
+
+}catch(err){
+console.log("User Load Error:",err)
+}
+
+}
+const selectUser = (u)=>{
+
+setUserCode(u.CODE)
+setUserName(u.DESCRIPTION)
+setUser(u.CODE)
+
+setShowUser(false)
+
+}
 return(
 
 <div className="report-container">
@@ -377,7 +405,23 @@ onChange={(e)=>setStore(e.target.value)}
 </div>
 
 </div>
+<div className="filter-row">
 
+<label>User</label>
+
+<div className="customer-row">
+
+<input value={userCode} placeholder="Code" readOnly/>
+
+<input value={userName} placeholder="Description" readOnly/>
+
+<button className="customer-btn" onClick={openUser}>
+🔍
+</button>
+
+</div>
+
+</div>
 <div className="filter-row">
 
 <label>
