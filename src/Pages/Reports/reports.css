@@ -213,12 +213,10 @@ padding:15px;
 background:#ffffff;
 
 display:grid;
-grid-template-columns:120px repeat(3,auto);
-gap:10px 35px;
-grid-template-columns:120px 1fr 1fr;
 
-row-gap:12px;
-column-gap:40px;
+grid-template-columns:120px repeat(3,auto);
+
+gap:10px 35px;
 
 align-items:center;
 
