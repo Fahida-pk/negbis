@@ -214,8 +214,7 @@ background:#ffffff;
 
 display:grid;
 
-grid-template-columns:120px repeat(3,auto);
-
+grid-template-columns:120px repeat(5,auto);
 gap:8px 18px;
 
 align-items:center;
