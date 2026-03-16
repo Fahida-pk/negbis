@@ -280,7 +280,7 @@ background:#f7f8fc;
 
 .customer-row{
 display:flex;
-gap:10px;
+gap:7px;
 width:100%;
 }
 
@@ -292,7 +292,8 @@ flex:1;
 width:45px;
 min-width:45px;
 height:36px;
-border:none;
+border:solid black 2px;
+
 color:white;
 border-radius:5px;
 cursor:pointer;
