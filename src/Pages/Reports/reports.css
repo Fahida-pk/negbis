@@ -111,11 +111,11 @@ html, body {
 /* RIGHT PANEL */
 /* ========================= */
 
-.report-right {
-  flex: 1;
-  padding-left: 10px;
+.report-right{
+display:grid;
+grid-template-columns:1fr;
+gap:15px;
 }
-
 /* ========================= */
 /* FILTER ROW */
 /* ========================= */
