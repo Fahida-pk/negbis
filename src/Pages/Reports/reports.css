@@ -54,7 +54,84 @@ position:relative;
 
 }
 
+/* FILTER LABEL */
 
+.filter-row label{
+font-weight:500;
+color:#333;
+min-width:90px;
+}
+
+
+/* RADIO GROUP */
+
+.filter-row input[type="radio"]{
+margin-right:6px;
+cursor:pointer;
+}
+
+
+/* CHECKBOX GROUP */
+
+.status-row{
+gap:20px;
+align-items:center;
+}
+
+.status-row label{
+display:flex;
+align-items:center;
+gap:5px;
+}
+
+
+/* SELECT */
+
+.filter-row select{
+
+padding:8px 10px;
+border-radius:5px;
+border:1px solid #cfd4e6;
+background:white;
+min-width:180px;
+
+}
+
+
+/* BUTTON STYLE */
+
+.buttons button{
+
+min-width:110px;
+transition:0.2s;
+
+}
+
+.buttons button:hover{
+
+transform:translateY(-1px);
+
+}
+
+
+/* LEFT PANEL */
+
+.report-left label{
+
+display:flex;
+align-items:center;
+gap:6px;
+
+}
+
+
+/* RADIO SPACING */
+
+.report-left input[type="radio"]{
+
+margin-right:5px;
+
+}
 /* ========================= */
 /* HEADER */
 /* ========================= */

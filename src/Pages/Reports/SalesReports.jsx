@@ -32,7 +32,7 @@ const [store,setStore] = useState(0)
 
 const [billWise,setBillWise] = useState(true)
 
-const [status,setStatus] = useState("")
+const [status,setStatus] = useState([])
 const [user,setUser] = useState(0)
 const [salesman,setSalesman] = useState(0)
 
@@ -73,8 +73,7 @@ const url =
 &custid=${Number(customerCode)||0}
 &opts=${opts}
 &stype=${stype}
-&status=${status}
-&user=${user}
+&status=${status.join(",")}&user=${user}
 &salesman=${salesman}`
 
 console.log("API URL:",url)
@@ -258,7 +257,24 @@ console.log("User Load Error:",err)
 }
 
 }
+const handleStatusChange = (value) => {
 
+if(value === "all"){
+if(status.length === 4){
+setStatus([])
+}else{
+setStatus(["1","2","3","4"])
+}
+return
+}
+
+if(status.includes(value)){
+setStatus(status.filter(s => s !== value))
+}else{
+setStatus([...status,value])
+}
+
+}
 return(
 
 <div className="report-container">
@@ -510,32 +526,56 @@ Sale Type
 
 </div>
 
-<div className="filter-row">
+<div className="filter-row status-row">
 
 <label>Status</label>
 
 <label>
-<input type="checkbox" onChange={(e)=>setStatus(e.target.checked ? "1" : "")}/>
+<input
+type="checkbox"
+checked={status.length === 4}
+onChange={()=>handleStatusChange("all")}
+/>
+All
+</label>
+
+<label>
+<input
+type="checkbox"
+checked={status.includes("1")}
+onChange={()=>handleStatusChange("1")}
+/>
 Cancelled
 </label>
 
 <label>
-<input type="checkbox" onChange={(e)=>setStatus(e.target.checked ? "2" : "")}/>
+<input
+type="checkbox"
+checked={status.includes("2")}
+onChange={()=>handleStatusChange("2")}
+/>
 Open
 </label>
 
 <label>
-<input type="checkbox" onChange={(e)=>setStatus(e.target.checked ? "3" : "")}/>
+<input
+type="checkbox"
+checked={status.includes("3")}
+onChange={()=>handleStatusChange("3")}
+/>
 Partial
 </label>
 
 <label>
-<input type="checkbox" onChange={(e)=>setStatus(e.target.checked ? "4" : "")}/>
+<input
+type="checkbox"
+checked={status.includes("4")}
+onChange={()=>handleStatusChange("4")}
+/>
 Paid
 </label>
 
 </div>
-
 <div className="buttons">
 
 <button className="print" onClick={handleLoad}>
