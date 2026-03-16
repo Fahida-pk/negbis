@@ -35,7 +35,7 @@ margin-left:240px;
 
 .report-box{
 background:#f7f8fc;
-width:900px;
+width:1000px;
 max-width:100%;
 padding:25px;
 border-radius:8px;
@@ -127,7 +127,7 @@ margin-bottom:15px;
 display:flex;
 align-items:center;
 flex-wrap:wrap;
-gap:18px;
+gap:5px;
 font-size:14px;
 }
 
