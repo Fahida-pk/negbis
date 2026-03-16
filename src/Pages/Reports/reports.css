@@ -99,12 +99,13 @@ html, body {
   padding-right: 15px;
 }
 
-.report-left label {
-  display: block;
-  margin: 12px 0;
-  font-size: 14px;
-  cursor: pointer;
-  color: #444;
+.report-left label{
+display:flex;
+align-items:center;
+gap:6px;
+margin:10px 0;
+font-size:14px;
+cursor:pointer;
 }
 
 /* ========================= */
@@ -120,19 +121,28 @@ gap:15px;
 /* FILTER ROW */
 /* ========================= */
 
+/* RADIO GROUP */
 .filter-row{
 display:flex;
-flex-direction:row;
 align-items:center;
-gap:20px;
-margin-bottom:10px;
+flex-wrap:wrap;
+gap:18px;
 }
 
+/* radio option */
 .filter-row label{
 display:flex;
 align-items:center;
-gap:6px;
+font-size:14px;
 cursor:pointer;
+}
+
+/* radio button */
+.filter-row input[type="radio"]{
+margin-right:6px;
+width:16px;
+height:16px;
+accent-color:#5f6bd8;
 }
 
 .filter-row input {
@@ -142,9 +152,7 @@ cursor:pointer;
   background: white;
   min-width: 150px;
 }
-.filter-row input[type="radio"]{
-transform:scale(1.1);
-}
+
 .filter-row input:focus {
   outline: none;
   border-color: #5f6bd8;
@@ -390,7 +398,7 @@ transform:scale(1.1);
 
 .customer-btn {
   background: #f4f6fb;
-  border: 1px solid #d9dce7;
+  border: 2px solid #d9dce7;
   padding: 6px 10px;
   border-radius: 5px;
   cursor: pointer;
