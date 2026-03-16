@@ -59,7 +59,9 @@ position:relative;
 .filter-row label{
 font-weight:500;
 color:#333;
-min-width:90px;
+display:flex;
+align-items:center;
+gap:5px;
 }
 
 
@@ -238,11 +240,11 @@ margin-bottom:15px;
 
 display:flex;
 
-gap:12px;
+align-items:center;
 
 flex-wrap:wrap;
 
-align-items:center;
+gap:18px;
 
 font-size:14px;
 
@@ -682,32 +684,37 @@ border-top:1px solid #e5e7f4;
 .status-row{
 
 border:1px solid #dcdff1;
+
 border-radius:6px;
 
-padding:10px 15px;
+padding:15px;
 
 background:#ffffff;
 
-display:flex;
-flex-wrap:wrap;
+display:grid;
 
-gap:15px;
+grid-template-columns:120px 1fr 1fr;
+
+row-gap:12px;
+
+column-gap:40px;
 
 align-items:center;
 
 }
 
-/* STATUS TITLE */
+.status-row label{
 
-.status-row > label:first-child{
-font-weight:600;
-margin-right:10px;
+display:flex;
+
+align-items:center;
+
+gap:6px;
+
 }
 
-/* CHECKBOX */
-
 .status-row input[type="checkbox"]{
-margin-right:4px;
+margin:0;
 }
 .lookup-footer button{
 
