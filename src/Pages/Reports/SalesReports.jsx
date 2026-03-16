@@ -321,21 +321,20 @@ Sale Summary
 {/* RIGHT PANEL */}
 
 <div className="report-right">
-
-<div className="filter-row">
+<div className="filter-row radio-group">
 
 <label>
-<input type="radio" checked={opts===0} onChange={()=>setOpts(0)}/>
+<input type="radio" checked={opts===0} onChange={()=>setOpts(0)} />
 All
 </label>
 
 <label>
-<input type="radio" checked={opts===1} onChange={()=>setOpts(1)}/>
+<input type="radio" checked={opts===1} onChange={()=>setOpts(1)} />
 Sales Invoice
 </label>
 
 <label>
-<input type="radio" checked={opts===2} onChange={()=>setOpts(2)}/>
+<input type="radio" checked={opts===2} onChange={()=>setOpts(2)} />
 Sales Return
 </label>
 

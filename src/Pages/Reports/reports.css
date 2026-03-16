@@ -314,7 +314,9 @@ accent-color:#5f6bd8;
   font-weight: bold;
   cursor: pointer;
 }
-
+.radio-group{
+gap:18px;
+}
 .report-modal-body {
   padding: 20px;
   max-height: 500px;
