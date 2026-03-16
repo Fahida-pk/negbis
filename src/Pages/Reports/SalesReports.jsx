@@ -204,7 +204,15 @@ setCustomerCode("")
 setCustomerName("")
 setData([])
 }
+const selectUser = (u)=>{
 
+setUserCode(u.CODE)
+setUserName(u.DESCRIPTION)
+setUser(u.CODE)
+
+setShowUser(false)
+
+}
 
 /* CUSTOMER LOOKUP */
 
@@ -250,15 +258,7 @@ console.log("User Load Error:",err)
 }
 
 }
-const selectUser = (u)=>{
 
-setUserCode(u.CODE)
-setUserName(u.DESCRIPTION)
-setUser(u.CODE)
-
-setShowUser(false)
-
-}
 return(
 
 <div className="report-container">
@@ -422,6 +422,72 @@ onChange={(e)=>setStore(e.target.value)}
 </div>
 
 </div>
+{/* USER LOOKUP */}
+
+{showUser && (
+
+<div className="lookup-overlay">
+
+<div className="lookup-modal">
+
+<div className="lookup-header">
+<span>User Lookup</span>
+<button onClick={()=>setShowUser(false)}>X</button>
+</div>
+
+<div className="lookup-search">
+
+<input
+placeholder="Find User"
+value={search}
+onChange={(e)=>setSearch(e.target.value)}
+autoFocus
+/>
+
+</div>
+
+<div className="lookup-table">
+
+<table>
+
+<thead>
+<tr>
+<th>Code</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+
+{(userList || [])
+.filter((u)=>
+u.DESCRIPTION.toLowerCase().includes(search.toLowerCase()) ||
+u.CODE.toString().includes(search)
+)
+.map((u,i)=>(
+
+<tr key={i} onClick={()=>selectUser(u)}>
+<td>{u.CODE}</td>
+<td>{u.DESCRIPTION}</td>
+</tr>
+
+))}
+
+</tbody>
+
+</table>
+
+</div>
+
+<div className="lookup-footer">
+<button onClick={()=>setShowUser(false)}>Cancel</button>
+</div>
+
+</div>
+
+</div>
+
+)}
 <div className="filter-row">
 
 <label>
