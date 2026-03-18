@@ -434,6 +434,7 @@ cursor:pointer;
   }
 
   .report-content {
+    display: flex;
     flex-direction: column;
     gap: 15px;
   }
@@ -449,14 +450,43 @@ cursor:pointer;
 
   /* RIGHT PANEL */
   .report-right {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;   /* 🔥 MAIN FIX */
-}
-  /* ALL / INVOICE / RETURN */
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch; /* 🔥 FIX CENTER ISSUE */
+  }
+
+  /* ========================= */
+  /* FILTER ROW (DEFAULT) */
+  /* ========================= */
+
+  .filter-row {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 12px;
+  }
+
+  .filter-row label {
+    font-size: 13px;
+    font-weight: 500;
+    text-align: left;
+  }
+
+  .filter-row input,
+  .filter-row select {
+    width: 100%;
+  }
+
+  /* ========================= */
+  /* RADIO GROUP (All / Invoice / Return) */
+  /* ========================= */
+
   .radio-group {
     display: flex;
     flex-direction: row;
+    justify-content: flex-start;
     align-items: center;
     gap: 20px;
     flex-wrap: wrap;
@@ -466,31 +496,13 @@ cursor:pointer;
     display: flex;
     align-items: center;
     gap: 6px;
+    white-space: nowrap;
   }
-.filter-row {
-  width: 100%;   /* 🔥 IMPORTANT */
-}
-  /* FILTER ROW DEFAULT */
-  .filter-row {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
-.filter-row label {
-  width: 100%;
-}
-  .filter-row label {
-    font-size: 13px;
-    text-align: left;
-  }
-.filter-row input,
-.filter-row select {
-  width: 100%;
-  text-align: left;
-}
-  
 
+  /* ========================= */
   /* CUSTOMER / USER */
+  /* ========================= */
+
   .customer-row {
     display: flex;
     gap: 6px;
@@ -510,23 +522,32 @@ cursor:pointer;
     flex-shrink: 0;
   }
 
-  /* 🔥 BILL WISE / SALE TYPE FIX */
+  /* ========================= */
+  /* BILL TYPE (Bill wise / Sale Type) */
+  /* ========================= */
+
   .bill-type-row {
     display: flex;
-    justify-content: flex-start;  /* 🔥 MAIN FIX */
+    flex-direction: row;
+    justify-content: flex-start;
     align-items: center;
-    gap: 20px;
+    gap: 25px;
   }
 
   .bill-type-row label {
-  margin: 0;
-}
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+  }
 
+  /* ========================= */
   /* STATUS */
+  /* ========================= */
+
   .status-row {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
     gap: 6px;
   }
 
@@ -536,8 +557,12 @@ cursor:pointer;
     gap: 8px;
   }
 
+  /* ========================= */
   /* BUTTONS */
+  /* ========================= */
+
   .buttons {
+    display: flex;
     flex-direction: column;
     gap: 10px;
   }
@@ -556,7 +581,10 @@ cursor:pointer;
     height: 30px;
   }
 
+  /* ========================= */
   /* TABLE MOBILE */
+  /* ========================= */
+
   .report-table {
     min-width: 100%;
   }
@@ -592,7 +620,10 @@ cursor:pointer;
     border-bottom: none;
   }
 
+  /* ========================= */
   /* MODALS */
+  /* ========================= */
+
   .report-modal,
   .lookup-modal {
     width: 95%;
@@ -602,73 +633,4 @@ cursor:pointer;
   .report-modal-body {
     overflow-x: auto;
   }
-}
-@media (max-width: 768px) {
-
-  /* FILTER ROW → LABEL TOP + INPUT BELOW */
-  .filter-row {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    margin-bottom: 12px;
-  }
-
-  .filter-row label {
-    font-size: 13px;
-    font-weight: 500;
-    margin-bottom: 2px;
-  }
-
-  .filter-row input,
-  .filter-row select {
-    width: 100%;
-  }
-
-  /* DATE FROM + TO (SIDE BY SIDE SMALL FIX) */
-  .filter-row.date-row {
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
-  }
-
-  .filter-row.date-row > div {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-  }
-
-  /* CUSTOMER / USER */
-  .customer-row {
-    display: flex;
-    gap: 6px;
-  }
-
-  .customer-row input:first-child {
-    width: 30%;
-  }
-
-  .customer-row input:last-child {
-    flex: 1;
-  }
-
-  .customer-row button {
-    width: 40px;
-  }
-
-  /* ALL / INVOICE / RETURN */
-  .radio-group {
-    display: flex;
-    flex-direction: row;
-    gap: 15px;
-    flex-wrap: wrap;
-  }
-
-  /* BILL WISE / SALE TYPE */
-  .bill-type-row {
-    display: flex;
-    flex-direction: row;
-    gap: 20px;
-    align-items: center;
-  }
-
 }

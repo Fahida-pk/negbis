@@ -321,7 +321,7 @@ Sale Summary
 {/* RIGHT PANEL */}
 
 <div className="report-right">
-<div className="filter-row radio-group">
+<div className="radio-group">
 
 <label>
 <input type="radio" checked={opts===0} onChange={()=>setOpts(0)} />
@@ -342,8 +342,7 @@ Sales Return
 
 {opts===1 && (
 
-<div className="filter-row bill-type-row">
-<label>
+<div className="bill-type-row"><label>
 <input type="radio" checked={stype===0} onChange={()=>setStype(0)}/>
 All
 </label>
