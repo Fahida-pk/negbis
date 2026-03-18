@@ -518,7 +518,10 @@ u.CODE.toString().includes(search)
 </div>
 
 )}
-<div className="bill-type-row"><label>
+{report !== "daily_summary" && (
+<div className="bill-type-row">
+
+<label>
 <input
 type="radio"
 checked={billWise===true}
@@ -537,6 +540,7 @@ Sale Type
 </label>
 
 </div>
+)}
 
 <div className="status-row">
 <label>Status</label>
