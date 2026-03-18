@@ -45,6 +45,21 @@ else if (type === "dailySalesSummary") {
   url = `https://erp.codezyntax.com/api/Sales%20Daily%20Summary.php?from=${from}&to=${to}&store=${store || 0}`;
 
 }
+else if (type === "monthlySalesSummary") {
+
+  url = `https://erp.codezyntax.com/api/monthly_Sales_Summary.php
+  ?from=${from}
+  &to=${to}
+  &store=${store || 0}
+  &custid=${custid || 0}
+  &opts=${opts || 0}
+  &stype=${stype || 0}
+  &status=${status || ""}
+  &salesman=${salesman || 0}
+  &user=${user || 0}
+  &estimate=${estimate || 0}`;
+
+}
     else {
 
       return res.status(400).json({

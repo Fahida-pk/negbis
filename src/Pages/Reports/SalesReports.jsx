@@ -98,7 +98,21 @@ url =
 &billWise=${billWise ? 1 : 0}`
 
 }
+else if(report === "monthly_summary"){
 
+url =
+`/api/data?type=monthlySalesSummary
+&from=${fromDate}
+&to=${toDate}
+&store=${Number(store)||0}
+&custid=${Number(customerCode)||0}
+&opts=${opts}
+&stype=${stype}
+&status=${status.join(",")}
+&user=${user}
+&salesman=${salesman}`
+
+}
 console.log("API URL:",url)
 
 const res = await fetch(url)
@@ -326,8 +340,15 @@ Sale Summary
   />
   Daily Sales Summary
 </label>
-<label><input type="radio" name="report"/>Monthly Sales Summary</label>
-<label><input type="radio" name="report"/>Sale Details</label>
+<label>
+<input
+type="radio"
+name="report"
+checked={report==="monthly_summary"}
+onChange={()=>setReport("monthly_summary")}
+/>
+Monthly Sales Summary
+</label><label><input type="radio" name="report"/>Sale Details</label>
 <label><input type="radio" name="report"/>Item wise Sales</label>
 <label><input type="radio" name="report"/>Item wise Profit</label>
 <label><input type="radio" name="report"/>Item wise Summary</label>
