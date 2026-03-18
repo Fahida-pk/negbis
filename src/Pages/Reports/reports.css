@@ -634,3 +634,18 @@ cursor:pointer;
   }
 
 }
+@media (max-width: 768px) {
+
+  .report-right {
+    font-size: 14px;
+  }
+
+  label {
+    font-size: 13px;
+  }
+
+  input, select {
+    font-size: 14px;
+  }
+
+}
