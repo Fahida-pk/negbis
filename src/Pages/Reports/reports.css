@@ -420,15 +420,17 @@ cursor:pointer;
 
 @media (max-width: 768px) {
 
+  /* MAIN CONTAINER */
   .report-container {
     margin-left: 0;
-    padding: 80px 12px 20px;
+    padding: 70px 10px 20px;
     align-items: flex-start;
   }
 
   .report-box {
     width: 100%;
-    padding: 16px;
+    padding: 14px;
+    border-radius: 10px;
   }
 
   .report-content {
@@ -436,6 +438,7 @@ cursor:pointer;
     gap: 15px;
   }
 
+  /* LEFT PANEL */
   .report-left {
     width: 100%;
     border-right: none;
@@ -443,120 +446,22 @@ cursor:pointer;
     padding-bottom: 10px;
   }
 
+  /* RIGHT PANEL */
   .report-right {
     width: 100%;
-    padding: 0;
   }
 
-  .filter-row {
+  /* RADIO GROUP */
+  .radio-group {
     flex-direction: column;
-    align-items: stretch;
+    align-items: flex-start;
     gap: 8px;
   }
 
-  .filter-row input {
-    width: 100%;
-  }
-
-  .customer-row {
-    display: flex;
-    gap: 6px;
-    flex-wrap: nowrap;
-    width: 100%;
-  }
-
-  .customer-row input {
-    flex: 1;
-    min-width: 0;
-  }
-
-  .customer-row button {
-    width: 42px;
-    min-width: 42px;
-    height: 36px;
-  }
-
-  .buttons {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .buttons button {
-    width: 100%;
-  }
-
-  .close-btn {
-    top: 10px;
-    right: 10px;
-    width: 32px;
-    height: 32px;
-  }
-
-  .report-modal {
-    width: 95%;
-    max-height: 90vh;
-  }
-
-  .report-modal-body {
-    overflow-x: auto;
-  }
-
-  .report-table {
-    min-width: 600px;
-    width: 100%;
-    border: 0;
-  }
-
-  .report-table thead {
-    display: none;
-  }
-
-  .report-table tr {
-    display: block;
-    margin-bottom: 12px;
-    border: 1px solid #dfe3f5;
-    border-radius: 6px;
-    background: #fff;
-    padding: 8px;
-  }
-
-  .report-table td {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 8px;
-    padding: 6px 8px;
-    border: none;
-    border-bottom: 1px solid #eee;
-    font-size: 13px;
-  }
-
-  .report-table td::before {
-    content: attr(data-label);
-    font-weight: 600;
-    color: #444;
-    min-width: 90px;
-  }
-
-  .report-table td:last-child {
-    border-bottom: none;
-  }
-
-  .lookup-modal {
-    width: 95%;
-    max-height: 90vh;
-  }
-
-  .lookup-table {
-    overflow: auto;
-  }
-}
-@media (max-width: 768px) {
-
+  /* FILTER ROW (FIX MAIN ISSUE) */
   .filter-row {
     display: flex;
     flex-direction: column;
-    align-items: stretch;
     gap: 6px;
   }
 
@@ -570,12 +475,7 @@ cursor:pointer;
     width: 100%;
   }
 
-  /* Date inputs fix */
-  .filter-row input[type="date"] {
-    width: 100%;
-  }
-
-  /* Customer/User row fix */
+  /* CUSTOMER / USER */
   .customer-row {
     display: flex;
     gap: 6px;
@@ -583,11 +483,11 @@ cursor:pointer;
   }
 
   .customer-row input:first-child {
-    width: 30%;
+    width: 35%;
   }
 
   .customer-row input:last-child {
-    width: 60%;
+    width: 55%;
   }
 
   .customer-row button {
@@ -595,57 +495,89 @@ cursor:pointer;
     flex-shrink: 0;
   }
 
-  /* Radio buttons wrap properly */
-  .radio-group {
-    flex-wrap: wrap;
-    gap: 15px;
+  /* BILL TYPE */
+  .bill-row {
+    flex-direction: column;
+    gap: 8px;
   }
 
-  .bill-row {
+  /* STATUS (IMPORTANT FIX) */
+  .status-row {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .status-row label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* BUTTONS */
+  .buttons {
     flex-direction: column;
     gap: 10px;
   }
 
-  /* Status wrap */
-  .status-row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-
-}
-@media (max-width: 480px) {
-
-  .report-box {
-    padding: 12px;
-  }
-
-  .customer-row input:first-child {
-    width: 35%;
-  }
-
-  .customer-row input:last-child {
-    width: 50%;
-  }
-
   .buttons button {
-    font-size: 14px;
+    width: 100%;
     padding: 10px;
-  }
-
-}
-@media (max-width: 768px) {
-
-  .report-right {
     font-size: 14px;
   }
 
-  label {
-    font-size: 13px;
+  /* CLOSE BUTTON */
+  .close-btn {
+    top: 10px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
   }
 
-  input, select {
-    font-size: 14px;
+  /* TABLE MOBILE */
+  .report-table {
+    min-width: 100%;
   }
 
+  .report-table thead {
+    display: none;
+  }
+
+  .report-table tr {
+    display: block;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 8px;
+    background: #fff;
+  }
+
+  .report-table td {
+    display: flex;
+    gap: 8px;
+    padding: 6px;
+    border: none;
+    border-bottom: 1px solid #eee;
+  }
+
+  .report-table td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    min-width: 90px;
+  }
+
+  .report-table td:last-child {
+    border-bottom: none;
+  }
+
+  /* MODALS */
+  .report-modal,
+  .lookup-modal {
+    width: 95%;
+    max-height: 90vh;
+  }
+
+  .report-modal-body {
+    overflow-x: auto;
+  }
 }
