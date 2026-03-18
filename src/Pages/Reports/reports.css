@@ -538,15 +538,6 @@ cursor:pointer;
 }
 @media (max-width: 768px) {
 
-  /* DATE inputs full width */
-  .filter-row input[type="date"] {
-    width: 100% !important;
-  }
-
-  /* SELECT (All Stores) full width */
-  .filter-row select {
-    width: 100% !important;
-  }
 
   /* CUSTOMER & USER inputs */
   .customer-row {
