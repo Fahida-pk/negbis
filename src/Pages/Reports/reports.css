@@ -486,3 +486,15 @@ cursor:pointer;
   }
 
 }
+@media (max-width: 768px) {
+
+  .sidebar {
+    display: none !important;   /* hide sidebar on mobile */
+  }
+
+  .report-container {
+    display: block !important;  /* remove flex restriction */
+    width: 100%;
+  }
+
+}
