@@ -451,13 +451,13 @@ cursor:pointer;
     width: 100%;
   }
 
-  /* RADIO GROUP */
   .radio-group {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
-  }
-
+  display: flex;
+  flex-direction: row;   /* IMPORTANT */
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
   /* FILTER ROW (FIX MAIN ISSUE) */
   .filter-row {
     display: flex;
@@ -497,22 +497,24 @@ cursor:pointer;
 
   /* BILL TYPE */
   .bill-row {
-    flex-direction: column;
-    gap: 8px;
-  }
-
+  display: flex;
+  flex-direction: row;   /* IMPORTANT */
+  align-items: center;
+  gap: 25px;
+}
   /* STATUS (IMPORTANT FIX) */
   .status-row {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;   /* IMPORTANT */
+  gap: 6px;
+}
 
-  .status-row label {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
+.status-row label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
 
   /* BUTTONS */
   .buttons {
