@@ -587,3 +587,18 @@ cursor:pointer;
   }
 
 }
+@media (max-width: 768px) {
+
+  .customer-row {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  /* 🔥 button top-il varan */
+  .customer-row button {
+    order: -1;   /* 🔥 THIS LINE */
+    width: 100%;
+  }
+
+}
