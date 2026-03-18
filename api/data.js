@@ -40,6 +40,11 @@ else if (type === "userLookup") {
 url = `https://erp.codezyntax.com/api/userLookup.php`;
 
 }
+else if (type === "dailySalesSummary") {
+
+  url = `https://erp.codezyntax.com/api/Sales%20Daily%20Summary.php?from=${from}&to=${to}&store=${store || 0}`;
+
+}
     else {
 
       return res.status(400).json({

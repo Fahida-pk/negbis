@@ -65,7 +65,11 @@ setLoading(true)
 
 try{
 
-const url =
+let url = ""
+
+if(report === "sale_summary"){
+
+url =
 `/api/data?type=salesSummary
 &from=${fromDate}
 &to=${toDate}
@@ -73,39 +77,42 @@ const url =
 &custid=${Number(customerCode)||0}
 &opts=${opts}
 &stype=${stype}
-&status=${status.join(",")}&user=${user}
+&status=${status.join(",")}
+&user=${user}
 &salesman=${salesman}`
+
+}
+
+else if(report === "daily_summary"){
+
+url =
+`/api/data?type=dailySalesSummary
+&from=${fromDate}
+&to=${toDate}
+&store=${Number(store)||0}`
+
+}
 
 console.log("API URL:",url)
 
 const res = await fetch(url)
-
 const result = await res.json()
 
-console.log("API RESULT:",result)
-
 if(result.status==="success"){
-
 setData(result.data || [])
 setShowReport(true)
-
 }else{
-
 alert(result.message || "Report failed")
-
 }
 
 }catch(err){
-
 console.log("Fetch Error:",err)
 alert("Server error")
-
 }
 
 setLoading(false)
 
 }
-
 
 /* PRINT */
 
@@ -275,6 +282,7 @@ setStatus([...status,value])
 }
 
 }
+
 return(
 
 <div className="report-container">
@@ -303,8 +311,15 @@ name="report"
 />
 Sale Summary
 </label>
-
-<label><input type="radio" name="report"/>Daily Sales Summary</label>
+<label>
+  <input
+    type="radio"
+    name="report"
+    checked={report==="daily_summary"}
+    onChange={()=>setReport("daily_summary")}
+  />
+  Daily Sales Summary
+</label>
 <label><input type="radio" name="report"/>Monthly Sales Summary</label>
 <label><input type="radio" name="report"/>Sale Details</label>
 <label><input type="radio" name="report"/>Item wise Sales</label>
