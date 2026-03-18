@@ -532,29 +532,7 @@ Sale Type
 </label>
 
 </div>
-{report !== "daily_summary" && (
-<div className="bill-type-row">
 
-<label>
-<input
-type="radio"
-checked={billWise===true}
-onChange={()=>setBillWise(true)}
-/>
-Bill wise
-</label>
-
-<label>
-<input
-type="radio"
-checked={billWise===false}
-onChange={()=>setBillWise(false)}
-/>
-Sale Type
-</label>
-
-</div>
-)}
 <div className="status-row">
 <label>Status</label>
 
@@ -566,7 +544,6 @@ onChange={()=>handleStatusChange("all")}
 />
 All
 </label>
-
 
 <label>
 <input
