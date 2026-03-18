@@ -342,7 +342,8 @@ Sales Return
 
 {opts===1 && (
 
-<div className="filter-row bill-type-row">
+<div className="filter-row">
+
 <label>
 <input type="radio" checked={stype===0} onChange={()=>setStype(0)}/>
 All
