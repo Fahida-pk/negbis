@@ -520,3 +520,19 @@ cursor:pointer;
   }
 
 }
+@media (max-width: 768px) {
+
+  .report-right {
+    align-items: flex-start !important;   /* 🔥 important fix */
+  }
+
+  .filter-row {
+    align-items: flex-start !important;   /* 🔥 left align */
+  }
+
+  .filter-row label {
+    width: 100%;
+    text-align: left;   /* 🔥 ensure left */
+  }
+
+}
