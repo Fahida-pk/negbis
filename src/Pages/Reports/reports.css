@@ -1,6 +1,9 @@
 /* ========================= */
 /* GLOBAL */
 /* ========================= */
+body {
+  display: block !important;
+}
 *{
 box-sizing:border-box;
 }
@@ -422,15 +425,16 @@ cursor:pointer;
 @media (max-width: 768px) {
 
   .report-container {
-    margin-left: 0;
+    display: block !important;   /* 🔥 remove flex */
+    margin-left: 0 !important;
     padding: 70px 10px 20px;
-    justify-content: flex-start !important;
-    align-items: flex-start !important;
   }
-
+.report-box {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
   .report-box {
-    width: 100%;
-    max-width: 100%;
+    
     padding: 14px;
     border-radius: 10px;
     text-align: left;
@@ -488,12 +492,30 @@ cursor:pointer;
 }
 @media (max-width: 768px) {
 
-  .sidebar {
-    display: none !important;   /* hide sidebar on mobile */
+  .filter-row {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 6px;
   }
 
-  .report-container {
-    display: block !important;  /* remove flex restriction */
+  .filter-row input,
+  .filter-row select {
+    width: 100% !important;
+  }
+
+}
+@media (max-width: 768px) {
+
+  .status-row {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+}
+@media (max-width: 768px) {
+
+  .buttons button {
     width: 100%;
   }
 
