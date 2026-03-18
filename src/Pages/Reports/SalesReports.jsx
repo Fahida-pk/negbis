@@ -342,7 +342,7 @@ Sales Return
 
 {opts===1 && (
 
-<div className="bill-type-row"><label>
+<div className="bill-type-row">    <label>
 <input type="radio" checked={stype===0} onChange={()=>setStype(0)}/>
 All
 </label>
@@ -497,8 +497,7 @@ u.CODE.toString().includes(search)
 </div>
 
 )}
-<div className="filter-row bill-type-row">
-<label>
+<div className="bill-type-row"><label>
 <input
 type="radio"
 checked={billWise===true}
@@ -518,8 +517,7 @@ Sale Type
 
 </div>
 
-<div className="filter-row status-row">
-
+<div className="status-row">
 <label>Status</label>
 
 <label>
