@@ -574,31 +574,25 @@ cursor:pointer;
 @media (max-width: 768px) {
 
   .customer-row {
-    flex-direction: column !important;
+    display: grid !important;
+    grid-template-columns: 100px 1fr 50px; /* Code | Description | Button */
+    gap: 8px;
     width: 100%;
+    align-items: center;
   }
 
-  .customer-row input {
+  .customer-row input:first-child {
+    width: 100% !important;
+  }
+
+  .customer-row input:last-child {
     width: 100% !important;
   }
 
   .customer-row button {
-    width: 100% !important;
-  }
-
-}
-@media (max-width: 768px) {
-
-  .customer-row {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
-
-  /* 🔥 button top-il varan */
-  .customer-row button {
-    order: -1;   /* 🔥 THIS LINE */
     width: 100%;
+    height: 40px;
   }
 
 }
+
