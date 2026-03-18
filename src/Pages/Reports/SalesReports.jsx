@@ -98,19 +98,9 @@ url =
 &billWise=${billWise ? 1 : 0}`
 
 }
-else if(report === "monthly_summary"){
+else if (type === "monthlySalesSummary") {
 
-url =
-`/api/data?type=monthlySalesSummary
-&from=${fromDate}
-&to=${toDate}
-&store=${Number(store)||0}
-&custid=${Number(customerCode)||0}
-&opts=${opts}
-&stype=${stype}
-&status=${status.join(",")}
-&user=${user}
-&salesman=${salesman}`
+  url = `https://erp.codezyntax.com/api/monthly_Sales_Summary.php?from=${from}&to=${to}&store=${store || 0}&custid=${custid || 0}&opts=${opts || 0}&stype=${stype || 0}&status=${status || ""}&salesman=${salesman || 0}&user=${user || 0}&estimate=${estimate || 0}`;
 
 }
 console.log("API URL:",url)
