@@ -89,7 +89,8 @@ url =
 `/api/data?type=dailySalesSummary
 &from=${fromDate}
 &to=${toDate}
-&store=${Number(store)||0}`
+&store=${Number(store)||0}
+&billWise=${billWise ? 1 : 0}`
 
 }
 
