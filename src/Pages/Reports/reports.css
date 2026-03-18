@@ -536,3 +536,36 @@ cursor:pointer;
   }
 
 }
+@media (max-width: 768px) {
+
+  /* DATE inputs full width */
+  .filter-row input[type="date"] {
+    width: 100% !important;
+  }
+
+  /* SELECT (All Stores) full width */
+  .filter-row select {
+    width: 100% !important;
+  }
+
+  /* CUSTOMER & USER inputs */
+  .customer-row {
+    width: 100%;
+  }
+
+  .customer-row input {
+    width: 100% !important;
+  }
+
+  /* SEARCH BUTTON (🔍) */
+  .customer-row button {
+    width: 45px;
+    flex-shrink: 0;
+  }
+
+  /* BUTTONS full width */
+  .buttons button {
+    width: 100%;
+  }
+
+}
