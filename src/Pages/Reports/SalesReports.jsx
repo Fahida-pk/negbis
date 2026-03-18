@@ -342,8 +342,7 @@ Sales Return
 
 {opts===1 && (
 
-<div className="filter-row">
-
+<div className="filter-row bill-type-row">
 <label>
 <input type="radio" checked={stype===0} onChange={()=>setStype(0)}/>
 All
@@ -363,8 +362,7 @@ B2C
 
 )}
 
-<div className="filter-row">
-
+<div className="filter-row bill-type-row">
 <label>Date From</label>
 
 <input
@@ -383,8 +381,7 @@ onChange={(e)=>setToDate(e.target.value)}
 
 </div>
 
-<div className="filter-row">
-
+<div className="filter-row bill-type-row">
 <label>Store</label>
 
 <select
@@ -404,8 +401,7 @@ onChange={(e)=>setStore(e.target.value)}
 
 </div>
 
-<div className="filter-row">
-
+<div className="filter-row bill-type-row">
 <label>Customer</label>
 
 <div className="customer-row">
@@ -420,8 +416,7 @@ onChange={(e)=>setStore(e.target.value)}
 </div>
 
 </div>
-<div className="filter-row">
-
+<div className="filter-row bill-type-row">
 <label>User</label>
 
 <div className="customer-row">
@@ -503,8 +498,7 @@ u.CODE.toString().includes(search)
 </div>
 
 )}
-<div className="filter-row">
-
+<div className="filter-row bill-type-row">
 <label>
 <input
 type="radio"
