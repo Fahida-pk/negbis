@@ -449,10 +449,10 @@ cursor:pointer;
 
   /* RIGHT PANEL */
   .report-right {
-    width: 100%;
-    text-align: left;
-  }
-
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;   /* 🔥 MAIN FIX */
+}
   /* ALL / INVOICE / RETURN */
   .radio-group {
     display: flex;
@@ -467,23 +467,28 @@ cursor:pointer;
     align-items: center;
     gap: 6px;
   }
-
+.filter-row {
+  width: 100%;   /* 🔥 IMPORTANT */
+}
   /* FILTER ROW DEFAULT */
   .filter-row {
     display: flex;
     flex-direction: column;
     gap: 6px;
   }
-
+.filter-row label {
+  width: 100%;
+}
   .filter-row label {
     font-size: 13px;
     text-align: left;
   }
-
-  .filter-row input,
-  .filter-row select {
-    width: 100%;
-  }
+.filter-row input,
+.filter-row select {
+  width: 100%;
+  text-align: left;
+}
+  
 
   /* CUSTOMER / USER */
   .customer-row {
