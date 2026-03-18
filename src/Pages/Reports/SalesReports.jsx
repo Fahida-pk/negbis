@@ -111,7 +111,6 @@ url =
 &status=${status.join(",")}
 &user=${user}
 &salesman=${salesman}`
-
 }
 console.log("API URL:",url)
 

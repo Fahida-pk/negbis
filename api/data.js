@@ -45,15 +45,16 @@ else if (type === "dailySalesSummary") {
   url = `https://erp.codezyntax.com/api/Sales%20Daily%20Summary.php?from=${from}&to=${to}&store=${store || 0}`;
 
 }
-else if (type === "monthlySalesSummary") {
+else if(report === "monthly_summary"){
 
-  url = `https://erp.codezyntax.com/api/monthly_Sales_Summary.php
-  ?from=${from}
-  &to=${to}
-  &store=${store || 0}`;
-  
+url =
+`/api/data?type=monthlySalesSummary
+&from=${fromDate}
+&to=${toDate}
+&store=${Number(store)||0}`
 
 }
+
     else {
 
       return res.status(400).json({
