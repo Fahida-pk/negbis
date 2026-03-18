@@ -217,7 +217,11 @@ margin-top:5px;
 /* ========================= */
 /* STATUS */
 /* ========================= */
-
+.bill-type-row {
+  display: flex;
+  align-items: center;
+  gap: 20px;   /* 🔥 increase this value */
+}
 .status-row{
 display:grid;
 grid-template-columns:120px repeat(5,auto);
