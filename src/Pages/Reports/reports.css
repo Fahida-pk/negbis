@@ -419,7 +419,11 @@ cursor:pointer;
 }
 
 @media (max-width: 768px) {
-
+.report-container{
+  display:flex;
+  justify-content:flex-start;   /* ✅ FIX */
+  align-items:flex-start;       /* ✅ FIX */
+}
   /* MAIN CONTAINER */
   .report-container {
     margin-left: 0;
@@ -432,7 +436,7 @@ cursor:pointer;
     width: 100%;
     padding: 14px;
     border-radius: 10px;
-    margin: 0 auto;
+  margin: 0;   /* ✅ */
     text-align: left;   /* 🔥 FIX CENTER */
   }
 
