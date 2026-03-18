@@ -362,7 +362,7 @@ B2C
 
 )}
 
-<div className="filter-row bill-type-row">
+<div className="filter-row">
 <label>Date From</label>
 
 <input
@@ -381,8 +381,8 @@ onChange={(e)=>setToDate(e.target.value)}
 
 </div>
 
-<div className="filter-row bill-type-row">
-<label>Store</label>
+<div className="filter-row">
+    <label>Store</label>
 
 <select
 value={store}
@@ -401,8 +401,8 @@ onChange={(e)=>setStore(e.target.value)}
 
 </div>
 
-<div className="filter-row bill-type-row">
-<label>Customer</label>
+<div className="filter-row">
+    <label>Customer</label>
 
 <div className="customer-row">
 
@@ -416,8 +416,8 @@ onChange={(e)=>setStore(e.target.value)}
 </div>
 
 </div>
-<div className="filter-row bill-type-row">
-<label>User</label>
+<div className="filter-row">
+    <label>User</label>
 
 <div className="customer-row">
 
