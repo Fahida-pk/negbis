@@ -557,12 +557,7 @@ cursor:pointer;
     width: 100% !important;
   }
 
-  /* SEARCH BUTTON (🔍) */
-  .customer-row button {
-    width: 100px;
-    flex-shrink: 0;
-  }
-
+  
   /* BUTTONS full width */
   .buttons button {
     width: 100%;
