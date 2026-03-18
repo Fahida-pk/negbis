@@ -2,8 +2,9 @@
 /* GLOBAL */
 /* ========================= */
 #root {
-  display: block !important;   /* 🔥 BREAK FLEX */
-  width: 100%;
+  display: flex;
+  justify-content: flex-start !important;
+  align-items: flex-start !important;
 }
 body {
   display: block !important;
