@@ -453,7 +453,7 @@ cursor:pointer;
     text-align: left;
   }
 
-  /* RADIO GROUP (All / Invoice / Return) */
+  /* ALL / INVOICE / RETURN */
   .radio-group {
     display: flex;
     flex-direction: row;
@@ -468,7 +468,7 @@ cursor:pointer;
     gap: 6px;
   }
 
-  /* FILTER ROW */
+  /* FILTER ROW DEFAULT */
   .filter-row {
     display: flex;
     flex-direction: column;
@@ -477,7 +477,6 @@ cursor:pointer;
 
   .filter-row label {
     font-size: 13px;
-    margin-bottom: 2px;
     text-align: left;
   }
 
@@ -506,15 +505,15 @@ cursor:pointer;
     flex-shrink: 0;
   }
 
-  /* BILL TYPE (Bill wise / Sale Type) */
-  .bill-row {
-    display: flex;
-    flex-direction: row;
+  /* 🔥 BILL WISE / SALE TYPE FIX */
+  .bill-type-row {
+    display: flex !important;
+    flex-direction: row !important;
     align-items: center;
     gap: 25px;
   }
 
-  .bill-row label {
+  .bill-type-row label {
     display: flex;
     align-items: center;
     gap: 6px;
