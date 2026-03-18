@@ -51,7 +51,12 @@ setStores(result.data)
 
 },[])
 
-
+useEffect(()=>{
+if(report === "daily_summary"){
+setBillWise(true)
+setStatus([])
+}
+},[report])
 /* LOAD REPORT */
 
 const handleLoad = async ()=>{
