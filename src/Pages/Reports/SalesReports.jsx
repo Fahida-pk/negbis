@@ -101,7 +101,7 @@ url =
 else if(report === "monthly_summary"){
 
 url =
-`/api/data?type=monthlySalesSummary
+`/api/data?type=monthly_Sales_Summary
 &from=${fromDate}
 &to=${toDate}
 &store=${Number(store)||0}
