@@ -1,6 +1,10 @@
 /* ========================= */
 /* GLOBAL */
 /* ========================= */
+#root {
+  display: block !important;   /* 🔥 BREAK FLEX */
+  width: 100%;
+}
 body {
   display: block !important;
 }
