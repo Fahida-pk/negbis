@@ -58,7 +58,11 @@ setStatus([])
 }
 },[report])
 /* LOAD REPORT */
-
+useEffect(()=>{
+  if(status.length === 0){
+    setStatus(["1","2","3","4"])
+  }
+},[])
 const handleLoad = async ()=>{
 
 if(!fromDate || !toDate){
@@ -109,7 +113,7 @@ url =
 &custid=${Number(customerCode)||0}
 &opts=${opts}
 &stype=${stype}
-&status=${status.join(",")}
+&status=${status.length ? status.join(",") : "1,2,3,4"}
 &user=${user}
 &salesman=${salesman}`
 }
