@@ -47,25 +47,17 @@ else if (type === "dailySalesSummary") {
 }
 else if (type === "monthlySalesSummary") {
 
-  const safeFrom = from || "2024-01-01";
-  const safeTo = to || "2024-12-31";
-
+ 
   url = `https://erp.codezyntax.com/api/monthly_sales_summary.php?from=2026-03-01&to=2026-03-24&store=0`;
 
 }
-else if (type === "salesDetails") {
+else if (type === "monthlySalesSummary") {
 
-  url = `https://erp.codezyntax.com/api/sales_details.php
-  ?from=${from}
-  &to=${to}
-  &store=${store || 0}
-  &custid=${custid || 0}
-  &status=${status || ""}
-  &user=${user || 0}`;
+ 
+  url = `https://erp.codezyntax.com/api/sales_details.php?from=2026-03-01&to=2026-03-24&store=0`;
 
 }
-
-    else {
+else {
 
       return res.status(400).json({
         status: "error",

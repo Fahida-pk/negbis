@@ -676,50 +676,39 @@ Clear
 
 <div className="report-modal-body">
 
-{/* 🔥 HEADER FOR SALES DETAILS */}
+<div className="print-report">
 
-{report === "sales_details" && data.length > 0 && (
-<div style={{marginBottom:"15px"}}>
-<h3>FAHIDHA</h3>
+{/* 🔥 HEADER */}
 
-<p>
-<b>From:</b> {fromDate} &nbsp;&nbsp;
-<b>To:</b> {toDate} <br/>
-<b>Customer:</b> {customerName || "All"} <br/>
-<b>User:</b> {userName || "All"}
+<div style={{textAlign:"center", marginBottom:"20px"}}>
+<h2>FAHIDHA</h2>
+
+<h4>
+{report === "sales_details" ? "SALE DETAIL" : "SALES SUMMARY"}
+</h4>
+
+<p style={{fontSize:"12px"}}>
+For the period of {fromDate} to {toDate}, 
+Customer: {customerName || "ALL"}, 
+User: {userName || "ALL"}
 </p>
 </div>
-)}
 
-<table className="report-table">
+{/* 🔥 SALES SUMMARY */}
+
+{report !== "sales_details" && (
+
+<table className="crystal-table">
 
 <thead>
 <tr>
-
-{report === "sales_details" ? (
-<>
-<th>ITEM</th>
-<th>QTY</th>
-<th>RATE</th>
-<th>AMOUNT</th>
-</>
-) : report === "monthly_summary" ? (
-<>
-<th>MONTH</th>
-<th>YEAR</th>
-<th>NET</th>
-<th>GROSS</th>
-</>
-) : (
-<>
-<th>SALE NO</th>
-<th>DATE</th>
-<th>NET</th>
-<th>GROSS</th>
-<th>CUSTOMER</th>
-</>
-)}
-
+<th>SL</th>
+<th>Date</th>
+<th>Sale No</th>
+<th>Customer</th>
+<th>Gross</th>
+<th>Discount</th>
+<th>Net</th>
 </tr>
 </thead>
 
@@ -727,31 +716,13 @@ Clear
 
 {data.map((row,i)=>(
 <tr key={i}>
-
-{report === "sales_details" ? (
-<>
-<td>{row.ITEM}</td>
-<td>{row.QTY}</td>
-<td>{row.RATE}</td>
-<td>{row.AMOUNT}</td>
-</>
-) : report === "monthly_summary" ? (
-<>
-<td>{row.MONTH}</td>
-<td>{row.YEAR}</td>
-<td>{row.NET_AMOUNT}</td>
-<td>{row.GROSS_AMOUNT}</td>
-</>
-) : (
-<>
-<td>{row.SALE_NO}</td>
+<td>{i+1}</td>
 <td>{row.SALE_DATE}</td>
-<td>{row.NET_AMOUNT}</td>
-<td>{row.GROSS_AMOUNT}</td>
+<td>{row.SALE_NO}</td>
 <td>{row.CUST_NAME}</td>
-</>
-)}
-
+<td>{row.GROSS_AMOUNT}</td>
+<td>{row.DISC_AMOUNT || 0}</td>
+<td>{row.NET_AMOUNT}</td>
 </tr>
 ))}
 
@@ -759,17 +730,64 @@ Clear
 
 </table>
 
-{/* 🔥 TOTAL FOR SALES DETAILS */}
+)}
+
+{/* 🔥 SALES DETAILS */}
 
 {report === "sales_details" && data.length > 0 && (
-<div style={{marginTop:"15px", textAlign:"right"}}>
 
-<p><b>Total:</b> {
-data.reduce((sum,row)=> sum + Number(row.AMOUNT || 0),0)
-}</p>
+<>
+{/* BILL HEADER */}
+
+<div style={{marginBottom:"10px"}}>
+<p><b>Sale Date:</b> {data[0]?.SALE_DATE}</p>
+<p><b>Sale No:</b> {data[0]?.SALE_NO}</p>
+<p><b>Customer:</b> {customerName}</p>
+</div>
+
+<table className="crystal-table">
+
+<thead>
+<tr>
+<th>SL</th>
+<th>Description</th>
+<th>Qty</th>
+<th>Unit</th>
+<th>Rate</th>
+<th>Amount</th>
+</tr>
+</thead>
+
+<tbody>
+
+{data.map((row,i)=>(
+<tr key={i}>
+<td>{i+1}</td>
+<td>{row.ITEM}</td>
+<td>{row.QTY}</td>
+<td>{row.UOM || "-"}</td>
+<td>{row.RATE}</td>
+<td>{row.AMOUNT}</td>
+</tr>
+))}
+
+</tbody>
+
+</table>
+
+{/* ✅ TOTAL (ONLY ONE PLACE) */}
+
+<div style={{textAlign:"right", marginTop:"10px"}}>
+<b>Total: {
+data.reduce((sum,row)=> sum + Number(row.AMOUNT || 0),0
+)}</b>
+</div>
+
+</>
+
+)}
 
 </div>
-)}
 
 </div>
 
