@@ -671,7 +671,10 @@ Clear
 
 <div className="report-modal-header">
 <h3>
-{report === "sales_details" ? "Sales Detail Report" : "Sales Summary Report"}
+{report === "sale_summary" && "Sales Summary Report"}
+{report === "daily_summary" && "Daily Sales Summary Report"}
+{report === "monthly_summary" && "Monthly Sales Summary Report"}
+{report === "sales_details" && "Sales Detail Report"}
 </h3>
 <button onClick={()=>setShowReport(false)}>✕</button>
 </div>
