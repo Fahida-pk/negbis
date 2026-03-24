@@ -798,16 +798,15 @@ User: {userName || "ALL"}
 )}
 
 {/* 🔥 SALES DETAILS */}
-
 {report === "sales_details" && data.length > 0 && (
 
 <>
-{/* BILL HEADER */}
+{/* HEADER LIKE CRYSTAL */}
 
 <div style={{marginBottom:"10px"}}>
-<p><b>Sale Date:</b> {data[0]?.SALE_DATE}</p>
-<p><b>Sale No:</b> {data[0]?.SALE_NO}</p>
-<p><b>Customer:</b> {customerName}</p>
+<p><b>Sale Date :</b> {data[0]?.SALE_DATE}</p>
+<p><b>Sale No :</b> {data[0]?.SALE_NO}</p>
+<p><b>Customer :</b> {data[0]?.CUST_NAME}</p>
 </div>
 
 <table className="crystal-table">
@@ -830,27 +829,44 @@ User: {userName || "ALL"}
 <td>{i+1}</td>
 <td>{row.ITEM}</td>
 <td>{row.QTY}</td>
-<td>{row.UOM || "-"}</td>
+<td>{row.UOM}</td>
 <td>{row.RATE}</td>
 <td>{row.AMOUNT}</td>
 </tr>
 ))}
 
+{/* 🔥 TOTAL ROW */}
+<tr>
+<td colSpan="5" style={{textAlign:"right"}}><b>Total</b></td>
+<td>
+<b>
+{data.reduce((sum,row)=> sum + Number(row.AMOUNT || 0),0)}
+</b>
+</td>
+</tr>
+
 </tbody>
 
 </table>
 
-{/* ✅ TOTAL (ONLY ONE PLACE) */}
+{/* 🔥 RIGHT SIDE SUMMARY (LIKE IMAGE) */}
 
 <div style={{textAlign:"right", marginTop:"10px"}}>
-<b>Total: {
-data.reduce((sum,row)=> sum + Number(row.AMOUNT || 0),0
-)}</b>
+<p><b>Opening Balance :</b> 0.00</p>
+<p><b>Discount :</b> 0.00</p>
+<p><b>Bill Amount :</b> {
+data.reduce((sum,row)=> sum + Number(row.AMOUNT || 0),0)
+}</p>
+<p><b>Received Amount :</b> {
+data.reduce((sum,row)=> sum + Number(row.AMOUNT || 0),0)
+}</p>
+<p><b>Balance :</b> 0.00</p>
 </div>
 
 </>
 
 )}
+
 
 </div>
 
