@@ -57,6 +57,8 @@ setBillWise(true)
 setStatus([])
 }
 },[report])
+
+// ✅ ADD HERE
 useEffect(()=>{
   if(report === "sales_details"){
     handleLoad()
@@ -672,216 +674,200 @@ Clear
 
 <div className="report-overlay">
 
-<div className="report-modal">
+  <div className="report-modal">
 
-<div className="report-modal-header">
-<h4>
-{report === "sale_summary" && "SALES SUMMARY"}
-{report === "daily_summary" && "SALES SUMMARY (DAILY)"}
-{report === "monthly_summary" && "SALES SUMMARY (MONTHLY)"}
-{report === "sales_details" && "SALE DETAIL"}
-</h4>
-<button onClick={()=>setShowReport(false)}>✕</button>
-</div>
+    <div className="report-modal-header">
+      <h4>
+        {report === "sale_summary" && "SALES SUMMARY"}
+        {report === "daily_summary" && "SALES SUMMARY (DAILY)"}
+        {report === "monthly_summary" && "SALES SUMMARY (MONTHLY)"}
+        {report === "sales_details" && "SALE DETAIL"}
+      </h4>
+      <button onClick={()=>setShowReport(false)}>✕</button>
+    </div>
 
-<div className="report-modal-body">
+    <div className="report-modal-body">
+      <div className="print-report">
 
-<div className="print-report">
+        {/* 🔥 HEADER */}
+        <div style={{textAlign:"center", marginBottom:"20px"}}>
+          <h3>{company || "Company Name"}</h3>
+          <h4>
+            {report === "sale_summary" && "SALES SUMMARY"}
+            {report === "daily_summary" && "SALES SUMMARY (DAILY)"}
+            {report === "monthly_summary" && "SALES SUMMARY (MONTHLY)"}
+            {report === "sales_details" && "SALE DETAIL"}
+          </h4>
 
-{/* 🔥 HEADER */}
+          <p style={{fontSize:"12px"}}>
+            For the period of {fromDate} to {toDate}, 
+            Customer: {customerName || "ALL"}, 
+            User: {userName || "ALL"}
+          </p>
+        </div>
 
-<div style={{textAlign:"center", marginBottom:"20px"}}>
-<h3>{company || "Company Name"}</h3>
-<h4>
-{report === "sale_summary" && "SALES SUMMARY"}
-{report === "daily_summary" && "SALES SUMMARY (DAILY)"}
-{report === "monthly_summary" && "SALES SUMMARY (MONTHLY)"}
-{report === "sales_details" && "SALE DETAIL"}
-</h4>
+        {/* 🔥 SALES SUMMARY */}
+        {report === "sale_summary" && (
+          <table className="crystal-table">
+            <thead>
+              <tr>
+                <th>SL</th>
+                <th>Date</th>
+                <th>Sale No</th>
+                <th>Customer</th>
+                <th>Gross</th>
+                <th>Discount</th>
+                <th>Net</th>
+              </tr>
+            </thead>
+            <tbody>
+              {data.map((row,i)=>(
+                <tr key={i}>
+                  <td>{i+1}</td>
+                  <td>{row.SALE_DATE}</td>
+                  <td>{row.SALE_NO}</td>
+                  <td>{row.CUST_NAME}</td>
+                  <td>{row.GROSS_AMOUNT}</td>
+                  <td>{row.TOT_DISC || 0}</td>
+                  <td>{row.NET_AMOUNT}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
 
-<p style={{fontSize:"12px"}}>
-For the period of {fromDate} to {toDate}, 
-Customer: {customerName || "ALL"}, 
-User: {userName || "ALL"}
-</p>
-</div>
+        {/* 🔥 DAILY */}
+        {report === "daily_summary" && (
+          <table className="crystal-table">
+            <thead>
+              <tr>
+                <th>SL</th>
+                <th>Date</th>
+                <th>Net Cost</th>
+                <th>Gross</th>
+                <th>Net</th>
+                <th>Profit</th>
+              </tr>
+            </thead>
+            <tbody>
+              {data.map((row,i)=>(
+                <tr key={i}>
+                  <td>{i+1}</td>
+                  <td>{row.DATE}</td>
+                  <td>{row.NET_COST}</td>
+                  <td>{row.GROSS_AMOUNT}</td>
+                  <td>{row.NET_AMOUNT}</td>
+                  <td>{row.NET_PROFIT}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
 
-{/* 🔥 SALES SUMMARY */}
+        {/* 🔥 MONTHLY */}
+        {report === "monthly_summary" && (
+          <table className="crystal-table">
+            <thead>
+              <tr>
+                <th>SL</th>
+                <th>Month</th>
+                <th>Year</th>
+                <th>Net Cost</th>
+                <th>Rate</th>
+                <th>Discount</th>
+                <th>Net</th>
+                <th>Profit</th>
+              </tr>
+            </thead>
+            <tbody>
+              {data.map((row,i)=>(
+                <tr key={i}>
+                  <td>{i+1}</td>
+                  <td>{row.MONTH}</td>
+                  <td>{row.YEAR}</td>
+                  <td>{row.NET_COST}</td>
+                  <td>{row.RATE}</td>
+                  <td>{row.TOTAL_DISCOUNT}</td>
+                  <td>{row.NET_AMOUNT}</td>
+                  <td>{row.NET_PROFIT}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
 
-{report === "sale_summary" && (
+        {/* 🔥 SALES DETAILS */}
+        {report === "sales_details" && (
+          <>
+          {data.length === 0 ? (
+            <p style={{textAlign:"center"}}>No Data Found</p>
+          ) : (
+            <>
+              <div style={{marginBottom:"10px"}}>
+                <p><b>Sale Date :</b> {data[0]?.SALE_DATE}</p>
+                <p><b>Sale No :</b> {data[0]?.SALE_NO}</p>
+                <p><b>Customer :</b> {data[0]?.CUST_NAME}</p>
+              </div>
 
-<table className="crystal-table">
-<thead>
-<tr>
-<th>SL</th>
-<th>Date</th>
-<th>Sale No</th>
-<th>Customer</th>
-<th>Gross</th>
-<th>Discount</th>
-<th>Net</th>
-</tr>
-</thead>
+              <table className="crystal-table">
+                <thead>
+                  <tr>
+                    <th>SL</th>
+                    <th>Description</th>
+                    <th>Qty</th>
+                    <th>Unit</th>
+                    <th>Rate</th>
+                    <th>Amount</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {data.map((row,i)=>(
+                    <tr key={i}>
+                      <td>{i+1}</td>
+                      <td>{row.ITEM}</td>
+                      <td>{row.QTY}</td>
+                      <td>{row.UOM}</td>
+                      <td>{row.RATE}</td>
+                      <td>{row.AMOUNT}</td>
+                    </tr>
+                  ))}
 
-<tbody>
-{data.map((row,i)=>(
-<tr key={i}>
-<td>{i+1}</td>
-<td>{row.SALE_DATE}</td>
-<td>{row.SALE_NO}</td>
-<td>{row.CUST_NAME}</td>
-<td>{row.GROSS_AMOUNT}</td>
-<td>{row.TOT_DISC || 0}</td> {/* ✅ FIX */}
-<td>{row.NET_AMOUNT}</td>
-</tr>
-))}
-</tbody>
-</table>
+                  <tr>
+                    <td colSpan="5" style={{textAlign:"right"}}><b>Total</b></td>
+                    <td>
+                      <b>
+                        {data.reduce((sum,row)=> sum + Number(row.AMOUNT || 0),0)}
+                      </b>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
 
-)}
-{report === "daily_summary" && (
+              <div style={{textAlign:"right", marginTop:"10px"}}>
+                <p><b>Opening Balance :</b> 0.00</p>
+                <p><b>Discount :</b> 0.00</p>
+                <p><b>Bill Amount :</b> {
+                  data.reduce((sum,row)=> sum + Number(row.AMOUNT || 0),0)
+                }</p>
+                <p><b>Received Amount :</b> {
+                  data.reduce((sum,row)=> sum + Number(row.AMOUNT || 0),0)
+                }</p>
+                <p><b>Balance :</b> 0.00</p>
+              </div>
+            </>
+          )}
+          </>
+        )}
 
-<table className="crystal-table">
-<thead>
-<tr>
-<th>SL</th>
-<th>Date</th>
-<th>Net Cost</th>
-<th>Gross</th>
-<th>Net</th>
-<th>Profit</th>
-</tr>
-</thead>
+      </div>
+    </div>
 
-<tbody>
-{data.map((row,i)=>(
-<tr key={i}>
-<td>{i+1}</td>
-<td>{row.DATE}</td>
-<td>{row.NET_COST}</td>
-<td>{row.GROSS_AMOUNT}</td>
-<td>{row.NET_AMOUNT}</td>
-<td>{row.NET_PROFIT}</td>
-</tr>
-))}
-</tbody>
-</table>
-
-)}
-{report === "monthly_summary" && (
-
-<table className="crystal-table">
-<thead>
-<tr>
-<th>SL</th>
-<th>Month</th>
-<th>Year</th>
-<th>Net Cost</th>
-<th>Rate</th>
-<th>Discount</th>
-<th>Net</th>
-<th>Profit</th>
-</tr>
-</thead>
-
-<tbody>
-{data.map((row,i)=>(
-<tr key={i}>
-<td>{i+1}</td>
-<td>{row.MONTH}</td>
-<td>{row.YEAR}</td>
-<td>{row.NET_COST}</td>
-<td>{row.RATE}</td>
-<td>{row.TOTAL_DISCOUNT}</td>
-<td>{row.NET_AMOUNT}</td>
-<td>{row.NET_PROFIT}</td>
-</tr>
-))}
-</tbody>
-</table>
-
-)}
-
-{/* 🔥 SALES DETAILS */}
-{report === "sales_details" && data.length > 0 && (
-
-<>
-{/* HEADER LIKE CRYSTAL */}
-
-<div style={{marginBottom:"10px"}}>
-<p><b>Sale Date :</b> {data[0]?.SALE_DATE}</p>
-<p><b>Sale No :</b> {data[0]?.SALE_NO}</p>
-<p><b>Customer :</b> {data[0]?.CUST_NAME}</p>
-</div>
-
-<table className="crystal-table">
-
-<thead>
-<tr>
-<th>SL</th>
-<th>Description</th>
-<th>Qty</th>
-<th>Unit</th>
-<th>Rate</th>
-<th>Amount</th>
-</tr>
-</thead>
-
-<tbody>
-
-{data.map((row,i)=>(
-<tr key={i}>
-<td>{i+1}</td>
-<td>{row.ITEM}</td>
-<td>{row.QTY}</td>
-<td>{row.UOM}</td>
-<td>{row.RATE}</td>
-<td>{row.AMOUNT}</td>
-</tr>
-))}
-
-{/* 🔥 TOTAL ROW */}
-<tr>
-<td colSpan="5" style={{textAlign:"right"}}><b>Total</b></td>
-<td>
-<b>
-{data.reduce((sum,row)=> sum + Number(row.AMOUNT || 0),0)}
-</b>
-</td>
-</tr>
-
-</tbody>
-
-</table>
-
-{/* 🔥 RIGHT SIDE SUMMARY (LIKE IMAGE) */}
-
-<div style={{textAlign:"right", marginTop:"10px"}}>
-<p><b>Opening Balance :</b> 0.00</p>
-<p><b>Discount :</b> 0.00</p>
-<p><b>Bill Amount :</b> {
-data.reduce((sum,row)=> sum + Number(row.AMOUNT || 0),0)
-}</p>
-<p><b>Received Amount :</b> {
-data.reduce((sum,row)=> sum + Number(row.AMOUNT || 0),0)
-}</p>
-<p><b>Balance :</b> 0.00</p>
-</div>
-
-</>
-
-)}
-
-
-</div>
-
-</div>
-
-</div>
-
+  </div>
 </div>
 
 )}
+
+
 {/* CUSTOMER LOOKUP */}
 
 {showCustomer && (
