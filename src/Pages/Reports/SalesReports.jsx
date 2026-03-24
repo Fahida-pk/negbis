@@ -122,8 +122,10 @@ console.log("API URL:",url)
 const res = await fetch(url)
 const result = await res.json()
 
+console.log("API RESULT:", result)   // 👈 ADD THIS
+
 if(result.status==="success"){
-setData(result.data || [])
+setData(Array.isArray(result.data) ? result.data : [])
 setShowReport(true)
 }else{
 alert(result.message || "Report failed")
@@ -674,7 +676,7 @@ Clear
 )}
 </tr>
 </thead>
-
+{console.log("TABLE DATA:", data)}
 <tbody>
 {data.map((row,i)=>(
 <tr key={i}>
