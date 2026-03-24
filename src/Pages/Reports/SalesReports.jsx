@@ -696,21 +696,6 @@ Clear
 ))}
 </tbody>
 
-<tbody>
-
-{data.map((row,i)=>(
-
-<tr key={i}>
-<td>{row.SALE_NO}</td>
-<td>{row.SALE_DATE}</td>
-<td>{row.NET_AMOUNT}</td>
-<td>{row.GROSS_AMOUNT}</td>
-<td>{row.CUST_NAME}</td>
-</tr>
-
-))}
-
-</tbody>
 
 </table>
 
