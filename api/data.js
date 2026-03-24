@@ -51,7 +51,7 @@ else if (type === "monthlySalesSummary") {
   url = `https://erp.codezyntax.com/api/monthly_sales_summary.php?from=2026-03-01&to=2026-03-24&store=0`;
 
 }
-else if (type === "monthlySalesSummary") {
+else if (type === "salesDetails") {
 
  
   url = `https://erp.codezyntax.com/api/sales_details.php?from=2026-03-01&to=2026-03-24&store=0`;
