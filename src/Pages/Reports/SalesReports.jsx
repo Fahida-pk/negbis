@@ -138,12 +138,13 @@ const result = await res.json()
 
 console.log("API RESULT:", result)   // 👈 ADD THIS
 
-if(result.status==="success" && result.data && result.data.length > 0){
-  setData(result.data)
-  setCompany(result.company || "")
-  setShowReport(true)
+if(result.status==="success"){
+setData(Array.isArray(result.data) ? result.data : [])
+  setCompany(result.company || "")   // ✅ ADD THIS
+
+setShowReport(true)
 }else{
-  alert("No data found for selected filters")
+alert(result.message || "Report failed")
 }
 
 }catch(err){
