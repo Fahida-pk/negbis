@@ -126,7 +126,7 @@ url =
 else if(report === "sales_details"){
 
 url =
-`/api/data?type=salesDetails
+`/api/data?type=sales_details
 &from=${fromDate}
 &to=${toDate}
 &store=${Number(store)||0}
