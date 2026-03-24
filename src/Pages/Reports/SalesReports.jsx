@@ -670,12 +670,12 @@ Clear
 <div className="report-modal">
 
 <div className="report-modal-header">
-<h3>
-{report === "sale_summary" && "Sales Summary Report"}
-{report === "daily_summary" && "Daily Sales Summary Report"}
-{report === "monthly_summary" && "Monthly Sales Summary Report"}
-{report === "sales_details" && "Sales Detail Report"}
-</h3>
+<h4>
+{report === "sale_summary" && "SALES SUMMARY"}
+{report === "daily_summary" && "SALES SUMMARY (DAILY)"}
+{report === "monthly_summary" && "SALES SUMMARY (MONTHLY)"}
+{report === "sales_details" && "SALE DETAIL"}
+</h4>
 <button onClick={()=>setShowReport(false)}>✕</button>
 </div>
 
@@ -688,7 +688,10 @@ Clear
 <div style={{textAlign:"center", marginBottom:"20px"}}>
 <h3>{company || "Company Name"}</h3>
 <h4>
-{report === "sales_details" ? "SALE DETAIL" : "SALES SUMMARY"}
+{report === "sale_summary" && "SALES SUMMARY"}
+{report === "daily_summary" && "SALES SUMMARY (DAILY)"}
+{report === "monthly_summary" && "SALES SUMMARY (MONTHLY)"}
+{report === "sales_details" && "SALE DETAIL"}
 </h4>
 
 <p style={{fontSize:"12px"}}>
