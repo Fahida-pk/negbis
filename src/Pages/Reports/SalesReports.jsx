@@ -57,6 +57,11 @@ setBillWise(true)
 setStatus([])
 }
 },[report])
+useEffect(()=>{
+  if(report === "sales_details"){
+    handleLoad()
+  }
+},[report])
 /* LOAD REPORT */
 useEffect(()=>{
   if(status.length === 0){
