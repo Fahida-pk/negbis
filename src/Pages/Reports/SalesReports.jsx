@@ -16,7 +16,7 @@ const [userName,setUserName] = useState("")
 const [userList,setUserList] = useState([])
 const [showUser,setShowUser] = useState(false)
 const [data,setData] = useState([])
-
+const [company, setCompany] = useState("")
 const [search,setSearch] = useState("")
 const [customerCode,setCustomerCode] = useState("")
 const [customerName,setCustomerName] = useState("")
@@ -138,6 +138,8 @@ console.log("API RESULT:", result)   // 👈 ADD THIS
 
 if(result.status==="success"){
 setData(Array.isArray(result.data) ? result.data : [])
+  setCompany(result.company || "")   // ✅ ADD THIS
+
 setShowReport(true)
 }else{
 alert(result.message || "Report failed")
@@ -681,8 +683,7 @@ Clear
 {/* 🔥 HEADER */}
 
 <div style={{textAlign:"center", marginBottom:"20px"}}>
-<h2>FAHIDHA</h2>
-
+<h3>{company || "Company Name"}</h3>
 <h4>
 {report === "sales_details" ? "SALE DETAIL" : "SALES SUMMARY"}
 </h4>
@@ -696,10 +697,9 @@ User: {userName || "ALL"}
 
 {/* 🔥 SALES SUMMARY */}
 
-{report !== "sales_details" && (
+{report === "sale_summary" && (
 
 <table className="crystal-table">
-
 <thead>
 <tr>
 <th>SL</th>
@@ -713,7 +713,6 @@ User: {userName || "ALL"}
 </thead>
 
 <tbody>
-
 {data.map((row,i)=>(
 <tr key={i}>
 <td>{i+1}</td>
@@ -721,13 +720,73 @@ User: {userName || "ALL"}
 <td>{row.SALE_NO}</td>
 <td>{row.CUST_NAME}</td>
 <td>{row.GROSS_AMOUNT}</td>
-<td>{row.DISC_AMOUNT || 0}</td>
+<td>{row.TOT_DISC || 0}</td> {/* ✅ FIX */}
 <td>{row.NET_AMOUNT}</td>
 </tr>
 ))}
-
 </tbody>
+</table>
 
+)}
+{report === "daily_summary" && (
+
+<table className="crystal-table">
+<thead>
+<tr>
+<th>SL</th>
+<th>Date</th>
+<th>Net Cost</th>
+<th>Gross</th>
+<th>Net</th>
+<th>Profit</th>
+</tr>
+</thead>
+
+<tbody>
+{data.map((row,i)=>(
+<tr key={i}>
+<td>{i+1}</td>
+<td>{row.DATE}</td>
+<td>{row.NET_COST}</td>
+<td>{row.GROSS_AMOUNT}</td>
+<td>{row.NET_AMOUNT}</td>
+<td>{row.NET_PROFIT}</td>
+</tr>
+))}
+</tbody>
+</table>
+
+)}
+{report === "monthly_summary" && (
+
+<table className="crystal-table">
+<thead>
+<tr>
+<th>SL</th>
+<th>Month</th>
+<th>Year</th>
+<th>Net Cost</th>
+<th>Rate</th>
+<th>Discount</th>
+<th>Net</th>
+<th>Profit</th>
+</tr>
+</thead>
+
+<tbody>
+{data.map((row,i)=>(
+<tr key={i}>
+<td>{i+1}</td>
+<td>{row.MONTH}</td>
+<td>{row.YEAR}</td>
+<td>{row.NET_COST}</td>
+<td>{row.RATE}</td>
+<td>{row.TOTAL_DISCOUNT}</td>
+<td>{row.NET_AMOUNT}</td>
+<td>{row.NET_PROFIT}</td>
+</tr>
+))}
+</tbody>
 </table>
 
 )}
