@@ -652,13 +652,49 @@ Clear
 
 <thead>
 <tr>
+{report === "monthly_summary" ? (
+<>
+<th>MONTH</th>
+<th>YEAR</th>
+<th>NET</th>
+<th>GROSS</th>
+</>
+) : (
+<>
 <th>SALE NO</th>
 <th>DATE</th>
 <th>NET</th>
 <th>GROSS</th>
 <th>CUSTOMER</th>
+</>
+)}
 </tr>
 </thead>
+
+<tbody>
+{data.map((row,i)=>(
+<tr key={i}>
+
+{report === "monthly_summary" ? (
+<>
+<td>{row.MONTH}</td>
+<td>{row.YEAR}</td>
+<td>{row.NET_AMOUNT}</td>
+<td>{row.GROSS_AMOUNT}</td>
+</>
+) : (
+<>
+<td>{row.SALE_NO}</td>
+<td>{row.SALE_DATE}</td>
+<td>{row.NET_AMOUNT}</td>
+<td>{row.GROSS_AMOUNT}</td>
+<td>{row.CUST_NAME}</td>
+</>
+)}
+
+</tr>
+))}
+</tbody>
 
 <tbody>
 
