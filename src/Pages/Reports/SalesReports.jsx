@@ -58,12 +58,7 @@ setStatus([])
 }
 },[report])
 
-// ✅ ADD HERE
-useEffect(()=>{
-  if(report === "sales_details"){
-    handleLoad()
-  }
-},[report])
+
 /* LOAD REPORT */
 useEffect(()=>{
   if(status.length === 0){
@@ -132,7 +127,7 @@ url =
 &to=${toDate}
 &store=${Number(store)||0}
 &custid=${Number(customerCode)||0}
-&status=${status.join(",")}
+&status=${status.length ? status.join(",") : "1,2,3,4"}
 &user=${user}`
 
 }
@@ -143,13 +138,12 @@ const result = await res.json()
 
 console.log("API RESULT:", result)   // 👈 ADD THIS
 
-if(result.status==="success"){
-setData(Array.isArray(result.data) ? result.data : [])
-  setCompany(result.company || "")   // ✅ ADD THIS
-
-setShowReport(true)
+if(result.status==="success" && result.data && result.data.length > 0){
+  setData(result.data)
+  setCompany(result.company || "")
+  setShowReport(true)
 }else{
-alert(result.message || "Report failed")
+  alert("No data found for selected filters")
 }
 
 }catch(err){
