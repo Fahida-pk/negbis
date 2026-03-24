@@ -45,13 +45,12 @@ else if (type === "dailySalesSummary") {
   url = `https://erp.codezyntax.com/api/Sales%20Daily%20Summary.php?from=${from}&to=${to}&store=${store || 0}`;
 
 }
-else if(report === "monthly_summary"){
+else if (type === "monthlySalesSummary") {
 
-url =
-`/api/data?type=monthlySalesSummary
-&from=${fromDate}
-&to=${toDate}
-&store=${Number(store)||0}`
+  const safeFrom = from || "2024-01-01";
+  const safeTo = to || "2024-12-31";
+
+  url = `https://erp.codezyntax.com/api/monthly_sales_summary.php?from=2026-03-01&to=2026-03-24&store=0`;
 
 }
 
