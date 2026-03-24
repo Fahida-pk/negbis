@@ -117,6 +117,18 @@ url =
 &user=${user}
 &salesman=${salesman}`
 }
+else if(report === "sales_details"){
+
+url =
+`/api/data?type=salesDetails
+&from=${fromDate}
+&to=${toDate}
+&store=${Number(store)||0}
+&custid=${Number(customerCode)||0}
+&status=${status.join(",")}
+&user=${user}`
+
+}
 console.log("API URL:",url)
 
 const res = await fetch(url)
@@ -354,8 +366,16 @@ checked={report==="monthly_summary"}
 onChange={()=>setReport("monthly_summary")}
 />
 Monthly Sales Summary
-</label><label><input type="radio" name="report"/>Sale Details</label>
-<label><input type="radio" name="report"/>Item wise Sales</label>
+</label>
+<label>
+<input
+type="radio"
+name="report"
+checked={report==="sales_details"}
+onChange={()=>setReport("sales_details")}
+/>
+Sale Details
+</label><label><input type="radio" name="report"/>Item wise Sales</label>
 <label><input type="radio" name="report"/>Item wise Profit</label>
 <label><input type="radio" name="report"/>Item wise Summary</label>
 <label><input type="radio" name="report"/>Salesman wise Sales</label>
@@ -648,17 +668,42 @@ Clear
 <div className="report-modal">
 
 <div className="report-modal-header">
-<h3>Sales Summary Report</h3>
+<h3>
+{report === "sales_details" ? "Sales Detail Report" : "Sales Summary Report"}
+</h3>
 <button onClick={()=>setShowReport(false)}>✕</button>
 </div>
 
 <div className="report-modal-body">
 
+{/* 🔥 HEADER FOR SALES DETAILS */}
+
+{report === "sales_details" && data.length > 0 && (
+<div style={{marginBottom:"15px"}}>
+<h3>FAHIDHA</h3>
+
+<p>
+<b>From:</b> {fromDate} &nbsp;&nbsp;
+<b>To:</b> {toDate} <br/>
+<b>Customer:</b> {customerName || "All"} <br/>
+<b>User:</b> {userName || "All"}
+</p>
+</div>
+)}
+
 <table className="report-table">
 
 <thead>
 <tr>
-{report === "monthly_summary" ? (
+
+{report === "sales_details" ? (
+<>
+<th>ITEM</th>
+<th>QTY</th>
+<th>RATE</th>
+<th>AMOUNT</th>
+</>
+) : report === "monthly_summary" ? (
 <>
 <th>MONTH</th>
 <th>YEAR</th>
@@ -674,14 +719,23 @@ Clear
 <th>CUSTOMER</th>
 </>
 )}
+
 </tr>
 </thead>
-{console.log("TABLE DATA:", data)}
+
 <tbody>
+
 {data.map((row,i)=>(
 <tr key={i}>
 
-{report === "monthly_summary" ? (
+{report === "sales_details" ? (
+<>
+<td>{row.ITEM}</td>
+<td>{row.QTY}</td>
+<td>{row.RATE}</td>
+<td>{row.AMOUNT}</td>
+</>
+) : report === "monthly_summary" ? (
 <>
 <td>{row.MONTH}</td>
 <td>{row.YEAR}</td>
@@ -700,10 +754,22 @@ Clear
 
 </tr>
 ))}
+
 </tbody>
 
-
 </table>
+
+{/* 🔥 TOTAL FOR SALES DETAILS */}
+
+{report === "sales_details" && data.length > 0 && (
+<div style={{marginTop:"15px", textAlign:"right"}}>
+
+<p><b>Total:</b> {
+data.reduce((sum,row)=> sum + Number(row.AMOUNT || 0),0)
+}</p>
+
+</div>
+)}
 
 </div>
 
@@ -712,7 +778,6 @@ Clear
 </div>
 
 )}
-
 {/* CUSTOMER LOOKUP */}
 
 {showCustomer && (
