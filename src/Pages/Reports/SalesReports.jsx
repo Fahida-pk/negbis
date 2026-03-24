@@ -539,7 +539,7 @@ u.CODE.toString().includes(search)
 </div>
 
 )}
-{report !== "daily_summary" && (
+{report === "sale_summary" && (
 <div className="bill-type-row">
 
 <label>
@@ -562,7 +562,6 @@ Sale Type
 
 </div>
 )}
-
 <div className="status-row">
 <label>Status</label>
 
