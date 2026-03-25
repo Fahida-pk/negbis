@@ -967,13 +967,7 @@ Clear
 )}
 </>
 )}
-      </div>
-    </div>
-
-  </div>
-</div>
-
-)}
+     
 
 {report === "itemwise_sales" && (
 <>
@@ -1062,6 +1056,13 @@ Clear
   </>
 )}
 </>
+)}
+ </div>
+    </div>
+
+  </div>
+</div>
+
 )}
 {/* CUSTOMER LOOKUP */}
 
