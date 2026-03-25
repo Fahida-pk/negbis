@@ -814,36 +814,59 @@ Clear
   </table>
 )}
    {/* 🔥 MONTHLY */}
-        {report === "monthly_summary" && (
-          <table className="crystal-table">
-            <thead>
-              <tr>
-                <th>SL</th>
-                <th>Month</th>
-                <th>Year</th>
-                <th>Net Cost</th>
-                <th>Rate</th>
-                <th>Discount</th>
-                <th>Net</th>
-                <th>Profit</th>
-              </tr>
-            </thead>
-            <tbody>
-              {data.map((row,i)=>(
-                <tr key={i}>
-                  <td>{i+1}</td>
-                  <td>{row.MONTH}</td>
-                  <td>{row.YEAR}</td>
-                  <td>{row.NET_COST}</td>
-                  <td>{row.RATE}</td>
-                  <td>{row.TOTAL_DISCOUNT}</td>
-                  <td>{row.NET_AMOUNT}</td>
-                  <td>{row.NET_PROFIT}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        )}
+{report === "monthly_summary" && (
+  <table className="crystal-table">
+    <thead>
+      <tr>
+        <th>SL</th>
+        <th>Month</th>
+        <th>Year</th>
+        <th>Net Cost</th>
+        <th>Rate</th>
+        <th>Discount</th>
+        <th>Net</th>
+        <th>Profit</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {data.length === 0 ? (
+        <tr>
+          <td colSpan="8" style={{textAlign:"center"}}>No Data</td>
+        </tr>
+      ) : (
+        data.map((row,i)=>(
+          <tr key={i}>
+            <td>{i+1}</td>
+
+            <td>{row.MONTH}</td>
+            <td>{row.YEAR}</td>
+
+            <td>{Number(row.NET_COST || 0).toFixed(2)}</td>
+
+            {/* ✅ RATE FIX */}
+            <td>
+              {(Number(row.NET_AMOUNT || 0) > 0
+                ? (Number(row.NET_AMOUNT) / 1).toFixed(2)
+                : 0)}
+            </td>
+
+            {/* ✅ DISCOUNT FIX */}
+            <td>{Number(row.DISC_AMOUNT || 0).toFixed(2)}</td>
+
+            <td>{Number(row.NET_AMOUNT || 0).toFixed(2)}</td>
+
+            {/* ✅ PROFIT FIX */}
+            <td>
+              {(Number(row.NET_AMOUNT || 0) - Number(row.NET_COST || 0)).toFixed(2)}
+            </td>
+
+          </tr>
+        ))
+      )}
+    </tbody>
+  </table>
+)}
 
      {report === "sales_details" && (
 <>
