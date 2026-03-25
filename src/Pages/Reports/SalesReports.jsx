@@ -138,10 +138,13 @@ url =
 else if(report === "itemwise_sales"){
 
 url =
-`/api/itemwise_sales.php
-?from=${fromDate}
+`/api/data?type=itemwiseSales
+&from=${fromDate}
 &to=${toDate}
-&custid=${Number(customerCode)||0}`
+&store=${Number(store)||0}
+&custid=${Number(customerCode)||0}
+&status=${status.length ? status.join(",") : "1,2,3,4"}
+&salesman=${salesman}`
 
 }
 console.log("API URL:",url)
