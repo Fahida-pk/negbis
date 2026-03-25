@@ -795,29 +795,27 @@ Clear
           </table>
         )}
 
-        {/* 🔥 SALES DETAILS */}
         {report === "sales_details" && (
 <>
 {data.length === 0 ? (
   <p style={{textAlign:"center"}}>No Data Found</p>
 ) : (
   <>
-    {(() => {
+    {[...new Set(data.map(row => row.SALE_NO))].map((saleNo, index) => {
 
-      const firstSaleNo = data[0]?.SALE_NO
-
-      const filteredData = data.filter(
-        row => row.SALE_NO === firstSaleNo
-      )
+      const billData = data.filter(row => row.SALE_NO === saleNo)
 
       return (
-        <>
+        <div key={index} style={{marginBottom:"30px", borderBottom:"2px solid #000", paddingBottom:"20px"}}>
+
+          {/* HEADER */}
           <div style={{marginBottom:"10px"}}>
-            <p><b>Sale Date :</b> {filteredData[0]?.SALE_DATE}</p>
-            <p><b>Sale No :</b> {filteredData[0]?.SALE_NO}</p>
-            <p><b>Customer :</b> {filteredData[0]?.CUST_NAME}</p>
+            <p><b>Sale Date :</b> {billData[0]?.SALE_DATE}</p>
+            <p><b>Sale No :</b> {billData[0]?.SALE_NO}</p>
+            <p><b>Customer :</b> {billData[0]?.CUST_NAME}</p>
           </div>
 
+          {/* TABLE */}
           <table className="crystal-table">
             <thead>
               <tr>
@@ -831,7 +829,7 @@ Clear
             </thead>
 
             <tbody>
-              {filteredData.map((row,i)=>(
+              {billData.map((row,i)=>(
                 <tr key={i}>
                   <td>{i+1}</td>
                   <td>{row.ITEM}</td>
@@ -842,31 +840,111 @@ Clear
                 </tr>
               ))}
 
+              {/* TOTAL */}
               <tr>
                 <td colSpan="5" style={{textAlign:"right"}}><b>Total</b></td>
                 <td>
                   <b>
-                    {filteredData.reduce((sum,row)=> sum + Number(row.AMOUNT || 0),0)}
+                    {billData.reduce((sum,row)=> sum + Number(row.AMOUNT || 0),0)}
                   </b>
                 </td>
               </tr>
             </tbody>
           </table>
 
+          {/* FOOTER */}
           <div style={{textAlign:"right", marginTop:"10px"}}>
             <p><b>Opening Balance :</b> 0.00</p>
             <p><b>Discount :</b> 0.00</p>
             <p><b>Bill Amount :</b> {
-              filteredData.reduce((sum,row)=> sum + Number(row.AMOUNT || 0),0)
+              billData.reduce((sum,row)=> sum + Number(row.AMOUNT || 0),0)
             }</p>
             <p><b>Received Amount :</b> {
-              filteredData.reduce((sum,row)=> sum + Number(row.AMOUNT || 0),0)
+              billData.reduce((sum,row)=> sum + Number(row.AMOUNT || 0),0)
             }</p>
             <p><b>Balance :</b> 0.00</p>
           </div>
-        </>
+
+        </div>
       )
-    })()}
+    })}
+  </>
+)}
+</>
+)}{report === "sales_details" && (
+<>
+{data.length === 0 ? (
+  <p style={{textAlign:"center"}}>No Data Found</p>
+) : (
+  <>
+    {[...new Set(data.map(row => row.SALE_NO))].map((saleNo, index) => {
+
+      const billData = data.filter(row => row.SALE_NO === saleNo)
+
+      return (
+        <div key={index} style={{marginBottom:"30px", borderBottom:"2px solid #000", paddingBottom:"20px"}}>
+
+          {/* HEADER */}
+          <div style={{marginBottom:"10px"}}>
+            <p><b>Sale Date :</b> {billData[0]?.SALE_DATE}</p>
+            <p><b>Sale No :</b> {billData[0]?.SALE_NO}</p>
+            <p><b>Customer :</b> {billData[0]?.CUST_NAME}</p>
+          </div>
+
+          {/* TABLE */}
+          <table className="crystal-table">
+            <thead>
+              <tr>
+                <th>SL</th>
+                <th>Description</th>
+                <th>Qty</th>
+                <th>Unit</th>
+                <th>Rate</th>
+                <th>Amount</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {billData.map((row,i)=>(
+                <tr key={i}>
+                  <td>{i+1}</td>
+                  <td>{row.ITEM}</td>
+                  <td>{row.QTY}</td>
+                  <td>{row.UOM}</td>
+                  <td>{row.RATE}</td>
+                  <td>{row.AMOUNT}</td>
+                </tr>
+              ))}
+
+              {/* TOTAL */}
+              <tr>
+                <td colSpan="5" style={{textAlign:"right"}}><b>Total</b></td>
+                <td>
+                  <b>
+                    {billData.reduce((sum,row)=> sum + Number(row.AMOUNT || 0),0)}
+                  </b>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          {/* FOOTER */}
+          <div style={{textAlign:"right", marginTop:"10px"}}>
+            <p><b>Opening Balance :</b> 0.00</p>
+            <p><b>Discount :</b> 0.00</p>
+            <p><b>Bill Amount :</b> {
+              billData.reduce((sum,row)=> sum + Number(row.AMOUNT || 0),0)
+            }</p>
+            <p><b>Received Amount :</b> {
+              billData.reduce((sum,row)=> sum + Number(row.AMOUNT || 0),0)
+            }</p>
+            <p><b>Balance :</b> 0.00</p>
+          </div>
+
+        </div>
+      )
+    })}
+  
   </>
 )}
 </>
