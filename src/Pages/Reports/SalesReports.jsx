@@ -975,9 +975,8 @@ Clear
   <p style={{textAlign:"center"}}>No Data Found</p>
 ) : (
   <>
-    {[...new Set(data.map(row => row.ITEM_NAME))].map((item, index) => {
-
-      const itemData = data.filter(row => row.ITEM_NAME === item)
+    {[...new Set(data.map(row => row.CUST_NAME))].map((item, index) => {
+      const itemData = data.filter(row => row.CUST_NAME === item)
 
       return (
         <div key={index} style={{marginBottom:"30px"}}>
