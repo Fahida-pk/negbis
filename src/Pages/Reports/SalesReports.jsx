@@ -735,6 +735,7 @@ Clear
           </table>
         )}
 {/* 🔥 DAILY */}
+{/* 🔥 DAILY */}
 {report === "daily_summary" && (
   <table className="crystal-table">
     <thead>
@@ -764,14 +765,18 @@ Clear
           <tr key={i}>
             <td>{i+1}</td>
 
-            {/* ✅ FIX */}
-            <td>{row.SALE_DATE}</td>
+            {/* ✅ DATE FIX */}
+            <td>
+              {row.DATE?.date 
+                ? row.DATE.date.split(" ")[0] 
+                : ""}
+            </td>
 
             <td>{row.NET_COST}</td>
             <td>{row.GROSS_AMOUNT}</td>
             <td>{row.NET_AMOUNT}</td>
 
-            {/* ✅ PROFIT CALCULATION */}
+            {/* ✅ PROFIT */}
             <td>
               {(Number(row.NET_AMOUNT || 0) - Number(row.NET_COST || 0)).toFixed(2)}
             </td>
@@ -779,7 +784,7 @@ Clear
         ))
       )}
 
-      {/* ✅ TOTAL */}
+      {/* TOTAL */}
       <tr>
         <td colSpan="2"><b>Total</b></td>
 
