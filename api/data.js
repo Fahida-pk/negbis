@@ -57,6 +57,11 @@ else if (type === "salesDetails") {
   url = `https://erp.codezyntax.com/api/sales_details.php?from=2026-03-01&to=2026-03-24&store=0`;
 
 }
+else if (type === "itemwiseSales") {
+
+  url = `https://erp.codezyntax.com/api/itemwise_sales.php?from=${from}&to=${to}&store=${store || 0}`;
+
+}
 else {
 
       return res.status(400).json({

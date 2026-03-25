@@ -135,6 +135,18 @@ url =
 &status=${status.length ? status.join(",") : "1,2,3,4"}
 &salesman=${salesman}`
 }
+else if(report === "itemwise_sales"){
+
+url =
+`/api/data?type=itemwiseSales
+&from=${fromDate}
+&to=${toDate}
+&store=${Number(store)||0}
+&custid=${Number(customerCode)||0}
+&status=${status.length ? status.join(",") : "1,2,3,4"}
+&salesman=${salesman}`
+
+}
 console.log("API URL:",url)
 
 const res = await fetch(url)
@@ -383,7 +395,16 @@ checked={report==="sales_details"}
 onChange={()=>setReport("sales_details")}
 />
 Sale Details
-</label><label><input type="radio" name="report"/>Item wise Sales</label>
+</label>
+<label>
+  <input
+    type="radio"
+    name="report"
+    checked={report==="itemwise_sales"}
+    onChange={()=>setReport("itemwise_sales")}
+  />
+  Item wise Sales
+</label>
 <label><input type="radio" name="report"/>Item wise Profit</label>
 <label><input type="radio" name="report"/>Item wise Summary</label>
 <label><input type="radio" name="report"/>Salesman wise Sales</label>
@@ -954,7 +975,85 @@ Clear
 
 )}
 
+{report === "itemwise_sales" && (
+<>
+{data.length === 0 ? (
+  <p style={{textAlign:"center"}}>No Data Found</p>
+) : (
+  <>
+    {[...new Set(data.map(row => row.ITEM_NAME))].map((item, index) => {
 
+      const itemData = data.filter(row => row.ITEM_NAME === item)
+
+      return (
+        <div key={index} style={{marginBottom:"30px"}}>
+
+          {/* ITEM HEADER */}
+          <p><b>ITEM NAME :</b> {item}</p>
+          <p><b>BRAND :</b> {itemData[0]?.BRAND_NAME}</p>
+
+          <table className="crystal-table">
+            <thead>
+              <tr>
+                <th>SL</th>
+                <th>Date</th>
+                <th>Sale No</th>
+                <th>Customer</th>
+                <th>Unit</th>
+                <th>Rate</th>
+                <th>Discount</th>
+                <th>GST</th>
+                <th>Amount</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {itemData.map((row,i)=>(
+
+                <tr key={i}>
+                  <td>{i+1}</td>
+                  <td>{row.SALE_DATE}</td>
+                  <td>{row.SALE_NO}</td>
+                  <td>{row.CUST_NAME}</td>
+                  <td>{row.UOM}</td>
+                  <td>{row.RATE}</td>
+                  <td>{row.DISCOUNT}</td>
+                  <td>{row.GST}</td>
+                  <td>{row.AMOUNT}</td>
+                </tr>
+
+              ))}
+
+              {/* ITEM TOTAL */}
+              <tr>
+                <td colSpan="8" style={{textAlign:"right"}}><b>Item Total</b></td>
+                <td>
+                  <b>
+                    {itemData.reduce((sum,row)=> sum + Number(row.AMOUNT || 0),0)}
+                  </b>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+
+        </div>
+      )
+    })}
+
+    {/* GRAND TOTAL */}
+    <div style={{textAlign:"right", marginTop:"20px"}}>
+      <h4>
+        Grand Total : {
+          data.reduce((sum,row)=> sum + Number(row.AMOUNT || 0),0)
+        }
+      </h4>
+    </div>
+
+  </>
+)}
+</>
+)}
 {/* CUSTOMER LOOKUP */}
 
 {showCustomer && (
