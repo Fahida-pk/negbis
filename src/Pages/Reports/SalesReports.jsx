@@ -330,23 +330,6 @@ setStatus([])
 }else{
 setStatus(["1","2","3","4"])
 }
-const openSalesman = async ()=>{
-
-try{
-
-const res = await fetch("/api/data?type=salesmanLookup")
-const result = await res.json()
-
-if(result?.data){
-setSalesmanList(result.data)
-setShowSalesman(true)
-}
-
-}catch(err){
-console.log("Salesman Load Error:",err)
-}
-
-}
 return
 }
 
@@ -611,21 +594,6 @@ u.CODE.toString().includes(search)
 </div>
 
 )}
-<div className="filter-row">
-<label>Salesman</label>
-
-<div className="customer-row">
-
-<input value={salesmanCode} placeholder="Code" readOnly/>
-
-<input value={salesmanName} placeholder="Description" readOnly/>
-
-<button className="customer-btn" onClick={openSalesman}>
-🔍
-</button>
-
-</div>
-</div>
 {report === "sale_summary" && (
 <div className="bill-type-row">
 
@@ -1007,16 +975,20 @@ Clear
   <p style={{textAlign:"center"}}>No Data Found</p>
 ) : (
   <>
-    {[...new Set(data.map(row => row.CUST_NAME))].map((cust, index) => {
-
-      const custData = data.filter(row => row.CUST_NAME === cust)
+    {[...new Set(data.map(row => row.CUST_NAME))].map((item, index) => {
+      const itemData = data.filter(row => row.CUST_NAME === item)
 
       return (
         <div key={index} style={{marginBottom:"30px"}}>
 
-          {/* 🔥 CUSTOMER NAME */}
+          {/* 🔥 ITEM NAME */}
           <div style={{fontWeight:"bold", marginTop:"10px"}}>
-            CUSTOMER : {cust}
+            ITEM NAME : {item}
+          </div>
+
+          {/* 🔥 BRAND */}
+          <div style={{marginLeft:"20px", marginBottom:"10px"}}>
+            BRAND : {itemData[0]?.BRAND_NAME || ""}
           </div>
 
           {/* 🔥 TABLE */}
@@ -1026,7 +998,7 @@ Clear
                 <th>SL</th>
                 <th>Date</th>
                 <th>Sale No</th>
-                <th>Item</th>
+                <th>Customer</th>
                 <th>Unit</th>
                 <th>Rate</th>
                 <th>Discount</th>
@@ -1036,13 +1008,13 @@ Clear
             </thead>
 
             <tbody>
-              {custData.map((row,i)=>(
+              {itemData.map((row,i)=>(
 
                 <tr key={i}>
                   <td>{i+1}</td>
                   <td>{row.SALE_DATE}</td>
                   <td>{row.SALE_NO}</td>
-                  <td>{row.ITEM_NAME}</td>
+                  <td>{row.CUST_NAME}</td>
                   <td>{row.UOM}</td>
                   <td>{Number(row.RATE).toFixed(2)}</td>
                   <td>{Number(row.DISCOUNT).toFixed(2)}</td>
@@ -1052,14 +1024,14 @@ Clear
 
               ))}
 
-              {/* 🔥 CUSTOMER TOTAL */}
+              {/* 🔥 ITEM TOTAL */}
               <tr>
                 <td colSpan="8" style={{textAlign:"right"}}>
-                  <b>Customer Total</b>
+                  <b>Item Total</b>
                 </td>
                 <td>
                   <b>
-                    {custData.reduce((sum,row)=> sum + Number(row.AMOUNT || 0),0).toFixed(2)}
+                    {itemData.reduce((sum,row)=> sum + Number(row.AMOUNT || 0),0).toFixed(2)}
                   </b>
                 </td>
               </tr>
@@ -1151,62 +1123,7 @@ c.CODE.toString().includes(search)
 <div className="lookup-footer">
 <button onClick={()=>setShowCustomer(false)}>Cancel</button>
 </div>
-{showSalesman && (
 
-<div className="lookup-overlay">
-<div className="lookup-modal">
-
-<div className="lookup-header">
-<span>Salesman Lookup</span>
-<button onClick={()=>setShowSalesman(false)}>X</button>
-</div>
-
-<div className="lookup-search">
-<input
-placeholder="Find Salesman"
-value={search}
-onChange={(e)=>setSearch(e.target.value)}
-autoFocus
-/>
-</div>
-
-<div className="lookup-table">
-<table>
-<thead>
-<tr>
-<th>Code</th>
-<th>Description</th>
-</tr>
-</thead>
-
-<tbody>
-
-{salesmanList
-.filter((s)=>
-s.DESCRIPTION.toLowerCase().includes(search.toLowerCase()) ||
-s.CODE.toString().includes(search)
-)
-.map((s,i)=>(
-
-<tr key={i} onClick={()=>selectSalesman(s)}>
-<td>{s.CODE}</td>
-<td>{s.DESCRIPTION}</td>
-</tr>
-
-))}
-
-</tbody>
-</table>
-</div>
-
-<div className="lookup-footer">
-<button onClick={()=>setShowSalesman(false)}>Cancel</button>
-</div>
-
-</div>
-</div>
-
-)}
 </div>
 
 </div>
@@ -1214,7 +1131,6 @@ s.CODE.toString().includes(search)
 )}
 
 </div>
-
 
 )
 
