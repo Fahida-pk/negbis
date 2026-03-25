@@ -975,20 +975,16 @@ Clear
   <p style={{textAlign:"center"}}>No Data Found</p>
 ) : (
   <>
-    {[...new Set(data.map(row => row.CUST_NAME))].map((item, index) => {
-      const itemData = data.filter(row => row.CUST_NAME === item)
+    {[...new Set(data.map(row => row.CUST_NAME))].map((cust, index) => {
+
+      const custData = data.filter(row => row.CUST_NAME === cust)
 
       return (
         <div key={index} style={{marginBottom:"30px"}}>
 
-          {/* 🔥 ITEM NAME */}
+          {/* 🔥 CUSTOMER NAME */}
           <div style={{fontWeight:"bold", marginTop:"10px"}}>
-            ITEM NAME : {item}
-          </div>
-
-          {/* 🔥 BRAND */}
-          <div style={{marginLeft:"20px", marginBottom:"10px"}}>
-            BRAND : {itemData[0]?.BRAND_NAME || ""}
+            CUSTOMER : {cust}
           </div>
 
           {/* 🔥 TABLE */}
@@ -998,7 +994,7 @@ Clear
                 <th>SL</th>
                 <th>Date</th>
                 <th>Sale No</th>
-                <th>Customer</th>
+                <th>Item</th>
                 <th>Unit</th>
                 <th>Rate</th>
                 <th>Discount</th>
@@ -1008,13 +1004,13 @@ Clear
             </thead>
 
             <tbody>
-              {itemData.map((row,i)=>(
+              {custData.map((row,i)=>(
 
                 <tr key={i}>
                   <td>{i+1}</td>
                   <td>{row.SALE_DATE}</td>
                   <td>{row.SALE_NO}</td>
-                  <td>{row.CUST_NAME}</td>
+                  <td>{row.ITEM_NAME}</td>
                   <td>{row.UOM}</td>
                   <td>{Number(row.RATE).toFixed(2)}</td>
                   <td>{Number(row.DISCOUNT).toFixed(2)}</td>
@@ -1024,14 +1020,14 @@ Clear
 
               ))}
 
-              {/* 🔥 ITEM TOTAL */}
+              {/* 🔥 CUSTOMER TOTAL */}
               <tr>
                 <td colSpan="8" style={{textAlign:"right"}}>
-                  <b>Item Total</b>
+                  <b>Customer Total</b>
                 </td>
                 <td>
                   <b>
-                    {itemData.reduce((sum,row)=> sum + Number(row.AMOUNT || 0),0).toFixed(2)}
+                    {custData.reduce((sum,row)=> sum + Number(row.AMOUNT || 0),0).toFixed(2)}
                   </b>
                 </td>
               </tr>
