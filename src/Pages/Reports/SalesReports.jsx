@@ -753,6 +753,8 @@ Clear
       {data.map((row,i)=>(
        <tr key={i}>
                   <td>{i+1}</td>
+                                    <td>{i}</td>
+
           <td>{row.DATE}</td>
           <td>{row.NET_COST}</td>
           <td>{row.GROSS_AMOUNT}</td>
