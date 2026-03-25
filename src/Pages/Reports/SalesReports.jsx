@@ -988,10 +988,17 @@ Clear
       return (
         <div key={index} style={{marginBottom:"30px"}}>
 
-          {/* ITEM HEADER */}
-          <p><b>ITEM NAME :</b> {item}</p>
-          <p><b>BRAND :</b> {itemData[0]?.BRAND_NAME}</p>
+          {/* 🔥 ITEM NAME */}
+          <div style={{fontWeight:"bold", marginTop:"10px"}}>
+            ITEM NAME : {item}
+          </div>
 
+          {/* 🔥 BRAND */}
+          <div style={{marginLeft:"20px", marginBottom:"10px"}}>
+            BRAND : {itemData[0]?.BRAND_NAME || ""}
+          </div>
+
+          {/* 🔥 TABLE */}
           <table className="crystal-table">
             <thead>
               <tr>
@@ -1016,20 +1023,22 @@ Clear
                   <td>{row.SALE_NO}</td>
                   <td>{row.CUST_NAME}</td>
                   <td>{row.UOM}</td>
-                  <td>{row.RATE}</td>
-                  <td>{row.DISCOUNT}</td>
-                  <td>{row.GST}</td>
-                  <td>{row.AMOUNT}</td>
+                  <td>{Number(row.RATE).toFixed(2)}</td>
+                  <td>{Number(row.DISCOUNT).toFixed(2)}</td>
+                  <td>{Number(row.GST).toFixed(2)}</td>
+                  <td>{Number(row.AMOUNT).toFixed(2)}</td>
                 </tr>
 
               ))}
 
-              {/* ITEM TOTAL */}
+              {/* 🔥 ITEM TOTAL */}
               <tr>
-                <td colSpan="8" style={{textAlign:"right"}}><b>Item Total</b></td>
+                <td colSpan="8" style={{textAlign:"right"}}>
+                  <b>Item Total</b>
+                </td>
                 <td>
                   <b>
-                    {itemData.reduce((sum,row)=> sum + Number(row.AMOUNT || 0),0)}
+                    {itemData.reduce((sum,row)=> sum + Number(row.AMOUNT || 0),0).toFixed(2)}
                   </b>
                 </td>
               </tr>
@@ -1041,13 +1050,13 @@ Clear
       )
     })}
 
-    {/* GRAND TOTAL */}
-    <div style={{textAlign:"right", marginTop:"20px"}}>
-      <h4>
+    {/* 🔥 GRAND TOTAL */}
+    <div style={{borderTop:"2px solid black", paddingTop:"10px", textAlign:"right"}}>
+      <b>
         Grand Total : {
-          data.reduce((sum,row)=> sum + Number(row.AMOUNT || 0),0)
+          data.reduce((sum,row)=> sum + Number(row.AMOUNT || 0),0).toFixed(2)
         }
-      </h4>
+      </b>
     </div>
 
   </>
