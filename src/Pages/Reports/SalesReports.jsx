@@ -733,8 +733,7 @@ Clear
             </tbody>
           </table>
         )}
-
-       {/* 🔥 DAILY */}
+{/* 🔥 DAILY */}
 {report === "daily_summary" && (
   <table className="crystal-table">
     <thead>
@@ -763,28 +762,52 @@ Clear
         data.map((row,i)=>(
           <tr key={i}>
             <td>{i+1}</td>
-            <td>{row.DATE}</td>
+
+            {/* ✅ FIX */}
+            <td>{row.SALE_DATE}</td>
+
             <td>{row.NET_COST}</td>
             <td>{row.GROSS_AMOUNT}</td>
             <td>{row.NET_AMOUNT}</td>
-            <td>{row.NET_PROFIT}</td>
+
+            {/* ✅ PROFIT CALCULATION */}
+            <td>
+              {(Number(row.NET_AMOUNT || 0) - Number(row.NET_COST || 0)).toFixed(2)}
+            </td>
           </tr>
         ))
       )}
 
-      {/* TOTAL */}
+      {/* ✅ TOTAL */}
       <tr>
         <td colSpan="2"><b>Total</b></td>
-        <td><b>{data.reduce((s,r)=>s + Number(r.NET_COST||0),0)}</b></td>
-        <td><b>{data.reduce((s,r)=>s + Number(r.GROSS_AMOUNT||0),0)}</b></td>
-        <td><b>{data.reduce((s,r)=>s + Number(r.NET_AMOUNT||0),0)}</b></td>
-        <td><b>{data.reduce((s,r)=>s + Number(r.NET_PROFIT||0),0)}</b></td>
+
+        <td>
+          <b>{data.reduce((s,r)=>s + Number(r.NET_COST||0),0).toFixed(2)}</b>
+        </td>
+
+        <td>
+          <b>{data.reduce((s,r)=>s + Number(r.GROSS_AMOUNT||0),0).toFixed(2)}</b>
+        </td>
+
+        <td>
+          <b>{data.reduce((s,r)=>s + Number(r.NET_AMOUNT||0),0).toFixed(2)}</b>
+        </td>
+
+        <td>
+          <b>
+            {data.reduce((s,r)=>
+              s + (Number(r.NET_AMOUNT||0) - Number(r.NET_COST||0)),0
+            ).toFixed(2)}
+          </b>
+        </td>
+
       </tr>
 
     </tbody>
   </table>
 )}
-        {/* 🔥 MONTHLY */}
+   {/* 🔥 MONTHLY */}
         {report === "monthly_summary" && (
           <table className="crystal-table">
             <thead>
