@@ -105,8 +105,9 @@ url =
 &from=${fromDate}
 &to=${toDate}
 &store=${Number(store)||0}
-&billWise=${billWise ? 1 : 0}`
-
+&custid=${Number(customerCode)||0}
+&status=${status.join(",")}
+&salesman=${salesman}`
 }
 else if(report === "monthly_summary"){
 
