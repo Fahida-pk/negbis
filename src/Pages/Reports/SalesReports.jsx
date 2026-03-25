@@ -734,8 +734,8 @@ Clear
           </table>
         )}
 
-        {/* 🔥 DAILY */}
-       {report === "daily_summary" && (
+       {/* 🔥 DAILY */}
+{report === "daily_summary" && (
   <table className="crystal-table">
     <thead>
       <tr>
@@ -750,18 +750,27 @@ Clear
 
     <tbody>
 
-      {data.map((row,i)=>(
-       <tr key={i}>
-                  <td>{i+1}</td>
-                                    <td>{i}</td>
-
-          <td>{row.DATE}</td>
-          <td>{row.NET_COST}</td>
-          <td>{row.GROSS_AMOUNT}</td>
-          <td>{row.NET_AMOUNT}</td>
-          <td>{row.NET_PROFIT}</td>
+      {data.length === 0 ? (
+        <tr>
+          <td>1</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
         </tr>
-      ))}
+      ) : (
+        data.map((row,i)=>(
+          <tr key={i}>
+            <td>{i+1}</td>
+            <td>{row.DATE}</td>
+            <td>{row.NET_COST}</td>
+            <td>{row.GROSS_AMOUNT}</td>
+            <td>{row.NET_AMOUNT}</td>
+            <td>{row.NET_PROFIT}</td>
+          </tr>
+        ))
+      )}
 
       {/* TOTAL */}
       <tr>
@@ -775,7 +784,6 @@ Clear
     </tbody>
   </table>
 )}
-
         {/* 🔥 MONTHLY */}
         {report === "monthly_summary" && (
           <table className="crystal-table">
