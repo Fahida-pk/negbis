@@ -36,10 +36,7 @@ const [status,setStatus] = useState([])
 const [user,setUser] = useState(0)
 const [salesman,setSalesman] = useState(0)
 const firstSaleNo = data[0]?.SALE_NO
-const [salesmanCode,setSalesmanCode] = useState("")
-const [salesmanName,setSalesmanName] = useState("")
-const [salesmanList,setSalesmanList] = useState([])
-const [showSalesman,setShowSalesman] = useState(false)
+
 const filteredData = data.filter(
   row => row.SALE_NO === firstSaleNo
 )
@@ -148,23 +145,6 @@ url =
 &custid=${Number(customerCode)||0}
 &status=${status.length ? status.join(",") : "1,2,3,4"}
 &salesman=${salesman}`
-
-}
-const openSalesman = async ()=>{
-
-try{
-
-const res = await fetch("/api/data?type=salesmanLookup")
-const result = await res.json()
-
-if(result?.data){
-setSalesmanList(result.data)
-setShowSalesman(true)
-}
-
-}catch(err){
-console.log("Salesman Load Error:",err)
-}
 
 }
 console.log("API URL:",url)
@@ -360,15 +340,7 @@ setStatus([...status,value])
 }
 
 }
-const selectSalesman = (s)=>{
 
-setSalesmanCode(s.CODE)
-setSalesmanName(s.DESCRIPTION)
-setSalesman(s.CODE)
-
-setShowSalesman(false)
-
-}
 return(
 
 <div className="report-container">
@@ -612,62 +584,7 @@ u.CODE.toString().includes(search)
 </table>
 
 </div>
-{showSalesman && (
 
-<div className="lookup-overlay">
-<div className="lookup-modal">
-
-<div className="lookup-header">
-<span>Salesman Lookup</span>
-<button onClick={()=>setShowSalesman(false)}>X</button>
-</div>
-
-<div className="lookup-search">
-<input
-placeholder="Find Salesman"
-value={search}
-onChange={(e)=>setSearch(e.target.value)}
-autoFocus
-/>
-</div>
-
-<div className="lookup-table">
-<table>
-<thead>
-<tr>
-<th>Code</th>
-<th>Description</th>
-</tr>
-</thead>
-
-<tbody>
-
-{salesmanList
-.filter((s)=>
-s.DESCRIPTION.toLowerCase().includes(search.toLowerCase()) ||
-s.CODE.toString().includes(search)
-)
-.map((s,i)=>(
-
-<tr key={i} onClick={()=>selectSalesman(s)}>
-<td>{s.CODE}</td>
-<td>{s.DESCRIPTION}</td>
-</tr>
-
-))}
-
-</tbody>
-</table>
-</div>
-
-<div className="lookup-footer">
-<button onClick={()=>setShowSalesman(false)}>Cancel</button>
-</div>
-
-</div>
-</div>
-
-)}
 <div className="lookup-footer">
 <button onClick={()=>setShowUser(false)}>Cancel</button>
 </div>
