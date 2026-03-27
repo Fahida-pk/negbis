@@ -139,6 +139,10 @@ if(Number(salesman) > 0){
   params += `&salesman=${Number(salesman)}`
 }
 
+if(Number(user) > 0){
+  params += `&user=${Number(user)}`
+}
+
 url = `/api/data?${params}`
 }
 else if(report === "itemwise_sales"){
