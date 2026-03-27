@@ -126,13 +126,20 @@ url =
 }
 else if(report === "sales_details"){
 
-url =
-`/api/data?type=salesDetails
+let params = `type=salesDetails
 &from=${fromDate}
 &to=${toDate}
-&store=${Number(store)||0}
-&custid=${Number(customerCode)||0}
-&salesman=${Number(salesman)||0}`
+&store=${Number(store)||0}`
+
+if(customerCode){
+  params += `&custid=${customerCode}`
+}
+
+if(salesman){
+  params += `&salesman=${salesman}`
+}
+
+url = `/api/data?${params}`
 }
 else if(report === "itemwise_sales"){
 
