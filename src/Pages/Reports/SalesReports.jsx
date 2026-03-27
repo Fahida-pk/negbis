@@ -1036,10 +1036,48 @@ return (
     <p><b>RECEIVED AMOUNT :</b> {sale.first?.REC_AMOUNT || 0}</p>
     <p><b>BALANCE :</b> 0.00</p>
   </div>
+{/* 🔥 ITEM WISE SUMMARY */}
+<div className="item-summary">
 
+  <h4 style={{marginTop:"20px"}}>ITEM WISE SUMMARY</h4>
+
+  <table className="report-table">
+    <thead>
+      <tr>
+        <th>SL</th>
+        <th>Item</th>
+        <th>Batch</th>
+        <th>Unit</th>
+        <th>Quantity</th>
+        <th>Rate</th>
+        <th>Amount</th>
+      </tr>
+    </thead>
+
+    <tbody>
+
+      {sale.items.map((row,i)=>(
+
+        <tr key={i}>
+          <td>{i+1}</td>
+          <td>{row.DESCRIPTION}</td>
+          <td>{row.BATCH || "0.00"}</td>
+          <td>{row.UOM}</td>
+          <td>{row.QUANTITY}</td>
+          <td>{Number(row.RATE).toFixed(2)}</td>
+          <td>{Number(row.AMOUNT).toFixed(2)}</td>
+        </tr>
+
+      ))}
+
+    </tbody>
+  </table>
+
+</div>
 </div>
 
 )
+
 })
 
 )}
