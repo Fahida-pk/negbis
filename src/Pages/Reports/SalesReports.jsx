@@ -20,7 +20,10 @@ const [company, setCompany] = useState("")
 const [search,setSearch] = useState("")
 const [customerCode,setCustomerCode] = useState("")
 const [customerName,setCustomerName] = useState("")
-
+const [salesmanCode,setSalesmanCode] = useState("")
+const [salesmanName,setSalesmanName] = useState("")
+const [salesmanList,setSalesmanList] = useState([])
+const [showSalesman,setShowSalesman] = useState(false)
 const [customerList,setCustomerList] = useState([])
 const [showCustomer,setShowCustomer] = useState(false)
 
@@ -305,6 +308,32 @@ setCustomerName(c.DESCRIPTION)
 setShowCustomer(false)
 
 }
+const openSalesman = async ()=>{
+
+  try{
+
+    const res = await fetch("/api/data?type=salesmanLookup")
+    const result = await res.json()
+
+    if(result?.data){
+      setSalesmanList(result.data)
+      setShowSalesman(true)
+    }
+
+  }catch(err){
+    console.log("Salesman Load Error:",err)
+  }
+
+}
+const selectSalesman = (s)=>{
+
+  setSalesmanCode(s.CODE)
+  setSalesmanName(s.DESCRIPTION)
+  setSalesman(s.CODE)
+
+  setShowSalesman(false)
+
+}
 const openUser = async ()=>{
 
 try{
@@ -508,9 +537,23 @@ onChange={(e)=>setStore(e.target.value)}
 <button className="customer-btn" onClick={openCustomer}>
 🔍
 </button>
-
 </div>
 
+</div>
+<div className="filter-row">
+  <label>Salesman</label>
+
+  <div className="customer-row">
+
+    <input value={salesmanCode} placeholder="Code" readOnly/>
+
+    <input value={salesmanName} placeholder="Description" readOnly/>
+
+    <button className="customer-btn" onClick={openSalesman}>
+      🔍
+    </button>
+
+  </div>
 </div>
 <div className="filter-row">
     <label>User</label>
@@ -1129,7 +1172,66 @@ c.CODE.toString().includes(search)
 </div>
 
 )}
+{showSalesman && (
 
+<div className="lookup-overlay">
+
+  <div className="lookup-modal">
+
+    <div className="lookup-header">
+      <span>Salesman Lookup</span>
+      <button onClick={()=>setShowSalesman(false)}>X</button>
+    </div>
+
+    <div className="lookup-search">
+      <input
+        placeholder="Find Salesman"
+        value={search}
+        onChange={(e)=>setSearch(e.target.value)}
+        autoFocus
+      />
+    </div>
+
+    <div className="lookup-table">
+      <table>
+
+        <thead>
+          <tr>
+            <th>Code</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+        {(salesmanList || [])
+        .filter((s)=>
+          s.DESCRIPTION.toLowerCase().includes(search.toLowerCase()) ||
+          s.CODE.toString().includes(search)
+        )
+        .map((s,i)=>(
+
+          <tr key={i} onClick={()=>selectSalesman(s)}>
+            <td>{s.CODE}</td>
+            <td>{s.DESCRIPTION}</td>
+          </tr>
+
+        ))}
+
+        </tbody>
+
+      </table>
+    </div>
+
+    <div className="lookup-footer">
+      <button onClick={()=>setShowSalesman(false)}>Cancel</button>
+    </div>
+
+  </div>
+
+</div>
+
+)}
 </div>
 
 )
