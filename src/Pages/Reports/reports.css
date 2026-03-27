@@ -91,16 +91,20 @@ justify-content:center;
   align-items: flex-start;
   margin-top: 100px;   /* ✅ GAP */
 }
-
+.summary {
+  margin-bottom: 60px;   /* 🔥 gap from top summary */
+}
 /* LEFT SIDE */
 .item-summary-left {
   width: 65%;
 }
-
+.report-table {
+  margin-top: 15px;
+}
 .item-summary-left h4 {
-  border-bottom: 2px solid black;
+  margin-bottom: 15px;
   padding-bottom: 5px;
-  margin-bottom: 10px;
+  border-bottom: 2px solid black;
 }
 
 /* RIGHT SIDE */
@@ -115,7 +119,9 @@ justify-content:center;
   margin: 5px 0;
 }
 .print-page {
-  padding: 20px;
+  padding: 40px;   /* 🔥 content inside gap */
+}
+.print-page {
   border: 1px solid #000;
   margin-bottom: 20px;
 }
@@ -123,7 +129,6 @@ justify-content:center;
 .report-table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 10px;
 }
 
 .report-table th,
