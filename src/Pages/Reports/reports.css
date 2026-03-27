@@ -89,7 +89,7 @@ justify-content:center;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-top: 100px;   /* ✅ GAP */
+  margin-top: 200px;   /* ✅ GAP */
 }
 .summary {
   width: 250px;
