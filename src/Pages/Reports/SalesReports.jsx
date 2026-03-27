@@ -756,7 +756,9 @@ Clear
       <div className="print-report">
 
         {/* 🔥 HEADER */}
-        <div style={{textAlign:"center", marginBottom:"20px"}}>
+        {/* 🔥 HEADER */}
+{report !== "sales_details" && (
+  <div style={{textAlign:"center", marginBottom:"20px"}}>
           <h3>{company || "Company Name"}</h3>
           <h4>
             {report === "sale_summary" && "SALES SUMMARY"}
@@ -771,7 +773,7 @@ Clear
             User: {userName || "ALL"}
           </p>
         </div>
-
+)}
         {/* 🔥 SALES SUMMARY */}
         {report === "sale_summary" && (
           <table className="crystal-table">
