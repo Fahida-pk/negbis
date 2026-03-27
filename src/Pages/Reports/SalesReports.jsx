@@ -96,8 +96,7 @@ url =
 &opts=${opts}
 &stype=${stype}
 &status=${status.join(",")}
-&user=${user}
-&salesman=${salesman}`
+&user=${user}`
 
 }
 
@@ -109,8 +108,7 @@ url =
 &to=${toDate}
 &store=${Number(store)||0}
 &custid=${Number(customerCode)||0}
-&status=${status.join(",")}
-&salesman=${salesman}`
+&status=${status.join(",")}`
 }
 else if(report === "monthly_summary"){
 
@@ -124,8 +122,7 @@ url =
 &opts=${opts}
 &stype=${stype}
 &status=${status.length ? status.join(",") : "1,2,3,4"}
-&user=${user}
-&salesman=${salesman}`
+&user=${user}`
 }
 else if(report === "sales_details"){
 
@@ -133,10 +130,7 @@ url =
 `/api/data?type=salesDetails
 &from=${fromDate}
 &to=${toDate}
-&store=${Number(store)||0}
-&custid=${Number(customerCode)||0}
-&status=${status.length ? status.join(",") : "1,2,3,4"}
-&salesman=${salesman}`
+&store=${Number(store)||0}`
 }
 else if(report === "itemwise_sales"){
 
