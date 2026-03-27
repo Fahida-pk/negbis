@@ -92,7 +92,11 @@ justify-content:center;
   margin-top: 100px;   /* ✅ GAP */
 }
 .summary {
-  margin-bottom: 60px;   /* 🔥 gap from top summary */
+  width: 250px;
+  margin-left: auto;
+
+  margin-top: 20px;
+  margin-bottom: 80px;   /* 🔥 BIG GAP BELOW */
 }
 /* LEFT SIDE */
 .item-summary-left {
