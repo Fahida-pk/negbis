@@ -114,7 +114,11 @@ justify-content:center;
   justify-content: space-between;
   margin: 5px 0;
 }
-
+.print-page {
+  padding: 20px;
+  border: 1px solid #000;
+  margin-bottom: 20px;
+}
 /* 🔥 PRINT STYLE LOOK */
 .report-table {
   width: 100%;
