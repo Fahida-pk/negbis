@@ -130,7 +130,9 @@ url =
 `/api/data?type=salesDetails
 &from=${fromDate}
 &to=${toDate}
-&store=${Number(store)||0}`
+&store=${Number(store)||0}
+&custid=${Number(customerCode)||0}
+&salesman=${Number(salesman)||0}`
 }
 else if(report === "itemwise_sales"){
 
@@ -926,98 +928,108 @@ Clear
   </table>
 )}
 
-   {report === "sales_details" && (
+{report === "sales_details" && (
 <>
 {data.length === 0 ? (
   <p style={{textAlign:"center"}}>No Data Found</p>
 ) : (
-  <>
-    {[...new Set(data.map(row => row.SALE_NO))].map((saleNo, index) => {
+  Object.values(
+    data.reduce((acc, row) => {
+      if (!acc[row.SALE_NO]) {
+        acc[row.SALE_NO] = {
+          saleNo: row.SALE_NO,
+          items: [],
+          first: row
+        }
+      }
+      acc[row.SALE_NO].items.push(row)
+      return acc
+    }, {})
+  ).map((sale, index) => {
 
-      const billData = data.filter(row => row.SALE_NO === saleNo)
-      const first = billData[0]
+    const total = sale.items.reduce(
+      (sum, r) => sum + Number(r.AMOUNT || 0),
+      0
+    )
 
-      const total = billData.reduce((sum,row)=> sum + Number(row.AMOUNT || 0),0)
+    return (
+      <div key={index} style={{
+        marginBottom:"40px",
+        border:"2px solid black",
+        padding:"15px"
+      }}>
 
-      return (
-        <div key={index} style={{
-          marginBottom:"40px",
-          border:"2px solid black",
-          padding:"15px"
-        }}>
-
-          {/* 🔥 HEADER */}
-          <div style={{textAlign:"center"}}>
-            <h3>{company || "Company Name"}</h3>
-            <h4>SALE DETAIL</h4>
-            <p style={{fontSize:"12px"}}>
-              For the period of {fromDate} to {toDate}, 
-              Customer: {first?.CUST_NAME}, 
-              User: {userName || "ALL"}
-            </p>
-          </div>
-
-          {/* 🔥 SALE INFO */}
-          <div style={{marginTop:"10px"}}>
-            <p><b>Sale Date :</b> {first?.SALE_DATE?.date?.split(" ")[0]}</p>
-            <p><b>Sale No :</b> {first?.SALE_NO}</p>
-            <p><b>Customer :</b> {first?.CUST_NAME}</p>
-          </div>
-
-          {/* 🔥 TABLE */}
-          <table className="crystal-table">
-            <thead>
-              <tr>
-                <th>SL</th>
-                <th>Code</th>
-                <th>Description</th>
-                <th>Quantity</th>
-                <th>Unit</th>
-                <th>Rate</th>
-                <th>GST</th>
-                <th>Amount</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {billData.map((row,i)=>(
-                <tr key={i}>
-                  <td>{i+1}</td>
-                  <td>{row.ITEM_CODE}</td>
-                  <td>{row.DESCRIPTION}</td>
-                  <td>{row.QUANTITY}</td>
-                  <td>{row.UOM}</td>
-                  <td>{Number(row.RATE).toFixed(2)}</td>
-                  <td>{Number(row.GST).toFixed(2)}</td>
-                  <td>{Number(row.AMOUNT).toFixed(2)}</td>
-                </tr>
-              ))}
-
-              {/* TOTAL */}
-              <tr>
-                <td colSpan="7" style={{textAlign:"right"}}><b>Total</b></td>
-                <td><b>{total.toFixed(2)}</b></td>
-              </tr>
-            </tbody>
-          </table>
-
-          {/* 🔥 FOOTER */}
-          <div style={{textAlign:"right", marginTop:"10px"}}>
-            <p><b>Opening Balance :</b> 0.00</p>
-            <p><b>Discount :</b> {first?.DISCOUNT || 0}</p>
-            <p><b>Bill Amount :</b> {total.toFixed(2)}</p>
-            <p><b>Received Amount :</b> {first?.REC_AMOUNT || 0}</p>
-            <p><b>Balance :</b> 0.00</p>
-          </div>
-
+        {/* HEADER */}
+        <div style={{textAlign:"center"}}>
+          <h3>{company || "Company Name"}</h3>
+          <h4>SALE DETAIL</h4>
+          <p style={{fontSize:"12px"}}>
+            For the period of {fromDate} to {toDate}, 
+            Customer: {sale.first?.CUST_NAME}, 
+            User: {userName || "ALL"}
+          </p>
         </div>
-      )
-    })}
-  </>
+
+        {/* SALE INFO */}
+        <div style={{marginTop:"10px"}}>
+          <p><b>Sale Date :</b> {sale.first?.SALE_DATE?.date?.split(" ")[0]}</p>
+          <p><b>Sale No :</b> {sale.first?.SALE_NO}</p>
+          <p><b>Customer :</b> {sale.first?.CUST_NAME}</p>
+        </div>
+
+        {/* TABLE */}
+        <table className="crystal-table">
+          <thead>
+            <tr>
+              <th>SL</th>
+              <th>Code</th>
+              <th>Description</th>
+              <th>Quantity</th>
+              <th>Unit</th>
+              <th>Rate</th>
+              <th>GST</th>
+              <th>Amount</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {sale.items.map((row,i)=>(
+              <tr key={i}>
+                <td>{i+1}</td>
+                <td>{row.ITEM_CODE}</td>
+                <td>{row.DESCRIPTION}</td>
+                <td>{row.QUANTITY}</td>
+                <td>{row.UOM}</td>
+                <td>{Number(row.RATE).toFixed(2)}</td>
+                <td>{Number(row.GST).toFixed(2)}</td>
+                <td>{Number(row.AMOUNT).toFixed(2)}</td>
+              </tr>
+            ))}
+
+            <tr>
+              <td colSpan="7" style={{textAlign:"right"}}>
+                <b>Total</b>
+              </td>
+              <td><b>{total.toFixed(2)}</b></td>
+            </tr>
+          </tbody>
+        </table>
+
+        {/* FOOTER */}
+        <div style={{textAlign:"right", marginTop:"10px"}}>
+          <p><b>Opening Balance :</b> 0.00</p>
+          <p><b>Discount :</b> {sale.first?.DISCOUNT || 0}</p>
+          <p><b>Bill Amount :</b> {total.toFixed(2)}</p>
+          <p><b>Received Amount :</b> {sale.first?.REC_AMOUNT || 0}</p>
+          <p><b>Balance :</b> 0.00</p>
+        </div>
+
+      </div>
+    )
+  })
 )}
 </>
 )}
-     
 
 {report === "itemwise_sales" && (
 <>
