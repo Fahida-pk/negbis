@@ -123,7 +123,7 @@ justify-content:center;
   margin: 5px 0;
 }
 .print-page {
-  padding: 40px;   /* 🔥 content inside gap */
+  padding: 50px 40px;   /* 🔥 top-bottom more space */
 }
 .print-page {
   border: 1px solid #000;
