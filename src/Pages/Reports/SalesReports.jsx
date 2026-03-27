@@ -926,7 +926,7 @@ Clear
   </table>
 )}
 
-     {report === "sales_details" && (
+   {report === "sales_details" && (
 <>
 {data.length === 0 ? (
   <p style={{textAlign:"center"}}>No Data Found</p>
@@ -935,26 +935,46 @@ Clear
     {[...new Set(data.map(row => row.SALE_NO))].map((saleNo, index) => {
 
       const billData = data.filter(row => row.SALE_NO === saleNo)
+      const first = billData[0]
+
+      const total = billData.reduce((sum,row)=> sum + Number(row.AMOUNT || 0),0)
 
       return (
-        <div key={index} style={{marginBottom:"30px", borderBottom:"2px solid #000", paddingBottom:"20px"}}>
+        <div key={index} style={{
+          marginBottom:"40px",
+          border:"2px solid black",
+          padding:"15px"
+        }}>
 
-          {/* HEADER */}
-          <div style={{marginBottom:"10px"}}>
-            <p><b>Sale Date :</b> {billData[0]?.SALE_DATE}</p>
-            <p><b>Sale No :</b> {billData[0]?.SALE_NO}</p>
-            <p><b>Customer :</b> {billData[0]?.CUST_NAME}</p>
+          {/* 🔥 HEADER */}
+          <div style={{textAlign:"center"}}>
+            <h3>{company || "Company Name"}</h3>
+            <h4>SALE DETAIL</h4>
+            <p style={{fontSize:"12px"}}>
+              For the period of {fromDate} to {toDate}, 
+              Customer: {first?.CUST_NAME}, 
+              User: {userName || "ALL"}
+            </p>
           </div>
 
-          {/* TABLE */}
+          {/* 🔥 SALE INFO */}
+          <div style={{marginTop:"10px"}}>
+            <p><b>Sale Date :</b> {first?.SALE_DATE?.date?.split(" ")[0]}</p>
+            <p><b>Sale No :</b> {first?.SALE_NO}</p>
+            <p><b>Customer :</b> {first?.CUST_NAME}</p>
+          </div>
+
+          {/* 🔥 TABLE */}
           <table className="crystal-table">
             <thead>
               <tr>
                 <th>SL</th>
+                <th>Code</th>
                 <th>Description</th>
-                <th>Qty</th>
+                <th>Quantity</th>
                 <th>Unit</th>
                 <th>Rate</th>
+                <th>GST</th>
                 <th>Amount</th>
               </tr>
             </thead>
@@ -963,43 +983,36 @@ Clear
               {billData.map((row,i)=>(
                 <tr key={i}>
                   <td>{i+1}</td>
-                  <td>{row.ITEM}</td>
-                  <td>{row.QTY}</td>
+                  <td>{row.ITEM_CODE}</td>
+                  <td>{row.DESCRIPTION}</td>
+                  <td>{row.QUANTITY}</td>
                   <td>{row.UOM}</td>
-                  <td>{row.RATE}</td>
-                  <td>{row.AMOUNT}</td>
+                  <td>{Number(row.RATE).toFixed(2)}</td>
+                  <td>{Number(row.GST).toFixed(2)}</td>
+                  <td>{Number(row.AMOUNT).toFixed(2)}</td>
                 </tr>
               ))}
 
               {/* TOTAL */}
               <tr>
-                <td colSpan="5" style={{textAlign:"right"}}><b>Total</b></td>
-                <td>
-                  <b>
-                    {billData.reduce((sum,row)=> sum + Number(row.AMOUNT || 0),0)}
-                  </b>
-                </td>
+                <td colSpan="7" style={{textAlign:"right"}}><b>Total</b></td>
+                <td><b>{total.toFixed(2)}</b></td>
               </tr>
             </tbody>
           </table>
 
-          {/* FOOTER */}
+          {/* 🔥 FOOTER */}
           <div style={{textAlign:"right", marginTop:"10px"}}>
             <p><b>Opening Balance :</b> 0.00</p>
-            <p><b>Discount :</b> 0.00</p>
-            <p><b>Bill Amount :</b> {
-              billData.reduce((sum,row)=> sum + Number(row.AMOUNT || 0),0)
-            }</p>
-            <p><b>Received Amount :</b> {
-              billData.reduce((sum,row)=> sum + Number(row.AMOUNT || 0),0)
-            }</p>
+            <p><b>Discount :</b> {first?.DISCOUNT || 0}</p>
+            <p><b>Bill Amount :</b> {total.toFixed(2)}</p>
+            <p><b>Received Amount :</b> {first?.REC_AMOUNT || 0}</p>
             <p><b>Balance :</b> 0.00</p>
           </div>
 
         </div>
       )
     })}
-     
   </>
 )}
 </>
