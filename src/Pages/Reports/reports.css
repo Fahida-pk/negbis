@@ -84,7 +84,50 @@ justify-content:center;
 /* ========================= */
 /* CONTENT */
 /* ========================= */
+/* 🔥 ITEM SUMMARY FULL LAYOUT */
+.item-summary-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 40px;   /* ✅ GAP */
+}
 
+/* LEFT SIDE */
+.item-summary-left {
+  width: 65%;
+}
+
+.item-summary-left h4 {
+  border-bottom: 2px solid black;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+}
+
+/* RIGHT SIDE */
+.item-summary-right {
+  width: 30%;
+  font-size: 14px;
+}
+
+.item-summary-right p {
+  display: flex;
+  justify-content: space-between;
+  margin: 5px 0;
+}
+
+/* 🔥 PRINT STYLE LOOK */
+.report-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.report-table th,
+.report-table td {
+  border: 1px solid #000;
+  padding: 6px;
+  font-size: 13px;
+}
 .report-content{
 display:flex;
 gap:30px;
