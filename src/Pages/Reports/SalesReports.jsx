@@ -131,12 +131,12 @@ let params = `type=salesDetails
 &to=${toDate}
 &store=${Number(store)||0}`
 
-if(customerCode){
-  params += `&custid=${customerCode}`
+if(Number(customerCode) > 0){
+  params += `&custid=${Number(customerCode)}`
 }
 
-if(salesman){
-  params += `&salesman=${salesman}`
+if(Number(salesman) > 0){
+  params += `&salesman=${Number(salesman)}`
 }
 
 url = `/api/data?${params}`
