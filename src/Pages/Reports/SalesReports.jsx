@@ -963,19 +963,19 @@ return (
 
 <div key={index} className="print-page">
 
-  {/* HEADER */}
   <div className="header">
-    <h2>FAHIDHA</h2>
-    <h4>SALE DETAIL</h4>
-    <p>
-      For the period of {fromDate} to {toDate}, 
-      Store: DEFAULT STORE, 
-      Customer: {sale.first?.CUST_NAME}, 
-      User: admin
-    </p>
-    <p><b>Salesman :</b></p>
-  </div>
+  <h2>{company}</h2>   {/* ✅ FIXED */}
+  <h4>SALE DETAIL</h4>
 
+  <p>
+    For the period of {fromDate} to {toDate}, 
+    Store: DEFAULT STORE, 
+    Customer: {sale.first?.CUST_NAME}, 
+    User: admin
+  </p>
+
+  <p><b>Salesman :</b></p>
+</div>
   {/* SALE INFO */}
   <div className="info">
     <p><b>Sale Date :</b> {sale.first?.SALE_DATE?.date?.split(" ")[0]}</p>
