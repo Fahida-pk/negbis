@@ -145,7 +145,18 @@ justify-content:center;
 display:flex;
 gap:30px;
 }
+.lookup-modal {
+  width: 500px;
+  max-height: 400px;   /* 🔥 IMPORTANT */
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
 
+.lookup-table {
+  overflow-y: auto;    /* 🔥 SCROLL */
+  max-height: 250px;
+}
 /* ========================= */
 /* LEFT PANEL */
 /* ========================= */
