@@ -423,37 +423,6 @@ setStatus([...status,value])
 
 }
 
-/* ---------------- SELECT FUNCTIONS ---------------- */
-
-const selectDivision = (d)=>{
-  setDivisionCode(d.CODE)
-  setDivisionName(d.DESCRIPTION)
-  setCategoryCode("")
-  setCategoryName("")
-  setBrandCode("")
-  setBrandName("")
-  setShowDivision(false)
-}
-
-const selectCategory = (c)=>{
-  setCategoryCode(c.CODE)
-  setCategoryName(c.DESCRIPTION)
-  setBrandCode("")
-  setBrandName("")
-  setShowCategory(false)
-}
-
-const selectBrand = (b)=>{
-  setBrandCode(b.CODE)
-  setBrandName(b.DESCRIPTION)
-  setShowBrand(false)
-}
-
-const selectItem = (i)=>{
-  setItemCode(i.CODE)
-  setItemName(i.DESCRIPTION)
-  setShowItem(false)
-}
 return(
 
 <div className="report-container">
@@ -655,6 +624,45 @@ onChange={(e)=>setStore(e.target.value)}
 </div>
 
 </div>
+{/* 🔥 DIVISION */}
+<div className="filter-row">
+  <label>Division</label>
+  <div className="customer-row">
+    <input value={divisionCode} placeholder="Code" readOnly/>
+    <input value={divisionName} placeholder="Description" readOnly/>
+    <button onClick={openDivision}>🔍</button>
+  </div>
+</div>
+
+{/* 🔥 CATEGORY */}
+<div className="filter-row">
+  <label>Category</label>
+  <div className="customer-row">
+    <input value={categoryCode} placeholder="Code" readOnly/>
+    <input value={categoryName} placeholder="Description" readOnly/>
+    <button onClick={openCategory}>🔍</button>
+  </div>
+</div>
+
+{/* 🔥 BRAND */}
+<div className="filter-row">
+  <label>Brand</label>
+  <div className="customer-row">
+    <input value={brandCode} placeholder="Code" readOnly/>
+    <input value={brandName} placeholder="Description" readOnly/>
+    <button onClick={openBrand}>🔍</button>
+  </div>
+</div>
+
+{/* 🔥 ITEM */}
+<div className="filter-row">
+  <label>Item</label>
+  <div className="customer-row">
+    <input value={itemCode} placeholder="Code" readOnly/>
+    <input value={itemName} placeholder="Description" readOnly/>
+    <button onClick={openItem}>🔍</button>
+  </div>
+</div>
 {/* USER LOOKUP */}
 
 {showUser && (
@@ -814,45 +822,7 @@ Clear
 </div>
 
 </div>
-{/* 🔥 DIVISION */}
-<div className="filter-row">
-  <label>Division</label>
-  <div className="customer-row">
-    <input value={divisionCode} placeholder="Code" readOnly/>
-    <input value={divisionName} placeholder="Description" readOnly/>
-    <button onClick={openDivision}>🔍</button>
-  </div>
-</div>
 
-{/* 🔥 CATEGORY */}
-<div className="filter-row">
-  <label>Category</label>
-  <div className="customer-row">
-    <input value={categoryCode} placeholder="Code" readOnly/>
-    <input value={categoryName} placeholder="Description" readOnly/>
-    <button onClick={openCategory}>🔍</button>
-  </div>
-</div>
-
-{/* 🔥 BRAND */}
-<div className="filter-row">
-  <label>Brand</label>
-  <div className="customer-row">
-    <input value={brandCode} placeholder="Code" readOnly/>
-    <input value={brandName} placeholder="Description" readOnly/>
-    <button onClick={openBrand}>🔍</button>
-  </div>
-</div>
-
-{/* 🔥 ITEM */}
-<div className="filter-row">
-  <label>Item</label>
-  <div className="customer-row">
-    <input value={itemCode} placeholder="Code" readOnly/>
-    <input value={itemName} placeholder="Description" readOnly/>
-    <button onClick={openItem}>🔍</button>
-  </div>
-</div>
 {/* REPORT POPUP */}
 
 {showReport && (
@@ -1430,60 +1400,6 @@ c.CODE.toString().includes(search)
 
 </div>
 
-)}
-{showDivision && (
-<div className="lookup-overlay">
-<div className="lookup-modal">
-<h4>Select Division</h4>
-<table>
-<tbody>
-{divisionList.map((d,i)=>(
-<tr key={i} onClick={()=>selectDivision(d)}>
-<td>{d.CODE}</td>
-<td>{d.DESCRIPTION}</td>
-</tr>
-))}
-</tbody>
-</table>
-<button onClick={()=>setShowDivision(false)}>Close</button>
-</div>
-</div>
-)}
-{showCategory && (
-<div className="lookup-overlay">
-<div className="lookup-modal">
-<h4>Select Category</h4>
-<table>
-<tbody>
-{categoryList.map((c,i)=>(
-<tr key={i} onClick={()=>selectCategory(c)}>
-<td>{c.CODE}</td>
-<td>{c.DESCRIPTION}</td>
-</tr>
-))}
-</tbody>
-</table>
-<button onClick={()=>setShowCategory(false)}>Close</button>
-</div>
-</div>
-)}
-{showItem && (
-<div className="lookup-overlay">
-<div className="lookup-modal">
-<h4>Select Item</h4>
-<table>
-<tbody>
-{itemList.map((i,index)=>(
-<tr key={index} onClick={()=>selectItem(i)}>
-<td>{i.CODE}</td>
-<td>{i.DESCRIPTION}</td>
-</tr>
-))}
-</tbody>
-</table>
-<button onClick={()=>setShowItem(false)}>Close</button>
-</div>
-</div>
 )}
 </div>
 
