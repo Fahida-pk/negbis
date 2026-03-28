@@ -3,19 +3,21 @@ export default async function handler(req, res) {
   try {
 
     const {
-      type,
-      from,
-      to,
-      store,
-      custid,
-      opts,
-      stype,
-      status,
-      salesman,
-      user,
-      estimate
-    } = req.query;
-
+  type,
+  from,
+  to,
+  store,
+  custid,
+  opts,
+  stype,
+  status,
+  salesman,
+  user,
+  estimate,
+  division,
+  category,
+  brand
+} = req.query;
     let url = "";
 
     if (type === "salesSummary") {
@@ -71,15 +73,15 @@ else if (type === "divisionLookup") {
 }
 
 else if (type === "categoryLookup") {
-  url = `https://erp.codezyntax.com/api/categoryLookup.php?division=${req.query.division || 0}`;
+  url = `https://erp.codezyntax.com/api/categoryLookup.php?division=${division || 0}`;
 }
 
 else if (type === "brandLookup") {
-  url = `https://erp.codezyntax.com/api/brandLookup.php?category=${req.query.category || 0}`;
+  url = `https://erp.codezyntax.com/api/brandLookup.php?category=${category || 0}`;
 }
 
 else if (type === "itemLookup") {
-  url = `http://erp.codezyntax.com/api/itemLookup.php?division=${req.query.division || 0}&category=${req.query.category || 0}&brand=${req.query.brand || 0}`;
+  url = `http://erp.codezyntax.com/api/itemLookup.php?division=${division || 0}&category=${category || 0}&brand=${brand || 0}`;
 }
 else {
 

@@ -412,6 +412,29 @@ setStatus([])
 }else{
 setStatus(["1","2","3","4"])
 }
+const selectDivision = (d) => {
+  setDivisionCode(d.CODE)
+  setDivisionName(d.DESCRIPTION)
+  setShowDivision(false)
+}
+
+const selectCategory = (c) => {
+  setCategoryCode(c.CODE)
+  setCategoryName(c.DESCRIPTION)
+  setShowCategory(false)
+}
+
+const selectBrand = (b) => {
+  setBrandCode(b.CODE)
+  setBrandName(b.DESCRIPTION)
+  setShowBrand(false)
+}
+
+const selectItem = (i) => {
+  setItemCode(i.CODE)
+  setItemName(i.DESCRIPTION)
+  setShowItem(false)
+}
 return
 }
 
@@ -664,7 +687,35 @@ onChange={(e)=>setStore(e.target.value)}
   </div>
 </div>
 {/* USER LOOKUP */}
+{showDivision && (
+  <div className="lookup-overlay">
+    <div className="lookup-modal">
+      <div className="lookup-header">
+        <span>Division Lookup</span>
+        <button onClick={()=>setShowDivision(false)}>X</button>
+      </div>
 
+      <div className="lookup-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Code</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            {divisionList.map((d,i)=>(
+              <tr key={i} onClick={()=>selectDivision(d)}>
+                <td>{d.CODE}</td>
+                <td>{d.DESCRIPTION}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+)}
 {showUser && (
 
 <div className="lookup-overlay">
