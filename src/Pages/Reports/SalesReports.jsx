@@ -375,6 +375,39 @@ console.log("User Load Error:",err)
 }
 
 }
+const selectDivision = (d) => {
+  setDivisionCode(d.CODE)
+  setDivisionName(d.DESCRIPTION)
+
+  // 🔥 IMPORTANT RESET
+  setCategoryCode("")
+  setCategoryName("")
+  setBrandCode("")
+  setBrandName("")
+  setItemCode("")
+  setItemName("")
+
+  setShowDivision(false)
+}
+// ✅ OUTSIDE (top-level)
+
+const selectCategory = (c) => {
+  setCategoryCode(c.CODE)
+  setCategoryName(c.DESCRIPTION)
+  setShowCategory(false)
+}
+
+const selectBrand = (b) => {
+  setBrandCode(b.CODE)
+  setBrandName(b.DESCRIPTION)
+  setShowBrand(false)
+}
+
+const selectItem = (i) => {
+  setItemCode(i.CODE)
+  setItemName(i.DESCRIPTION)
+  setShowItem(false)
+}
 const openDivision = async ()=>{
   const res = await fetch("/api/data?type=divisionLookup")
   const result = await res.json()
@@ -404,6 +437,7 @@ const openItem = async ()=>{
   setItemList(result.data || [])
   setShowItem(true)
 }
+
 const handleStatusChange = (value) => {
 
 if(value === "all"){
@@ -412,29 +446,7 @@ setStatus([])
 }else{
 setStatus(["1","2","3","4"])
 }
-const selectDivision = (d) => {
-  setDivisionCode(d.CODE)
-  setDivisionName(d.DESCRIPTION)
-  setShowDivision(false)
-}
 
-const selectCategory = (c) => {
-  setCategoryCode(c.CODE)
-  setCategoryName(c.DESCRIPTION)
-  setShowCategory(false)
-}
-
-const selectBrand = (b) => {
-  setBrandCode(b.CODE)
-  setBrandName(b.DESCRIPTION)
-  setShowBrand(false)
-}
-
-const selectItem = (i) => {
-  setItemCode(i.CODE)
-  setItemName(i.DESCRIPTION)
-  setShowItem(false)
-}
 return
 }
 
@@ -713,6 +725,69 @@ onChange={(e)=>setStore(e.target.value)}
           </tbody>
         </table>
       </div>
+    </div>
+  </div>
+)}
+{showCategory && (
+  <div className="lookup-overlay">
+    <div className="lookup-modal">
+      <div className="lookup-header">
+        <span>Category Lookup</span>
+        <button onClick={()=>setShowCategory(false)}>X</button>
+      </div>
+
+      <table>
+        <tbody>
+          {categoryList.map((c,i)=>(
+            <tr key={i} onClick={()=>selectCategory(c)}>
+              <td>{c.CODE}</td>
+              <td>{c.DESCRIPTION}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </div>
+)}
+{showBrand && (
+  <div className="lookup-overlay">
+    <div className="lookup-modal">
+      <div className="lookup-header">
+        <span>Brand Lookup</span>
+        <button onClick={()=>setShowBrand(false)}>X</button>
+      </div>
+
+      <table>
+        <tbody>
+          {brandList.map((b,i)=>(
+            <tr key={i} onClick={()=>selectBrand(b)}>
+              <td>{b.CODE}</td>
+              <td>{b.DESCRIPTION}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </div>
+)}
+{showItem && (
+  <div className="lookup-overlay">
+    <div className="lookup-modal">
+      <div className="lookup-header">
+        <span>Item Lookup</span>
+        <button onClick={()=>setShowItem(false)}>X</button>
+      </div>
+
+      <table>
+        <tbody>
+          {itemList.map((i1,i)=>(
+            <tr key={i} onClick={()=>selectItem(i1)}>
+              <td>{i1.CODE}</td>
+              <td>{i1.DESCRIPTION}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   </div>
 )}
