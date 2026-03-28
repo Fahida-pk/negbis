@@ -66,6 +66,21 @@ else if (type === "itemwiseSales") {
   url = `https://erp.codezyntax.com/api/itemwise_sales.php?from=${from}&to=${to}&store=${store || 0}`;
 
 }
+else if (type === "divisionLookup") {
+  url = `https://erp.codezyntax.com/api/divisionLookup.php`;
+}
+
+else if (type === "categoryLookup") {
+  url = `https://erp.codezyntax.com/api/categoryLookup.php?division=${req.query.division || 0}`;
+}
+
+else if (type === "brandLookup") {
+  url = `https://erp.codezyntax.com/api/brandLookup.php?category=${req.query.category || 0}`;
+}
+
+else if (type === "itemLookup") {
+  url = `http://erp.codezyntax.com/api/itemLookup.php?division=${req.query.division || 0}&category=${req.query.category || 0}&brand=${req.query.brand || 0}`;
+}
 else {
 
       return res.status(400).json({

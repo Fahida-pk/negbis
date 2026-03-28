@@ -28,7 +28,17 @@ const [customerList,setCustomerList] = useState([])
 const [showCustomer,setShowCustomer] = useState(false)
 const [itemList,setItemList] = useState([])
 const [showItem,setShowItem] = useState(false)
+const [divisionList,setDivisionList] = useState([])
+const [categoryList,setCategoryList] = useState([])
+const [brandList,setBrandList] = useState([])
 
+const [showDivision,setShowDivision] = useState(false)
+const [showCategory,setShowCategory] = useState(false)
+const [showBrand,setShowBrand] = useState(false)
+
+const [divisionName,setDivisionName] = useState("")
+const [categoryName,setCategoryName] = useState("")
+const [brandName,setBrandName] = useState("")
 const [divisionCode,setDivisionCode] = useState("")
 const [categoryCode,setCategoryCode] = useState("")
 const [brandCode,setBrandCode] = useState("")
@@ -381,6 +391,42 @@ const openItem = async ()=>{
 
   }catch(err){
     console.log("Item Load Error:",err)
+  }
+}
+/* DIVISION */
+const openDivision = async ()=>{
+  const res = await fetch("/api/data?type=divisionLookup")
+  const result = await res.json()
+
+  if(result?.data){
+    setDivisionList(result.data)
+    setShowDivision(true)
+  }
+}
+
+/* CATEGORY (🔥 division based) */
+const openCategory = async ()=>{
+  const res = await fetch(
+    `/api/data?type=categoryLookup&division=${divisionCode || 0}`
+  )
+  const result = await res.json()
+
+  if(result?.data){
+    setCategoryList(result.data)
+    setShowCategory(true)
+  }
+}
+
+/* BRAND (🔥 category based) */
+const openBrand = async ()=>{
+  const res = await fetch(
+    `/api/data?type=brandLookup&category=${categoryCode || 0}`
+  )
+  const result = await res.json()
+
+  if(result?.data){
+    setBrandList(result.data)
+    setShowBrand(true)
   }
 }
 const handleStatusChange = (value) => {
@@ -1336,7 +1382,36 @@ c.CODE.toString().includes(search)
     <div className="lookup-footer">
       <button onClick={()=>setShowSalesman(false)}>Cancel</button>
     </div>
+<div className="filter-row">
+  <label>Division</label>
 
+  <div className="customer-row">
+    <input value={divisionCode} placeholder="Code" readOnly/>
+    <input value={divisionName} placeholder="Description" readOnly/>
+
+    <button onClick={openDivision}>🔍</button>
+  </div>
+</div>
+<div className="filter-row">
+  <label>Category</label>
+
+  <div className="customer-row">
+    <input value={categoryCode} readOnly/>
+    <input value={categoryName} readOnly/>
+
+    <button onClick={openCategory}>🔍</button>
+  </div>
+</div>
+<div className="filter-row">
+  <label>Brand</label>
+
+  <div className="customer-row">
+    <input value={brandCode} readOnly/>
+    <input value={brandName} readOnly/>
+
+    <button onClick={openBrand}>🔍</button>
+  </div>
+</div>
   </div>
 {showItem && (
   <div className="lookup-overlay">
