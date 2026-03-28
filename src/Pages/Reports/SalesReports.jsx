@@ -26,7 +26,12 @@ const [salesmanList,setSalesmanList] = useState([])
 const [showSalesman,setShowSalesman] = useState(false)
 const [customerList,setCustomerList] = useState([])
 const [showCustomer,setShowCustomer] = useState(false)
+const [itemList,setItemList] = useState([])
+const [showItem,setShowItem] = useState(false)
 
+const [divisionCode,setDivisionCode] = useState("")
+const [categoryCode,setCategoryCode] = useState("")
+const [brandCode,setBrandCode] = useState("")
 const [showReport,setShowReport] = useState(false)
 const [loading,setLoading] = useState(false)
 
@@ -358,6 +363,26 @@ console.log("User Load Error:",err)
 }
 
 }
+const openItem = async ()=>{
+  try{
+    const res = await fetch(
+      `/api/data?type=itemLookup
+      &division=${divisionCode || 0}
+      &category=${categoryCode || 0}
+      &brand=${brandCode || 0}`
+    )
+
+    const result = await res.json()
+
+    if(result?.data){
+      setItemList(result.data)
+      setShowItem(true)
+    }
+
+  }catch(err){
+    console.log("Item Load Error:",err)
+  }
+}
 const handleStatusChange = (value) => {
 
 if(value === "all"){
@@ -366,6 +391,7 @@ setStatus([])
 }else{
 setStatus(["1","2","3","4"])
 }
+
 return
 }
 
@@ -1312,7 +1338,39 @@ c.CODE.toString().includes(search)
     </div>
 
   </div>
+{showItem && (
+  <div className="lookup-overlay">
+    <div className="lookup-modal">
 
+      <div className="lookup-header">
+        <span>Item Lookup</span>
+        <button onClick={()=>setShowItem(false)}>X</button>
+      </div>
+
+      <div className="lookup-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Code</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {itemList.map((i,index)=>(
+              <tr key={index}>
+                <td>{i.CODE}</td>
+                <td>{i.DESCRIPTION}</td>
+              </tr>
+            ))}
+          </tbody>
+
+        </table>
+      </div>
+
+    </div>
+  </div>
+)}
 </div>
 
 )}
