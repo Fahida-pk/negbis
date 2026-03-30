@@ -419,12 +419,16 @@ const openDivision = async ()=>{
 }
 
 const openCategory = async ()=>{
+  console.log("DIVISION CODE:", divisionCode)   // 👈 ADD THIS
+
   const res = await fetch(`/api/data?type=categoryLookup&division=${divisionCode || 0}`)
   const result = await res.json()
+
+  console.log("CATEGORY RESULT:", result)       // 👈 ADD THIS
+
   setCategoryList(result.data || [])
   setShowCategory(true)
 }
-
 const openBrand = async ()=>{
   const res = await fetch(`/api/data?type=brandLookup&category=${categoryCode || 0}`)
   const result = await res.json()
@@ -1337,7 +1341,7 @@ return (
             <thead>
               <tr>
                 <th>SL</th>
-                <th>Date</th>
+                <th>Date</th> 
                 <th>Sale No</th>
                 <th>Customer</th>
                 <th>Unit</th>
