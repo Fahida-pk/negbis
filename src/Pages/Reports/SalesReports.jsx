@@ -171,7 +171,10 @@ url =
 &store=${Number(store)||0}
 &custid=${Number(customerCode)||0}
 &status=${status.length ? status.join(",") : "1,2,3,4"}
-&salesman=${salesman}`
+&salesman=${salesman}
+&division=${divisionCode || 0}
+&category=${categoryCode || 0}
+&brand=${brandCode || 0}`
 
 }
 console.log("API URL:",url)
