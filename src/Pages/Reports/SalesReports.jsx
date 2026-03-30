@@ -376,7 +376,7 @@ console.log("User Load Error:",err)
 
 }
 const selectDivision = (d) => {
-  setDivisionCode(d.CODE)
+setDivisionCode(d.ID)  
   setDivisionName(d.DESCRIPTION)
 
   // 🔥 IMPORTANT RESET
@@ -392,19 +392,19 @@ const selectDivision = (d) => {
 // ✅ OUTSIDE (top-level)
 
 const selectCategory = (c) => {
-  setCategoryCode(c.CODE)
+setCategoryCode(c.ID)
   setCategoryName(c.DESCRIPTION)
   setShowCategory(false)
 }
 
 const selectBrand = (b) => {
-  setBrandCode(b.CODE)
+setBrandCode(b.ID)
   setBrandName(b.DESCRIPTION)
   setShowBrand(false)
 }
 
 const selectItem = (i) => {
-  setItemCode(i.CODE)
+setItemCode(i.ID)
   setItemName(i.DESCRIPTION)
   setShowItem(false)
 }
