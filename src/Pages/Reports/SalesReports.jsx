@@ -1121,9 +1121,9 @@ Clear
         <th>Year</th>
         <th>Net Cost</th>
         <th>Rate</th>
-        <th>Discount</th>
-        <th>Net</th>
-        <th>Profit</th>
+        <th>Total Discount</th>
+        <th>Net Amount</th>
+        <th>Net Profit</th>
       </tr>
     </thead>
 
