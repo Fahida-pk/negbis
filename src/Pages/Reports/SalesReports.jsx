@@ -1128,105 +1128,117 @@ Clear
     </thead>
 
     <tbody>
-  {data.length === 0 ? (
-    <tr>
-      <td colSpan="8" style={{textAlign:"center"}}>No Data</td>
-    </tr>
-  ) : (
-    <>
-      {data.map((row,i)=>{
+      {data.length === 0 ? (
+        <tr>
+          <td colSpan="8" style={{ textAlign: "center" }}>
+            No Data
+          </td>
+        </tr>
+      ) : (
+        <>
+          {data.map((row, i) => {
+            const netCost = Number(row.NET_COST || 0);
+            const netAmt = Number(row.NET_AMOUNT || 0);
 
-        const netCost = Number(row.NET_COST || 0)
-        const netAmt  = Number(row.NET_AMOUNT || 0)
+            // ✅ TOTAL DISCOUNT
+            const discount =
+              Number(row.ITEM_DISCOUNT || 0) +
+              Number(row.DISC_AMOUNT || 0);
 
-        // ✅ FULL DISCOUNT
-        const discount =
-          Number(row.ITEM_DISCOUNT || 0) +
-          Number(row.DISC_AMOUNT || 0)
+            // ✅ RATE
+            const rate = netAmt + discount;
 
-        // ✅ RATE = NET + DISCOUNT
-        const rate = netAmt + discount
+            // ✅ PROFIT
+            const profit = netAmt - netCost;
 
-        // ✅ PROFIT (same as C#)
-        const profit =
-          Number(row.GROSS_AMOUNT || 0) > 0
-            ? Number(row.GROSS_AMOUNT) - netCost
-            : netAmt - netCost
+            return (
+              <tr key={i}>
+                <td>{i + 1}</td>
+                <td>{row.MONTH}</td>
+                <td>{row.YEAR}</td>
 
-        return (
-          <tr key={i}>
-            <td>{i+1}</td>
+                <td>{netCost.toFixed(2)}</td>
+                <td>{rate.toFixed(2)}</td>
+                <td>{discount.toFixed(2)}</td>
+                <td>{netAmt.toFixed(2)}</td>
+                <td>{profit.toFixed(2)}</td>
+              </tr>
+            );
+          })}
 
-            <td>{row.MONTH}</td>
-            <td>{row.YEAR}</td>
+          {/* 🔥 TOTAL ROW */}
+          <tr>
+            <td colSpan="3">
+              <b>Total</b>
+            </td>
 
-            <td>{netCost.toFixed(2)}</td>
+            {/* NET COST */}
+            <td>
+              <b>
+                {data
+                  .reduce((s, r) => s + Number(r.NET_COST || 0), 0)
+                  .toFixed(2)}
+              </b>
+            </td>
 
-            {/* ✅ RATE FIX */}
-            <td>{rate.toFixed(2)}</td>
+            {/* RATE */}
+            <td>
+              <b>
+                {data
+                  .reduce(
+                    (s, r) =>
+                      s +
+                      (Number(r.NET_AMOUNT || 0) +
+                        Number(r.ITEM_DISCOUNT || 0) +
+                        Number(r.DISC_AMOUNT || 0)),
+                    0
+                  )
+                  .toFixed(2)}
+              </b>
+            </td>
 
-            {/* ✅ DISCOUNT FIX */}
-            <td>{discount.toFixed(2)}</td>
+            {/* DISCOUNT */}
+            <td>
+              <b>
+                {data
+                  .reduce(
+                    (s, r) =>
+                      s +
+                      (Number(r.ITEM_DISCOUNT || 0) +
+                        Number(r.DISC_AMOUNT || 0)),
+                    0
+                  )
+                  .toFixed(2)}
+              </b>
+            </td>
 
-            <td>{netAmt.toFixed(2)}</td>
+            {/* NET AMOUNT */}
+            <td>
+              <b>
+                {data
+                  .reduce((s, r) => s + Number(r.NET_AMOUNT || 0), 0)
+                  .toFixed(2)}
+              </b>
+            </td>
 
-            {/* ✅ PROFIT FIX */}
-            <td>{profit.toFixed(2)}</td>
+            {/* PROFIT */}
+            <td>
+              <b>
+                {data
+                  .reduce(
+                    (s, r) =>
+                      s +
+                      (Number(r.NET_AMOUNT || 0) -
+                        Number(r.NET_COST || 0)),
+                    0
+                  )
+                  .toFixed(2)}
+              </b>
+            </td>
           </tr>
-        )
-      })}
-
-      {/* 🔥 TOTAL ROW */}
-      <tr>
-        <td colSpan="3"><b>Total</b></td>
-
-        <td>
-          <b>{data.reduce((s,r)=>s + Number(r.NET_COST||0),0).toFixed(2)}</b>
-        </td>
-
-        <td>
-          <b>{
-            data.reduce((s,r)=>
-              s + (
-                Number(r.NET_AMOUNT||0) +
-                Number(r.ITEM_DISCOUNT||0) +
-                Number(r.DISC_AMOUNT||0)
-              ),0
-            ).toFixed(2)
-          }</b>
-        </td>
-
-        <td>
-          <b>{
-            data.reduce((s,r)=>
-              s + (
-                Number(r.ITEM_DISCOUNT||0) +
-                Number(r.DISC_AMOUNT||0)
-              ),0
-            ).toFixed(2)
-          }</b>
-        </td>
-
-        <td>
-          <b>{data.reduce((s,r)=>s + Number(r.NET_AMOUNT||0),0).toFixed(2)}</b>
-        </td>
-
-        <td>
-          <b>{
-            data.reduce((s,r)=>
-              s + (
-                (Number(r.GROSS_AMOUNT||0) > 0
-                  ? Number(r.GROSS_AMOUNT)
-                  : Number(r.NET_AMOUNT))
-                - Number(r.NET_COST||0)
-              ),0
-            ).toFixed(2)
-          }</b>
-        </td>
-      </tr>
-    </>
-  )}
-</tbody>
+        </>
+      )}
+    </tbody>
   </table>
 )}
 
