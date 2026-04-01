@@ -134,9 +134,12 @@ url =
 &from=${fromDate}
 &to=${toDate}
 &store=${Number(store)||0}
-&opts=${opts}
-&stype=${stype}
-&status=${status.join(",") || "1,2,3,4"}
+&custid=${Number(custid)||0}
+&opts=${Number(opts)||0}
+&stype=${Number(stype)||0}
+&status=${status?.join(",") || "1,2,3,4"}
+&salesman=${Number(salesman)||0}
+&user=${Number(user)||0}
 `
 }
 else if(report === "sales_details"){
