@@ -55,8 +55,7 @@ else if (type === "dailySalesSummary") {
 else if (type === "monthlySalesSummary") {
 
  
-  url = `https://erp.codezyntax.com/api/monthly_sales_summary.php?from=2026-03-01&to=2026-03-24&store=0`;
-
+url = `https://erp.codezyntax.com/api/monthly_sales_summary.php?from=${from}&to=${to}&store=${store || 0}&custid=${custid || 0}&opts=${opts || 0}&stype=${stype || 0}&status=${status || ""}&salesman=${salesman || 0}&user=${user || 0}&estimate=${estimate || 0}`;
 }
 else if (type === "salesDetails") {
 
