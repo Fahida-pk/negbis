@@ -127,20 +127,19 @@ url =
 &custid=${Number(customerCode)||0}
 &status=${status.join(",")}`
 }
-else if (type === "monthlySalesSummary") {
+else if(report === "monthly_summary"){
 
-  url = `https://erp.codezyntax.com/api/monthly_sales_summary.php
-  ?from=${from}
-  &to=${to}
-  &store=${store || 0}
-  &custid=${custid || 0}
-  &opts=${opts || 0}
-  &stype=${stype || 0}
-  &status=${status || ""}
-  &salesman=${salesman || 0}
-  &user=${user || 0}
-  &estimate=${estimate || 0}`;
-
+url =
+`/api/data?type=monthlySalesSummary
+&from=${fromDate}
+&to=${toDate}
+&store=${Number(store)||0}
+&billWise=${billWise ? 1 : 0}
+&custid=${Number(customerCode)||0}
+&opts=${opts}
+&stype=${stype}
+&status=${status.length ? status.join(",") : "1,2,3,4"}
+&user=${user}`
 }
 else if(report === "sales_details"){
 
