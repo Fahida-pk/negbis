@@ -180,13 +180,20 @@ console.log("API URL:",url)
 const res = await fetch(url)
 const result = await res.json()
 
-console.log("API RESULT:", result)   // 👈 ADD THIS
+console.log("FULL RESULT:", result)
+console.log("DATA:", result.data)
 
 if(result.status==="success"){
-setData(Array.isArray(result.data) ? result.data : [])
-  setCompany(result.company || "")   // ✅ ADD THIS
+
+// 🔥 IMPORTANT FIX
+const rows = result.data || []
+
+setData(Array.isArray(rows) ? rows : [rows])
+
+setCompany(result.company || "")
 
 setShowReport(true)
+
 }else{
 alert(result.message || "Report failed")
 }
