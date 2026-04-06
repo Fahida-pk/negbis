@@ -767,7 +767,6 @@ onChange={(e)=>setStore(e.target.value)}
       readOnly
       onClick={openItem}
     />
-    <button onClick={openItem}>🔍</button>
   </div>
 </div>
 {/* USER LOOKUP */}
