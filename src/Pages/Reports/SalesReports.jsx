@@ -628,22 +628,26 @@ onChange={(e)=>setStore(e.target.value)}
 
 </div>
 
-<div className="customer-row">
+<div className="filter-row">
+    <label>Customer</label>
 
-<input 
-  value={customerCode} 
-  placeholder="Code" 
-  readOnly
-  onClick={openCustomer}
-/>
+    <div className="customer-row">
 
-<input 
-  value={customerName} 
-  placeholder="Description" 
-  readOnly
-  onClick={openCustomer}
-/>
+        <input 
+            value={customerCode} 
+            placeholder="Code" 
+            readOnly
+            onClick={openCustomer}
+        />
 
+        <input 
+            value={customerName} 
+            placeholder="Description" 
+            readOnly
+            onClick={openCustomer}
+        />
+
+    </div>
 
 </div>
 <div className="filter-row">
