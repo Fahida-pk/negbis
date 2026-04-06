@@ -655,39 +655,60 @@ onChange={(e)=>setStore(e.target.value)}
 
   <div className="customer-row">
 
-    <input value={salesmanCode} placeholder="Code" readOnly/>
+    <input 
+      value={salesmanCode} 
+      placeholder="Code" 
+      readOnly
+      onClick={openSalesman}
+    />
 
-    <input value={salesmanName} placeholder="Description" readOnly/>
-
-    <button className="customer-btn" onClick={openSalesman}>
-      🔍
-    </button>
+    <input 
+      value={salesmanName} 
+      placeholder="Description" 
+      readOnly
+      onClick={openSalesman}
+    />
 
   </div>
 </div>
 <div className="filter-row">
     <label>User</label>
 
-<div className="customer-row">
+    <div className="customer-row">
 
-<input value={userCode} placeholder="Code" readOnly/>
+        <input 
+            value={userCode} 
+            placeholder="Code" 
+            readOnly
+            onClick={openUser}
+        />
 
-<input value={userName} placeholder="Description" readOnly/>
+        <input 
+            value={userName} 
+            placeholder="Description" 
+            readOnly
+            onClick={openUser}
+        />
 
-<button className="customer-btn" onClick={openUser}>
-🔍
-</button>
-
-</div>
+    </div>
 
 </div>
 {/* 🔥 DIVISION */}
 <div className="filter-row">
   <label>Division</label>
   <div className="customer-row">
-    <input value={divisionCode} placeholder="Code" readOnly/>
-    <input value={divisionName} placeholder="Description" readOnly/>
-    <button onClick={openDivision}>🔍</button>
+    <input 
+      value={divisionCode} 
+      placeholder="Code" 
+      readOnly
+      onClick={openDivision}
+    />
+    <input 
+      value={divisionName} 
+      placeholder="Description" 
+      readOnly
+      onClick={openDivision}
+    />
   </div>
 </div>
 
@@ -695,9 +716,18 @@ onChange={(e)=>setStore(e.target.value)}
 <div className="filter-row">
   <label>Category</label>
   <div className="customer-row">
-    <input value={categoryCode} placeholder="Code" readOnly/>
-    <input value={categoryName} placeholder="Description" readOnly/>
-    <button onClick={openCategory}>🔍</button>
+    <input 
+      value={categoryCode} 
+      placeholder="Code" 
+      readOnly
+      onClick={openCategory}
+    />
+    <input 
+      value={categoryName} 
+      placeholder="Description" 
+      readOnly
+      onClick={openCategory}
+    />
   </div>
 </div>
 
@@ -705,9 +735,19 @@ onChange={(e)=>setStore(e.target.value)}
 <div className="filter-row">
   <label>Brand</label>
   <div className="customer-row">
-    <input value={brandCode} placeholder="Code" readOnly/>
-    <input value={brandName} placeholder="Description" readOnly/>
-    <button onClick={openBrand}>🔍</button>
+    <input 
+      value={brandCode} 
+      placeholder="Code" 
+      readOnly
+      onClick={openBrand}
+    />
+    <input 
+      value={brandName} 
+      placeholder="Description" 
+      readOnly
+      onClick={openBrand}
+    />
+    
   </div>
 </div>
 
@@ -715,8 +755,18 @@ onChange={(e)=>setStore(e.target.value)}
 <div className="filter-row">
   <label>Item</label>
   <div className="customer-row">
-    <input value={itemCode} placeholder="Code" readOnly/>
-    <input value={itemName} placeholder="Description" readOnly/>
+    <input 
+      value={itemCode} 
+      placeholder="Code" 
+      readOnly
+      onClick={openItem}
+    />
+    <input 
+      value={itemName} 
+      placeholder="Description" 
+      readOnly
+      onClick={openItem}
+    />
     <button onClick={openItem}>🔍</button>
   </div>
 </div>
